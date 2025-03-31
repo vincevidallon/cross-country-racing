@@ -10,7 +10,7 @@ group = 'seng201.team0'
 version = '1.0-SNAPSHOT'
 mainClassName = 'seng201.team0.App'
 
-def javaVersion = '17'
+def javaVersion = '21'
 def javafxVersion = '21.0.2'
 
 sourceCompatibility = "${javaVersion}"
