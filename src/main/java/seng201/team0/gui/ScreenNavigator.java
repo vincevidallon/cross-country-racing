@@ -42,7 +42,7 @@ public class ScreenNavigator {
      * @param gameEnvironment The game environment used by the setup screen controller
      */
     public void launchMenuSetup(GameEnvironment gameEnvironment) {
-        ScreenController controller = new MenuSetupController(gameEnvironment);
+        ScreenController controller = new MenuSetupSettingsController(gameEnvironment);
         launchScreen(controller);
     }
 
@@ -72,7 +72,7 @@ public class ScreenNavigator {
 
             rootPane.setCenter(setupParent);
             stage.setTitle(controller.getTitle());
-            stage.setWidth(setupParent.prefWidth(-1));
+            stage.setWidth(setupParent.prefWidth(-1) + 50);
             stage.setHeight(setupParent.prefHeight(-1) + 50);
             stage.centerOnScreen();
 

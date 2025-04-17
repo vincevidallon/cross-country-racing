@@ -4,18 +4,19 @@ import java.util.Random;
 
 public class Car {
     private String name;
-    private int speed;
-    private int handling;
-    private int reliability;
-    private int fuelEconomy;
+    private double speed;
+    private double handling;
+    private double reliability;
+    private double fuelEconomy;
 
     private final Random rng = new Random();
 
     public Car() {
-        speed = rng.nextInt(1, 10);
-        handling = rng.nextInt(1, 10);
-        reliability = rng.nextInt(1, 10);
-        fuelEconomy = rng.nextInt(1, 10);
+        name = "Car";
+        speed = (double) rng.nextInt(1, 10) / 10;
+        handling = (double) rng.nextInt(1, 10) / 10;
+        reliability = (double) rng.nextInt(1, 10) / 10;
+        fuelEconomy = (double) rng.nextInt(1, 10) / 10;
     }
 
     @Override
@@ -33,19 +34,19 @@ public class Car {
         return name;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public int getHandling() {
+    public double getHandling() {
         return handling;
     }
 
-    public int getReliability() {
+    public double getReliability() {
         return reliability;
     }
 
-    public int getFuelEconomy() {
+    public double getFuelEconomy() {
         return fuelEconomy;
     }
 

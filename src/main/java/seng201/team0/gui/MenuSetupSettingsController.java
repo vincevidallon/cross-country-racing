@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author seng201 teaching team
  */
-public class MenuSetupController extends ScreenController {
+public class MenuSetupSettingsController extends ScreenController {
 
     @FXML
     private TextField nameField;
@@ -23,13 +23,13 @@ public class MenuSetupController extends ScreenController {
     private ToggleButton easyDifficultyButton, normalDifficultyButton, hardDifficultyButton;
     private int difficulty = -1;
 
-    public MenuSetupController(GameEnvironment gameEnvironment) {
+    public MenuSetupSettingsController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     @Override
     protected String getFxmlFile() {
-        return "/fxml/menu_setup.fxml";
+        return "/fxml/menu_setup_settings.fxml";
     }
 
     @Override
