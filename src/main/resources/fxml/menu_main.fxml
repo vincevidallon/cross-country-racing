@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.MenuMainController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="189.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.0" minWidth="10.0" prefWidth="379.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="150.0" minHeight="5.0" prefHeight="85.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="244.0" minHeight="96.0" prefHeight="108.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="208.0" minHeight="37.0" prefHeight="115.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="106.0" minHeight="31.0" prefHeight="106.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="208.0" minHeight="71.0" prefHeight="82.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="208.0" minHeight="71.0" prefHeight="119.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Season length:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="32.0" />
+         </GridPane.margin>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="32.0" />
+         </GridPane.margin>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty:" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cross Country Racing">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Group 05 - sha378, vvi29">
+               <font>
+                  <Font name="System Italic" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="seasonLengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="difficultyText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</GridPane>
