@@ -9,30 +9,39 @@ import seng201.team0.GameEnvironment;
 import java.util.List;
 
 /**
- * Controller for the main.fxml window
+ * Controller for the setup_main.fxml window
  *
  * @author seng201 teaching team
  */
 public class MenuSetupController extends ScreenController {
 
-    public MenuSetupController(GameEnvironment gameEnvironment) { super(gameEnvironment); }
-
-    @Override
-    protected String getFxmlFile() { return "/fxml/menu_setup.fxml"; }
-
-    @Override
-    protected String getTitle() { return "Cross Country Racing | Setup"; }
-
     @FXML
     private TextField nameField;
-
     @FXML
     private Slider seasonLengthSlider;
-
     @FXML
     private ToggleButton easyDifficultyButton, normalDifficultyButton, hardDifficultyButton;
-
     private int difficulty = -1;
+
+    public MenuSetupController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
+
+    @Override
+    protected String getFxmlFile() {
+        return "/fxml/menu_setup.fxml";
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Cross Country Racing | Setup";
+    }
+
+    @FXML
+    private void onGoButtonClicked() {
+        getGameEnvironment().onSetupComplete(nameField.getText().strip(), (int) seasonLengthSlider.getValue(), difficulty);
+    }
+
 
     private void onDifficultyButtonSelected(List<ToggleButton> difficultyButtons, int difficultyIndex) {
         difficulty = difficultyIndex;
@@ -40,15 +49,6 @@ public class MenuSetupController extends ScreenController {
             difficultyButtons.get(i).setSelected(i == difficultyIndex);
         }
     }
-
-    @FXML
-    private void onGoButtonClicked() {
-        System.out.printf("Name: %s\nSeason Length: %s\nDifficulty: %s\nLet's GO!\n",
-                nameField.getText().isBlank() ? "Anonymous" : nameField.getText().strip(), (int) seasonLengthSlider.getValue(), difficulty);
-
-        getGameEnvironment().onSetupComplete(nameField.getText().strip(), (int) seasonLengthSlider.getValue(), difficulty);
-    }
-
 
     public void initialize() {
         List<ToggleButton> difficultyButtons = List.of(easyDifficultyButton, normalDifficultyButton, hardDifficultyButton);

@@ -5,11 +5,14 @@ import javafx.scene.text.Text;
 import seng201.team0.GameEnvironment;
 
 /**
- * Controller for the main.fxml window
+ * Controller for the menu_main.fxml window
  *
  * @author seng201 teaching team
  */
 public class MenuMainController extends ScreenController {
+
+    @FXML
+    private Text nameText, seasonLengthText, difficultyText;
 
     public MenuMainController(GameEnvironment gameEnvironment) { super(gameEnvironment); }
 
@@ -18,10 +21,6 @@ public class MenuMainController extends ScreenController {
 
     @Override
     protected String getTitle() { return "Cross Country Racing"; }
-
-    @FXML
-    private Text nameText, seasonLengthText, difficultyText;
-
 
     public void initialize() {
         nameText.setText(getGameEnvironment().getName());
