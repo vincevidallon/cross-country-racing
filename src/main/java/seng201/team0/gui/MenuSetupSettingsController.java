@@ -45,9 +45,7 @@ public class MenuSetupSettingsController extends ScreenController {
 
     private void onDifficultyButtonSelected(List<ToggleButton> difficultyButtons, int difficultyIndex) {
         difficulty = difficultyIndex;
-        for (int i = 0; i < difficultyButtons.size(); i++) {
-            difficultyButtons.get(i).setSelected(i == difficultyIndex);
-        }
+        buttonSelector(difficultyButtons, difficultyIndex);
     }
 
     public void initialize() {

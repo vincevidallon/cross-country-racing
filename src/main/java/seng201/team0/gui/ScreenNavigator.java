@@ -41,8 +41,18 @@ public class ScreenNavigator {
      *
      * @param gameEnvironment The game environment used by the setup screen controller
      */
-    public void launchMenuSetup(GameEnvironment gameEnvironment) {
+    public void launchMenuSetupSettings(GameEnvironment gameEnvironment) {
         ScreenController controller = new MenuSetupSettingsController(gameEnvironment);
+        launchScreen(controller);
+    }
+
+    /**
+     * Launches the main screen.
+     *
+     * @param gameEnvironment The game environment used by the main screen controller
+     */
+    public void launchMenuSetupCars(GameEnvironment gameEnvironment) {
+        ScreenController controller = new MenuSetupCarsController(gameEnvironment);
         launchScreen(controller);
     }
 

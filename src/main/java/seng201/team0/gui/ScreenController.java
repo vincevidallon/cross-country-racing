@@ -1,6 +1,9 @@
 package seng201.team0.gui;
 
+import javafx.scene.control.ToggleButton;
 import seng201.team0.GameEnvironment;
+
+import java.util.List;
 
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.
@@ -12,7 +15,7 @@ public abstract class ScreenController {
 
     /**
      * Creates an instance of a ScreenController with the given {@link GameEnvironment}
-     * @param gameEnvironment The rocket manager used by this ScreenController
+     * @param gameEnvironment The game environment used by this ScreenController
      */
     protected ScreenController(final GameEnvironment gameEnvironment) {
         this.gameEnvironment = gameEnvironment;
@@ -33,11 +36,17 @@ public abstract class ScreenController {
     protected abstract String getTitle();
 
     /**
-     * Gets the rocket manager associated with this screen controller.
-     * @return The rocket manager for this controller
+     * Gets the game environment associated with this screen controller.
+     * @return The game environment for this controller
      */
     protected GameEnvironment getGameEnvironment() {
         return gameEnvironment;
+    }
+
+    protected void buttonSelector(List<ToggleButton> buttonList, int buttonIndex) {
+        for (int i = 0; i < buttonList.size(); i++) {
+            buttonList.get(i).setSelected(i == buttonIndex);
+        }
     }
 }
 
