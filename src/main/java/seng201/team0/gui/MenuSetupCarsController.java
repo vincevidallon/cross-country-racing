@@ -65,9 +65,10 @@ public class MenuSetupCarsController extends ScreenController {
         shopCarButtons.get(buttonIndex).setSelected(selectedCars.contains(car));
     }
 
-    private void onSelectedCarButtonClicked(int buttonIndex) {
-        System.out.print(5);
-    }
+    //TODO: this function
+//    private void onSelectedCarButtonClicked(int buttonIndex) {
+//
+//    }
 
     public void initialize() {
         shopCarButtons = List.of(carButton1, carButton2, carButton3, carButton4, carButton5);
