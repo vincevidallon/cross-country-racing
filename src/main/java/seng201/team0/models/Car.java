@@ -4,30 +4,33 @@ import java.util.Random;
 
 public class Car {
     private String name;
-    private double speed;
-    private double handling;
-    private double reliability;
-    private double fuelEconomy;
+    private int speed;
+    private int handling;
+    private int reliability;
+    private int fuelEconomy;
     private int overall;
+
+    private static final int STAT_MIN = 1;
+    private static final int STAT_MAX = 101;
 
     private final Random rng = new Random();
 
     public Car() {
         name = "Car" + rng.nextInt(9) + rng.nextInt(9);
-        speed = (double) rng.nextInt(1, 10) / 10;
-        handling = (double) rng.nextInt(1, 10) / 10;
-        reliability = (double) rng.nextInt(1, 10) / 10;
-        fuelEconomy = (double) rng.nextInt(1, 10) / 10;
-        overall = 1; // TODO: overall calculation
+        speed = rng.nextInt(STAT_MIN, STAT_MAX);
+        handling = rng.nextInt(STAT_MIN, STAT_MAX);
+        reliability = rng.nextInt(STAT_MIN, STAT_MAX);
+        fuelEconomy = rng.nextInt(STAT_MIN, STAT_MAX);
+        overall = (speed + handling + reliability + fuelEconomy) / 4;
     }
 
     public Car(String name) {
         this.name = name;
-        speed = (double) rng.nextInt(1, 10) / 10;
-        handling = (double) rng.nextInt(1, 10) / 10;
-        reliability = (double) rng.nextInt(1, 10) / 10;
-        fuelEconomy = (double) rng.nextInt(1, 10) / 10;
-        overall = 1; // same as above
+        speed = rng.nextInt(STAT_MIN, STAT_MAX);
+        handling = rng.nextInt(STAT_MIN, STAT_MAX);
+        reliability = rng.nextInt(STAT_MIN, STAT_MAX);
+        fuelEconomy = rng.nextInt(STAT_MIN, STAT_MAX);
+        overall = (speed + handling + reliability + fuelEconomy) / 4;
     }
 
     @Override
@@ -45,19 +48,19 @@ public class Car {
         return name;
     }
 
-    public double getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public double getHandling() {
+    public int getHandling() {
         return handling;
     }
 
-    public double getReliability() {
+    public int getReliability() {
         return reliability;
     }
 
-    public double getFuelEconomy() {
+    public int getFuelEconomy() {
         return fuelEconomy;
     }
 
