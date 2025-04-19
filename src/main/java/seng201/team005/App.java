@@ -1,6 +1,6 @@
-package seng201.team0;
+package seng201.team005;
 
-import seng201.team0.gui.FXAppEntry;
+import seng201.team005.gui.FXAppEntry;
 
 /**
  * Default entry point class

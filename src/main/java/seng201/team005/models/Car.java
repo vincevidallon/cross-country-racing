@@ -1,4 +1,4 @@
-package seng201.team0.models;
+package seng201.team005.models;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
-package seng201.team0;
+package seng201.team005;
 
-import seng201.team0.gui.ScreenNavigator;
+import seng201.team005.gui.ScreenNavigator;
 
 public class GameEnvironment {
     private String name;

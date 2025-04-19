@@ -1,8 +1,8 @@
-package seng201.team0.gui;
+package seng201.team005.gui;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seng201.team0.GameEnvironment;
+import seng201.team005.GameEnvironment;
 
 /**
  * Class that starts the JavaFX application thread.
