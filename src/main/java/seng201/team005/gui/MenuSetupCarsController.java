@@ -36,14 +36,19 @@ public class MenuSetupCarsController extends ScreenController {
 
     private Boolean isTooltipShowing = true;
 
-    public MenuSetupCarsController(GameEnvironment gameEnvironment) { super(gameEnvironment); }
+    public MenuSetupCarsController(GameEnvironment gameEnvironment) {
+        super(gameEnvironment);
+    }
 
     @Override
-    protected String getFxmlFile() { return "/fxml/menu_setup_cars.fxml"; }
+    protected String getFxmlFile() {
+        return "/fxml/menu_setup_cars.fxml";
+    }
 
     @Override
-    protected String getTitle() { return "Cross Country Racing | Cars Setup"; }
-
+    protected String getTitle() {
+        return "Cross Country Racing | Cars Setup";
+    }
 
     private static String convertIntToStars(int num) {
         return "✪".repeat(num / 20 + 1);
@@ -52,7 +57,6 @@ public class MenuSetupCarsController extends ScreenController {
     private void displayStats(Car car) {
         if (isTooltipShowing) {
             statTooltipText1.setVisible(false);
-            statTooltipText2.setVisible(false);
             carSpeedLabelText.setVisible(true);
             carHandlingLabelText.setVisible(true);
             carReliabilityLabelText.setVisible(true);
@@ -69,8 +73,9 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     private void onShopCarButtonClicked(int buttonIndex, Car car) {
-        displayStats(car);
-        if (selectedCars.size() < 3) {
+        if (selectedCars.size() < 3 && !selectedCars.contains(car) && car.getCost() <= getGameEnvironment().getMoney()) {
+            getGameEnvironment().setMoney(getGameEnvironment().getMoney() - car.getCost());
+            updatePlayerMoneyText();
             selectedCars.add(car);
             updateSelectedCarButtons();
         }
@@ -91,9 +96,8 @@ public class MenuSetupCarsController extends ScreenController {
     private void updateSelectedCarButtons() {
         for (int i = 0; i < selectedCarButtons.size(); i++) {
             selectedCarButtons.get(i).setSelected(i >= selectedCars.size());
-            selectedCarButtons.get(i).setText((i < selectedCars.size()) ? selectedCars.get(i).getName() : "");
+            selectedCarButtons.get(i).setText((i < selectedCars.size()) ? selectedCars.get(i).toString() : "");
         }
-
         updateGoButton();
     }
 
@@ -103,9 +107,14 @@ public class MenuSetupCarsController extends ScreenController {
         }
     }
 
+    private void updatePlayerMoneyText() {
+        playerMoneyText.setText(String.format("Money: $%s", getGameEnvironment().getMoney()));
+    }
+
     private void onSelectedCarButtonClicked(int buttonIndex) {
         if (selectedCars.size() > buttonIndex) {
-            displayStats(selectedCars.get(buttonIndex));
+            getGameEnvironment().setMoney(getGameEnvironment().getMoney() + selectedCars.get(buttonIndex).getCost());
+            updatePlayerMoneyText();
             selectedCars.remove(buttonIndex);
             updateSelectedCarButtons();
             updateShopCarButtons();
@@ -116,8 +125,20 @@ public class MenuSetupCarsController extends ScreenController {
 
     private void onSelectedCarButtonHovered(int buttonIndex) {
         if (selectedCars.size() > buttonIndex) {
-            displayStats(shopCars.get(buttonIndex));
+            displayStats(selectedCars.get(buttonIndex));
+            statTooltipText2.setText("(Click to sell)");
         }
+    }
+
+    private void onShopCarButtonHovered(int buttonIndex) {
+        displayStats(shopCars.get(buttonIndex));
+        statTooltipText2.setText("(Click to purchase)");
+    }
+
+    @FXML
+    private void onGoButtonClicked() {
+        getGameEnvironment().setPlayerCars(selectedCars);
+        System.out.println(getGameEnvironment().getPlayerCars());
     }
 
     public void initialize() {
@@ -127,11 +148,11 @@ public class MenuSetupCarsController extends ScreenController {
 
         for (int i = 0; i < shopCarButtons.size(); i++) {
             int buttonIndex = i;
-            shopCarButtons.get(i).setText(shopCars.get(i).getName());
+            shopCarButtons.get(i).setText(shopCars.get(i).toString());
             shopCarButtons.get(i).setOnAction(event ->
                     onShopCarButtonClicked(buttonIndex, shopCars.get(buttonIndex)));
             shopCarButtons.get(i).hoverProperty().addListener((observable, oldValue, newValue) ->
-                    displayStats(shopCars.get(buttonIndex)));
+                    onShopCarButtonHovered(buttonIndex));
         }
 
         for (int i = 0; i < selectedCarButtons.size(); i++) {
@@ -141,6 +162,6 @@ public class MenuSetupCarsController extends ScreenController {
                     onSelectedCarButtonHovered(buttonIndex));
         }
 
-        playerMoneyText.setText(String.format("Money: $%s", getGameEnvironment().getMoney()));
+        updatePlayerMoneyText();
     }
 }

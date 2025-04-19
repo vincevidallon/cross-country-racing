@@ -9,20 +9,12 @@ public class Car {
     private int reliability;
     private int fuelEconomy;
     private int overall;
+    private int cost;
 
     private static final int STAT_MIN = 1;
     private static final int STAT_MAX = 101;
 
-    private final Random rng = new Random();
-
-    public Car() {
-        name = "Car" + rng.nextInt(9) + rng.nextInt(9);
-        speed = rng.nextInt(STAT_MIN, STAT_MAX);
-        handling = rng.nextInt(STAT_MIN, STAT_MAX);
-        reliability = rng.nextInt(STAT_MIN, STAT_MAX);
-        fuelEconomy = rng.nextInt(STAT_MIN, STAT_MAX);
-        overall = (speed + handling + reliability + fuelEconomy) / 4;
-    }
+    private static final Random rng = new Random();
 
     public Car(String name) {
         this.name = name;
@@ -31,17 +23,16 @@ public class Car {
         reliability = rng.nextInt(STAT_MIN, STAT_MAX);
         fuelEconomy = rng.nextInt(STAT_MIN, STAT_MAX);
         overall = (speed + handling + reliability + fuelEconomy) / 4;
+        cost = overall / 20 + 1;
+    }
+
+    public Car() {
+        this("Car" + rng.nextInt(1, 10) + rng.nextInt(1, 10));
     }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "name='" + name + "'" +
-                ", speed=" + speed +
-                ", handling=" + handling +
-                ", reliability=" + reliability +
-                ", fuelEconomy=" + fuelEconomy +
-                '}';
+        return name + "\n" + "$".repeat(cost);
     }
 
     public String getName() {
@@ -64,27 +55,11 @@ public class Car {
         return fuelEconomy;
     }
 
-    public int getOverall() { return overall; }
-
-    public void setName(String name) {
-        this.name = name;
+    public int getOverall() {
+        return overall;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public int getCost() {
+        return cost;
     }
-
-    public void setHandling(int handling) {
-        this.handling = handling;
-    }
-
-    public void setReliability(int reliability) {
-        this.reliability = reliability;
-    }
-
-    public void setFuelEconomy(int fuelEconomy) {
-        this.fuelEconomy = fuelEconomy;
-    }
-
-    public void setOverall(int overall) { this.overall = overall; }
 }

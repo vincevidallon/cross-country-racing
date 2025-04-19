@@ -21,7 +21,7 @@ public class MenuSetupSettingsController extends ScreenController {
     private Slider seasonLengthSlider;
     @FXML
     private ToggleButton easyDifficultyButton, normalDifficultyButton, hardDifficultyButton;
-    private int difficulty = -1;
+    private int difficulty = 1;
 
     public MenuSetupSettingsController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
