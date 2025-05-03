@@ -33,11 +33,11 @@
          <GridPane.margin>
             <Insets top="60.0" />
          </GridPane.margin></Label>
-      <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="(Some tyre)" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="Nitrous Oxide" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="Upgraded suspension" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="New brake pads" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="Weight reduction" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Button fx:id="upgrade1Button" mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="(Some tyre)" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <Button fx:id="upgrade2Button" mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="Nitrous Oxide" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <Button fx:id="upgrade3Button" mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="Upgraded suspension" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <Button fx:id="upgrade4Button" mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="New brake pads" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <Button fx:id="upgrade5Button" mnemonicParsing="false" prefHeight="73.0" prefWidth="87.0" text="Weight reduction" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <Label text="Selected parts:" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets top="60.0" />
