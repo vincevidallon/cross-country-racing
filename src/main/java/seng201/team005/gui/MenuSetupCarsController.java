@@ -76,7 +76,7 @@ public class MenuSetupCarsController extends ScreenController {
     private void updateSelectedCarButtons() {
         for (int i = 0; i < selectedCarButtons.size(); i++) {
             selectedCarButtons.get(i).setSelected(i >= selectedCars.size());
-            selectedCarButtons.get(i).setText((i < selectedCars.size()) ? selectedCars.get(i).toString() : "");
+            selectedCarButtons.get(i).setText((i < selectedCars.size()) ? selectedCars.get(i).shopString() : "");
         }
         updateGoButton();
     }
@@ -122,6 +122,7 @@ public class MenuSetupCarsController extends ScreenController {
     @FXML
     private void onGoButtonClicked() {
         getGameEnvironment().setPlayerCars(selectedCars);
+        getGameEnvironment().setSelectedCar(selectedCars.getFirst());
         getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
@@ -132,7 +133,7 @@ public class MenuSetupCarsController extends ScreenController {
 
         for (int i = 0; i < shopCarButtons.size(); i++) {
             int buttonIndex = i;
-            shopCarButtons.get(i).setText(shopCars.get(i).toString());
+            shopCarButtons.get(i).setText(shopCars.get(i).shopString());
             shopCarButtons.get(i).setOnAction(event ->
                     onShopCarButtonClicked(buttonIndex, shopCars.get(buttonIndex)));
             shopCarButtons.get(i).hoverProperty().addListener((observable, oldValue, newValue) ->

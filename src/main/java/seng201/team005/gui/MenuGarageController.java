@@ -1,9 +1,9 @@
 package seng201.team005.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
@@ -18,6 +18,9 @@ import java.util.List;
 public class MenuGarageController extends ScreenController {
 
     @FXML
+    private Text mustSelectCarText;
+
+    @FXML
     private ToggleButton carButton1, carButton2, carButton3, carButton4, carButton5, selectedCarButton;
 
     @FXML
@@ -28,7 +31,7 @@ public class MenuGarageController extends ScreenController {
 
     private List<ToggleButton> carButtons = List.of();
     private List<Car> cars = List.of();
-    private Car selectedCar;
+    private Car selectedCar = getGameEnvironment().getSelectedCar();
 
 
     public MenuGarageController(GameEnvironment gameEnvironment) {
@@ -47,11 +50,27 @@ public class MenuGarageController extends ScreenController {
 
 
     private void onCarButtonClicked(int buttonIndex, Car car) {
-        buttonSelector(carButtons, buttonIndex);
+        mustSelectCarText.setVisible(false);
 
-        selectedCar = car;
-        selectedCarButton.setText(car.getName());
-        selectedCarButton.setSelected(false);
+        for (int i = 0; i < cars.size(); i++) {
+            carButtons.get(i).setSelected(i == buttonIndex);
+        }
+
+        if (car == selectedCar) {
+            removeCarFromSelected();
+        } else {
+            selectedCar = car;
+            selectedCarButton.setText(car.getName());
+            selectedCarButton.setSelected(false);
+        }
+    }
+
+
+    private void removeCarFromSelected() {
+        selectedCar = null;
+        selectedCarButton.setText("");
+        selectedCarButton.setSelected(true);
+        updateCarButtons();
     }
 
 
@@ -60,12 +79,11 @@ public class MenuGarageController extends ScreenController {
     }
 
 
-    private void onSelectedCarButtonClicked() {
-        selectedCar = null;
-        selectedCarButton.setText("");
-        selectedCarButton.setSelected(true);
+    private void updateCarButtons() {
+        for (int i = 0; i < cars.size(); i++) {
+            carButtons.get(i).setSelected(cars.get(i) == selectedCar);
+        }
     }
-
 
     private void onSelectedCarButtonHovered() {
         if (selectedCar != null) {
@@ -73,21 +91,28 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
+
+
     @FXML
     private void onBackButtonClicked() {
-        getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
+        if (selectedCar == null) {
+            mustSelectCarText.setVisible(true);
+        } else {
+            System.out.println("Selected car: " + selectedCar);
+            getGameEnvironment().setSelectedCar(selectedCar);
+            getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
+        }
     }
 
 
     public void initialize() {
         cars = getGameEnvironment().getPlayerCars();
         carButtons = List.of(carButton1, carButton2, carButton3, carButton4, carButton5);
-        selectedCar = getGameEnvironment().getSelectedCar();
 
         for (int i = 0; i < carButtons.size(); i++) {
             if (i < cars.size()) {
                 int buttonIndex = i;
-                carButtons.get(i).setText(cars.get(i).toString());
+                carButtons.get(i).setText(cars.get(i).getName());
                 carButtons.get(i).setOnAction(event ->
                         onCarButtonClicked(buttonIndex, cars.get(buttonIndex)));
                 carButtons.get(i).hoverProperty().addListener((observable, oldValue, newValue) ->
@@ -100,7 +125,14 @@ public class MenuGarageController extends ScreenController {
 
         }
 
-        selectedCarButton.setOnAction(event -> onSelectedCarButtonClicked());
+        updateCarButtons();
+
+        if (selectedCar != null) {
+            selectedCarButton.setText(selectedCar.getName());
+            selectedCarButton.setSelected(false);
+        }
+
+        selectedCarButton.setOnAction(event -> removeCarFromSelected());
         selectedCarButton.hoverProperty().addListener((observable, oldValue, newValue) ->
                 onSelectedCarButtonHovered());
 

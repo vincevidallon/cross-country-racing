@@ -30,8 +30,8 @@ public class Car {
         this("Car" + rng.nextInt(1, 10) + rng.nextInt(1, 10));
     }
 
-    @Override
-    public String toString() {
+
+    public String shopString() {
         return name + "\n" + "$".repeat(cost);
     }
 
