@@ -73,11 +73,16 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     private void onShopCarButtonClicked(int buttonIndex, Car car) {
-        if (selectedCars.size() < 3 && !selectedCars.contains(car) && car.getCost() <= getGameEnvironment().getMoney()) {
+        if (selectedCars.contains(car)) {
+            removeCarFromSelected(car);
+            statTooltipText2.setText("(Click to purchase)");
+        }
+        else if (selectedCars.size() < 3 && car.getCost() <= getGameEnvironment().getMoney()) {
             getGameEnvironment().setMoney(getGameEnvironment().getMoney() - car.getCost());
             updatePlayerMoneyText();
             selectedCars.add(car);
             updateSelectedCarButtons();
+            statTooltipText2.setText("(Click to sell)");
         }
         shopCarButtons.get(buttonIndex).setSelected(selectedCars.contains(car));
     }
@@ -113,14 +118,18 @@ public class MenuSetupCarsController extends ScreenController {
 
     private void onSelectedCarButtonClicked(int buttonIndex) {
         if (selectedCars.size() > buttonIndex) {
-            getGameEnvironment().setMoney(getGameEnvironment().getMoney() + selectedCars.get(buttonIndex).getCost());
-            updatePlayerMoneyText();
-            selectedCars.remove(buttonIndex);
-            updateSelectedCarButtons();
-            updateShopCarButtons();
+            removeCarFromSelected(selectedCars.get(buttonIndex));
         } else {
             selectedCarButtons.get(buttonIndex).setSelected(true);
         }
+    }
+
+    private void removeCarFromSelected(Car car) {
+        getGameEnvironment().setMoney(getGameEnvironment().getMoney() + car.getCost());
+        updatePlayerMoneyText();
+        selectedCars.remove(car);
+        updateSelectedCarButtons();
+        updateShopCarButtons();
     }
 
     private void onSelectedCarButtonHovered(int buttonIndex) {
@@ -132,7 +141,11 @@ public class MenuSetupCarsController extends ScreenController {
 
     private void onShopCarButtonHovered(int buttonIndex) {
         displayStats(shopCars.get(buttonIndex));
-        statTooltipText2.setText("(Click to purchase)");
+        if (selectedCars.contains(shopCars.get(buttonIndex))) {
+            statTooltipText2.setText("(Click to sell)");
+        } else {
+            statTooltipText2.setText("(Click to purchase)");
+        }
     }
 
     @FXML
