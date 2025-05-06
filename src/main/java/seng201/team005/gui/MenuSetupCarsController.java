@@ -22,9 +22,7 @@ public class MenuSetupCarsController extends ScreenController {
             selectedCarButton1, selectedCarButton2, selectedCarButton3;
 
     @FXML
-    private Text carSpeedText, carHandlingText, carReliabilityText, carFuelEconomyText, carOverallText, carNameText,
-            carSpeedLabelText, carHandlingLabelText, carReliabilityLabelText, carFuelEconomyLabelText, carOverallLabelText,
-            statTooltipText1, statTooltipText2, playerMoneyText;
+    private Text statTooltipText2;
 
     @FXML
     private Button goButton;
@@ -33,8 +31,6 @@ public class MenuSetupCarsController extends ScreenController {
     private List<ToggleButton> selectedCarButtons = List.of();
     private List<Car> shopCars = List.of();
     private final ArrayList<Car> selectedCars = new ArrayList<>();
-
-    private Boolean isTooltipShowing = true;
 
     public MenuSetupCarsController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -50,27 +46,6 @@ public class MenuSetupCarsController extends ScreenController {
         return "Cross Country Racing | Cars Setup";
     }
 
-    private static String convertIntToStars(int num) {
-        return "✪".repeat(num / 20 + 1);
-    }
-
-    private void displayStats(Car car) {
-        if (isTooltipShowing) {
-            statTooltipText1.setVisible(false);
-            carSpeedLabelText.setVisible(true);
-            carHandlingLabelText.setVisible(true);
-            carReliabilityLabelText.setVisible(true);
-            carFuelEconomyLabelText.setVisible(true);
-            carOverallLabelText.setVisible(true);
-            isTooltipShowing = false;
-        }
-        carNameText.setText(String.format("%s stats:", car.getName()));
-        carSpeedText.setText(convertIntToStars(car.getSpeed()));
-        carHandlingText.setText(convertIntToStars(car.getHandling()));
-        carReliabilityText.setText(convertIntToStars(car.getReliability()));
-        carFuelEconomyText.setText(convertIntToStars(car.getFuelEconomy()));
-        carOverallText.setText(convertIntToStars(car.getOverall()));
-    }
 
     private void onShopCarButtonClicked(int buttonIndex, Car car) {
         if (selectedCars.contains(car)) {
@@ -110,10 +85,6 @@ public class MenuSetupCarsController extends ScreenController {
         for (int i = 0; i < shopCarButtons.size(); i++) {
             shopCarButtons.get(i).setSelected(selectedCars.contains(shopCars.get(i)));
         }
-    }
-
-    private void updatePlayerMoneyText() {
-        playerMoneyText.setText(String.format("Money: $%s", getGameEnvironment().getMoney()));
     }
 
     private void onSelectedCarButtonClicked(int buttonIndex) {

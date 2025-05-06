@@ -11,6 +11,7 @@ public class GameEnvironment {
     private int difficulty;
     private int money;
     private List<Car> playerCars = List.of();
+    private Car selectedCar;
     private final ScreenNavigator navigator;
 
     public GameEnvironment(ScreenNavigator navigator) {
@@ -53,6 +54,10 @@ public class GameEnvironment {
     public void setPlayerCars(List<Car> playerCars) {
         this.playerCars = playerCars;
     }
+
+    public Car getSelectedCar() { return selectedCar; }
+
+    public void setSelectedCar(Car selectedCar) { this.selectedCar = selectedCar; }
 
     public void onQuitRequested() {
         System.exit(0);
