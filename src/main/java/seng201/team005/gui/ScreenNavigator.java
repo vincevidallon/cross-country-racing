@@ -37,42 +37,12 @@ public class ScreenNavigator {
     }
 
     /**
-     * Launches the setup screen.
-     *
-     * @param gameEnvironment The game environment used by the setup screen controller
-     */
-    public void launchMenuSetupSettings(GameEnvironment gameEnvironment) {
-        ScreenController controller = new MenuSetupSettingsController(gameEnvironment);
-        launchScreen(controller);
-    }
-
-    /**
-     * Launches the main screen.
-     *
-     * @param gameEnvironment The game environment used by the main screen controller
-     */
-    public void launchMenuSetupCars(GameEnvironment gameEnvironment) {
-        ScreenController controller = new MenuSetupCarsController(gameEnvironment);
-        launchScreen(controller);
-    }
-
-    /**
-     * Launches the main screen.
-     *
-     * @param gameEnvironment The game environment used by the main screen controller
-     */
-    public void launchMenuMain(GameEnvironment gameEnvironment) {
-        ScreenController controller = new MenuMainController(gameEnvironment);
-        launchScreen(controller);
-    }
-
-    /**
      * Replaces the root border pane's center component with the screen defined by the given
      * {@link ScreenController}.
      *
      * @param controller The JavaFX screen controller for the screen to be launched
      */
-    private void launchScreen(ScreenController controller) {
+    public void launchScreen(ScreenController controller) {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource(controller.getFxmlFile()));
             // Set a controller factory that returns the given ScreenController.

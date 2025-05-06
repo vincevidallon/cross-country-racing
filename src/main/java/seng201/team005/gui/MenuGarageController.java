@@ -8,7 +8,6 @@ import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,36 +45,59 @@ public class MenuGarageController extends ScreenController {
         return "Cross Country Racing | Garage";
     }
 
-    private void onCarButtonClicked(int buttonIndex, Car car) {
 
+    private void onCarButtonClicked(int buttonIndex, Car car) {
+        buttonSelector(carButtons, buttonIndex);
+
+        selectedCar = car;
+        selectedCarButton.setText(car.getName());
+        selectedCarButton.setSelected(false);
     }
 
 
     private void onCarButtonHovered(int buttonIndex) {
-
+        displayStats(cars.get(buttonIndex));
     }
 
 
     private void onSelectedCarButtonClicked() {
-
+        selectedCar = null;
+        selectedCarButton.setText("");
+        selectedCarButton.setSelected(true);
     }
 
-    private void onSelectedCarButtonHovered() {
 
+    private void onSelectedCarButtonHovered() {
+        if (selectedCar != null) {
+            displayStats(selectedCar);
+        }
+    }
+
+    @FXML
+    private void onBackButtonClicked() {
+        getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
 
     public void initialize() {
         cars = getGameEnvironment().getPlayerCars();
+        carButtons = List.of(carButton1, carButton2, carButton3, carButton4, carButton5);
         selectedCar = getGameEnvironment().getSelectedCar();
 
         for (int i = 0; i < carButtons.size(); i++) {
-            int buttonIndex = i;
-            carButtons.get(i).setText(cars.get(i).toString());
-            carButtons.get(i).setOnAction(event ->
-                    onCarButtonClicked(buttonIndex, cars.get(buttonIndex)));
-            carButtons.get(i).hoverProperty().addListener((observable, oldValue, newValue) ->
-                    onCarButtonHovered(buttonIndex));
+            if (i < cars.size()) {
+                int buttonIndex = i;
+                carButtons.get(i).setText(cars.get(i).toString());
+                carButtons.get(i).setOnAction(event ->
+                        onCarButtonClicked(buttonIndex, cars.get(buttonIndex)));
+                carButtons.get(i).hoverProperty().addListener((observable, oldValue, newValue) ->
+                        onCarButtonHovered(buttonIndex));
+            } else {
+                carButtons.get(i).setText("");
+                carButtons.get(i).setSelected(true);
+                carButtons.get(i).setDisable(true);
+            }
+
         }
 
         selectedCarButton.setOnAction(event -> onSelectedCarButtonClicked());

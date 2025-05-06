@@ -27,6 +27,7 @@
       <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
       <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="30.0" />
     <RowConstraints maxHeight="120.0" vgrow="ALWAYS" />
+      <RowConstraints />
   </rowConstraints>
    <children>
       <VBox alignment="TOP_CENTER" GridPane.columnSpan="3">

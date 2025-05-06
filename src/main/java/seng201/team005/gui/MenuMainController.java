@@ -1,7 +1,7 @@
 package seng201.team005.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
+import javafx.scene.control.Button;
 import seng201.team005.GameEnvironment;
 
 /**
@@ -12,7 +12,7 @@ import seng201.team005.GameEnvironment;
 public class MenuMainController extends ScreenController {
 
     @FXML
-    private Text nameText, seasonLengthText, difficultyText;
+    private Button raceButton, shopButton, garageButton, quitButton;
 
     public MenuMainController(GameEnvironment gameEnvironment) { super(gameEnvironment); }
 
@@ -23,8 +23,9 @@ public class MenuMainController extends ScreenController {
     protected String getTitle() { return "Cross Country Racing"; }
 
     public void initialize() {
-        nameText.setText(getGameEnvironment().getName());
-        seasonLengthText.setText(String.valueOf(getGameEnvironment().getSeasonLength()));
-        difficultyText.setText(String.valueOf(getGameEnvironment().getDifficulty()));
+        //raceButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuSetupRaceController(getGameEnvironment())));
+        shopButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuShopController(getGameEnvironment())));
+        garageButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuGarageController(getGameEnvironment())));
+        quitButton.setOnAction(event -> getGameEnvironment().onQuitRequested());
     }
 }

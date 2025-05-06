@@ -2,10 +2,10 @@ package seng201.team005.gui;
 
 import javafx.fxml.FXML;
 import seng201.team005.GameEnvironment;
-import java.util.List;
+
 import java.awt.*;
 
-public class ShopMenuController extends ScreenController {
+public class MenuShopController extends ScreenController {
 
     @FXML
     private Label shopBalanceLabel;
@@ -17,7 +17,7 @@ public class ShopMenuController extends ScreenController {
     private Button upgradeButton4, upgradeButton5;
 
 
-    public ShopMenuController(GameEnvironment gameEnvironment) {
+    public MenuShopController(GameEnvironment gameEnvironment) {
         super (gameEnvironment);
     }
 

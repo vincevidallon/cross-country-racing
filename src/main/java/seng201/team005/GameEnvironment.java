@@ -1,5 +1,8 @@
 package seng201.team005;
 
+import seng201.team005.gui.MenuSetupCarsController;
+import seng201.team005.gui.MenuSetupSettingsController;
+import seng201.team005.gui.ScreenController;
 import seng201.team005.gui.ScreenNavigator;
 import seng201.team005.models.Car;
 
@@ -16,7 +19,7 @@ public class GameEnvironment {
 
     public GameEnvironment(ScreenNavigator navigator) {
         this.navigator = navigator;
-        navigator.launchMenuSetupSettings(this);
+        navigator.launchScreen(new MenuSetupSettingsController(this));
     }
 
     public void onSetupComplete(String name, int seasonLength, int difficulty) {
@@ -24,7 +27,11 @@ public class GameEnvironment {
         this.seasonLength = seasonLength;
         this.difficulty = difficulty;
         this.money = 10 / difficulty;
-        navigator.launchMenuSetupCars(this);
+        navigator.launchScreen(new MenuSetupCarsController(this));
+    }
+
+    public void launchScreen(ScreenController screenController) {
+        navigator.launchScreen(screenController);
     }
 
     public String getName() {
