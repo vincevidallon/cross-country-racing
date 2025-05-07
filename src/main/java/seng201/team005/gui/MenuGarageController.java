@@ -1,8 +1,10 @@
 package seng201.team005.gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
@@ -32,7 +34,8 @@ public class MenuGarageController extends ScreenController {
     private List<ToggleButton> carButtons = List.of();
     private List<Car> cars = List.of();
     private Car selectedCar = getGameEnvironment().getSelectedCar();
-
+    private ObservableList<Part> parts;
+    private Part selectedPart;
 
     public MenuGarageController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -60,7 +63,7 @@ public class MenuGarageController extends ScreenController {
             removeCarFromSelected();
         } else {
             selectedCar = car;
-            selectedCarButton.setText(car.getName());
+            selectedCarButton.setText(car.garageString());
             selectedCarButton.setSelected(false);
         }
     }
@@ -82,6 +85,10 @@ public class MenuGarageController extends ScreenController {
     private void updateCarButtons() {
         for (int i = 0; i < cars.size(); i++) {
             carButtons.get(i).setSelected(cars.get(i) == selectedCar);
+            carButtons.get(i).setText(cars.get(i).garageString());
+        }
+        if (selectedCar != null) {
+            selectedCarButton.setText(selectedCar.garageString());
         }
     }
 
@@ -104,15 +111,40 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
+    private void onPartSelected(Part part) {
+        installPartButton.setDisable(part == null);
+        selectedPart = part;
+        if (part != null) displayStats(part);
+    }
+
+    private void onInstallPartButtonClicked() {
+        if (selectedPart != null && selectedCar != null) {
+            installPart(selectedCar, selectedPart);
+        }
+        selectedPart = parts.isEmpty() ? null : partListView.getSelectionModel().getSelectedItem();
+    }
+
+    private void installPart(Car car, Part part) {
+        car.setSpeed(car.getSpeed() + part.getSpeed());
+        car.setHandling(car.getHandling() + part.getHandling());
+        car.setReliability(car.getReliability() + part.getReliability());
+        car.setFuelEconomy(car.getFuelEconomy() + part.getFuelEconomy());
+        car.setOverall(car.recalculateOverall());
+        parts.remove(part);
+        car.setName(car.getName() + "+");
+        updateCarButtons();
+        displayStats(car);
+    }
 
     public void initialize() {
         cars = getGameEnvironment().getPlayerCars();
         carButtons = List.of(carButton1, carButton2, carButton3, carButton4, carButton5);
+        parts = FXCollections.observableArrayList(new Part(), new Part(), new Part(), new Part(), new Part());
+
 
         for (int i = 0; i < carButtons.size(); i++) {
             if (i < cars.size()) {
                 int buttonIndex = i;
-                carButtons.get(i).setText(cars.get(i).getName());
                 carButtons.get(i).setOnAction(event ->
                         onCarButtonClicked(buttonIndex, cars.get(buttonIndex)));
                 carButtons.get(i).hoverProperty().addListener((observable, oldValue, newValue) ->
@@ -125,17 +157,22 @@ public class MenuGarageController extends ScreenController {
 
         }
 
-        updateCarButtons();
-
         if (selectedCar != null) {
-            selectedCarButton.setText(selectedCar.getName());
+            selectedCarButton.setText(selectedCar.garageString());
             selectedCarButton.setSelected(false);
         }
-
         selectedCarButton.setOnAction(event -> removeCarFromSelected());
         selectedCarButton.hoverProperty().addListener((observable, oldValue, newValue) ->
                 onSelectedCarButtonHovered());
 
+        partListView.setItems(parts);
+        partListView.getSelectionModel().getSelectedItems().addListener(
+                (ListChangeListener<Part>) change -> onPartSelected(change.getList().isEmpty() ? null : change.getList().getFirst()));
+
+
+        installPartButton.setOnAction(event -> onInstallPartButtonClicked());
+
+        updateCarButtons();
         updatePlayerMoneyText();
     }
 }

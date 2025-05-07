@@ -52,8 +52,8 @@ public class MenuSetupCarsController extends ScreenController {
             removeCarFromSelected(car);
             statTooltipText2.setText("(Click to purchase)");
         }
-        else if (selectedCars.size() < 3 && car.getCost() <= getGameEnvironment().getMoney()) {
-            getGameEnvironment().setMoney(getGameEnvironment().getMoney() - car.getCost());
+        else if (selectedCars.size() < 3 && car.getBuyValue() <= getGameEnvironment().getMoney()) {
+            getGameEnvironment().setMoney(getGameEnvironment().getMoney() - car.getBuyValue());
             updatePlayerMoneyText();
             selectedCars.add(car);
             updateSelectedCarButtons();
@@ -96,7 +96,7 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     private void removeCarFromSelected(Car car) {
-        getGameEnvironment().setMoney(getGameEnvironment().getMoney() + car.getCost());
+        getGameEnvironment().setMoney(getGameEnvironment().getMoney() + car.getBuyValue());
         updatePlayerMoneyText();
         selectedCars.remove(car);
         updateSelectedCarButtons();

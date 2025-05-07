@@ -5,6 +5,7 @@ import javafx.scene.control.ToggleButton;
 import seng201.team005.GameEnvironment;
 import javafx.scene.text.Text;
 import seng201.team005.models.Car;
+import seng201.team005.models.Purchasable;
 
 import java.util.List;
 
@@ -60,15 +61,15 @@ public abstract class ScreenController {
         }
     }
 
-    protected static String convertIntToStars(int num) {
-        return "✪".repeat(num / 20 + 1);
+    protected static String convertStatToStars(int num) {
+        return (num >= 0 ? "" : "-") + "✪".repeat(Math.abs(num));
     }
 
     protected void updatePlayerMoneyText() {
         playerMoneyText.setText(String.format("Money: $%s", getGameEnvironment().getMoney()));
     }
 
-    protected void displayStats(Car car) {
+    protected void displayStats(Purchasable purchasable) {
         if (isTooltipShowing) {
             statTooltipText1.setVisible(false);
             carSpeedLabelText.setVisible(true);
@@ -78,12 +79,12 @@ public abstract class ScreenController {
             carOverallLabelText.setVisible(true);
             isTooltipShowing = false;
         }
-        carNameText.setText(String.format("%s stats:", car.getName()));
-        carSpeedText.setText(convertIntToStars(car.getSpeed()));
-        carHandlingText.setText(convertIntToStars(car.getHandling()));
-        carReliabilityText.setText(convertIntToStars(car.getReliability()));
-        carFuelEconomyText.setText(convertIntToStars(car.getFuelEconomy()));
-        carOverallText.setText(convertIntToStars(car.getOverall()));
+        carNameText.setText(String.format("%s stats:", purchasable.getName()));
+        carSpeedText.setText(convertStatToStars(purchasable.getSpeed()));
+        carHandlingText.setText(convertStatToStars(purchasable.getHandling()));
+        carReliabilityText.setText(convertStatToStars(purchasable.getReliability()));
+        carFuelEconomyText.setText(convertStatToStars(purchasable.getFuelEconomy()));
+        carOverallText.setText(convertStatToStars(purchasable.getOverall()));
     }
 }
 
