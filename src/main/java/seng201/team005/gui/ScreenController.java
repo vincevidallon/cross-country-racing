@@ -5,6 +5,7 @@ import javafx.scene.control.ToggleButton;
 import seng201.team005.GameEnvironment;
 import javafx.scene.text.Text;
 import seng201.team005.models.Car;
+import seng201.team005.models.Part;
 import seng201.team005.models.Purchasable;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public abstract class ScreenController {
     }
 
     protected static String convertStatToStars(int num) {
-        return (num >= 0 ? "" : "-") + "✪".repeat(Math.abs(num));
+        return "✪".repeat(Math.abs(num));
     }
 
     protected void updatePlayerMoneyText() {
@@ -85,6 +86,17 @@ public abstract class ScreenController {
         carReliabilityText.setText(convertStatToStars(purchasable.getReliability()));
         carFuelEconomyText.setText(convertStatToStars(purchasable.getFuelEconomy()));
         carOverallText.setText(convertStatToStars(purchasable.getOverall()));
+    }
+
+    protected void displayCarPlusPartStats(Car car, Part part) {
+        if (!carSpeedText.getText().isEmpty()) {
+            carSpeedText.setText(convertStatToStars(car.getSpeed()) + (part.getSpeed() > 0 ? "+" : "-") + convertStatToStars(part.getSpeed()));
+            carHandlingText.setText(convertStatToStars(car.getHandling()) + (part.getHandling() > 0 ? "+" : "-") + convertStatToStars(part.getHandling()));
+            carReliabilityText.setText(convertStatToStars(car.getReliability()) + (part.getReliability() > 0 ? "+" : "-") + convertStatToStars(part.getReliability()));
+            carFuelEconomyText.setText(convertStatToStars(car.getFuelEconomy()) + (part.getFuelEconomy() > 0 ? "+" : "-") + convertStatToStars(part.getFuelEconomy()));
+            //FIXME: this calculation is wrong as hell
+            carOverallText.setText(convertStatToStars(car.getOverall()) + (part.getOverall() > 0 ? "+" : "-") + convertStatToStars(part.getOverall()));
+        }
     }
 }
 

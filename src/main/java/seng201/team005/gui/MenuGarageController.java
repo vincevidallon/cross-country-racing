@@ -115,8 +115,10 @@ public class MenuGarageController extends ScreenController {
     }
 
     private void onInstallPartButtonClicked() {
-        if (selectedPart != null && selectedCar != null) {
+        if (selectedCar != null) {
             installPart(selectedCar, selectedPart);
+        } else {
+            mustSelectCarText.setVisible(true);
         }
         selectedPart = parts.isEmpty() ? null : partListView.getSelectionModel().getSelectedItem();
     }
