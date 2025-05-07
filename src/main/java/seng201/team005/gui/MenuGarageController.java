@@ -99,13 +99,10 @@ public class MenuGarageController extends ScreenController {
     }
 
 
-
-    @FXML
     private void onBackButtonClicked() {
         if (selectedCar == null) {
             mustSelectCarText.setVisible(true);
         } else {
-            System.out.println("Selected car: " + selectedCar);
             getGameEnvironment().setSelectedCar(selectedCar);
             getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
         }
@@ -171,6 +168,8 @@ public class MenuGarageController extends ScreenController {
 
 
         installPartButton.setOnAction(event -> onInstallPartButtonClicked());
+
+        backButton.setOnAction(event -> onBackButtonClicked());
 
         updateCarButtons();
         updatePlayerMoneyText();

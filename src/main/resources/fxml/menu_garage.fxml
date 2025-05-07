@@ -90,7 +90,7 @@
          </GridPane.margin>
       </ToggleButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="250.0" stroke="BLACK" strokeType="INSIDE" width="300.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-      <Button fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonClicked" prefHeight="88.0" prefWidth="200.0" text="Back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.rowSpan="2">
+      <Button fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="88.0" prefWidth="200.0" text="Back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.rowSpan="2">
          <font>
             <Font name="System Bold Italic" size="48.0" />
          </font>
