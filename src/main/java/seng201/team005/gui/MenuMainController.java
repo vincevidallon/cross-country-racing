@@ -26,6 +26,6 @@ public class MenuMainController extends ScreenController {
         //raceButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuSetupRaceController(getGameEnvironment())));
         shopButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuShopController(getGameEnvironment())));
         garageButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuGarageController(getGameEnvironment())));
-        quitButton.setOnAction(event -> getGameEnvironment().onQuitRequested());
+        quitButton.setOnAction(event -> onQuitRequested());
     }
 }

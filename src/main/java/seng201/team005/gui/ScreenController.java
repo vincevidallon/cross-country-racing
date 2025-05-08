@@ -8,7 +8,11 @@ import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 import seng201.team005.models.Purchasable;
 
+
 import java.util.List;
+
+import static seng201.team005.gui.MenuService.convertStatToStars;
+import static seng201.team005.gui.MenuService.getSpacedSign;
 
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.
@@ -56,14 +60,14 @@ public abstract class ScreenController {
         return gameEnvironment;
     }
 
+    public void onQuitRequested() {
+        System.exit(0);
+    }
+
     protected void buttonSelector(List<ToggleButton> buttonList, int buttonIndex) {
         for (int i = 0; i < buttonList.size(); i++) {
             buttonList.get(i).setSelected(i == buttonIndex);
         }
-    }
-
-    protected static String convertStatToStars(int num) {
-        return "✪".repeat(Math.abs(num));
     }
 
     protected void updatePlayerMoneyText() {
@@ -90,12 +94,14 @@ public abstract class ScreenController {
 
     protected void displayCarPlusPartStats(Car car, Part part) {
         if (!carSpeedText.getText().isEmpty()) {
-            carSpeedText.setText(convertStatToStars(car.getSpeed()) + (part.getSpeed() > 0 ? "+" : "-") + convertStatToStars(part.getSpeed()));
-            carHandlingText.setText(convertStatToStars(car.getHandling()) + (part.getHandling() > 0 ? "+" : "-") + convertStatToStars(part.getHandling()));
-            carReliabilityText.setText(convertStatToStars(car.getReliability()) + (part.getReliability() > 0 ? "+" : "-") + convertStatToStars(part.getReliability()));
-            carFuelEconomyText.setText(convertStatToStars(car.getFuelEconomy()) + (part.getFuelEconomy() > 0 ? "+" : "-") + convertStatToStars(part.getFuelEconomy()));
-            //FIXME: this calculation is wrong as hell
-            carOverallText.setText(convertStatToStars(car.getOverall()) + (part.getOverall() > 0 ? "+" : "-") + convertStatToStars(part.getOverall()));
+            carNameText.setText(String.format("%s stats:", car.getName()));
+            carSpeedText.setText(convertStatToStars(car.getSpeed()) + getSpacedSign(part.getSpeed()) + convertStatToStars(part.getSpeed()));
+            carHandlingText.setText(convertStatToStars(car.getHandling()) + getSpacedSign(part.getHandling()) + convertStatToStars(part.getHandling()));
+            carReliabilityText.setText(convertStatToStars(car.getReliability()) + getSpacedSign(part.getReliability()) + convertStatToStars(part.getReliability()));
+            carFuelEconomyText.setText(convertStatToStars(car.getFuelEconomy()) + getSpacedSign(part.getFuelEconomy()) + convertStatToStars(part.getFuelEconomy()));
+            int overallAdjust = (car.getSpeed() + part.getSpeed() + car.getHandling() + part.getHandling() +
+                    car.getReliability() + part.getReliability() + car.getFuelEconomy() + part.getFuelEconomy()) / 4 - car.getOverall();
+            carOverallText.setText(convertStatToStars(car.getOverall()) + getSpacedSign(overallAdjust) + convertStatToStars(overallAdjust));
         }
     }
 }

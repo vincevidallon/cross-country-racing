@@ -31,6 +31,7 @@ public class MenuGarageController extends ScreenController {
     @FXML
     private ListView<Part> partListView;
 
+    private final GarageService garageService = new GarageService();
     private List<ToggleButton> carButtons = List.of();
     private List<Car> cars = List.of();
     private Car selectedCar = getGameEnvironment().getSelectedCar();
@@ -60,7 +61,7 @@ public class MenuGarageController extends ScreenController {
         }
 
         if (car == selectedCar) {
-            removeCarFromSelected();
+            onSelectedCarButtonClicked();
         } else {
             selectedCar = car;
             selectedCarButton.setText(car.garageString());
@@ -69,17 +70,27 @@ public class MenuGarageController extends ScreenController {
     }
 
 
-    private void removeCarFromSelected() {
+    private void onCarButtonHovered(int buttonIndex, boolean isHovered) {
+        if (selectedPart != null) {
+            displayCarPlusPartStats(isHovered ? cars.get(buttonIndex) : selectedCar, selectedPart);
+        } else {
+            displayStats(isHovered ? cars.get(buttonIndex) : selectedCar);
+        }
+    }
+
+    private void onSelectedCarButtonHovered(boolean isHovered) {
+        if (selectedCar != null) {
+            onCarButtonHovered(cars.indexOf(selectedCar), isHovered);
+        }
+    }
+
+    private void onSelectedCarButtonClicked() {
         selectedCar = null;
         selectedCarButton.setText("");
         selectedCarButton.setSelected(true);
         updateCarButtons();
     }
 
-
-    private void onCarButtonHovered(int buttonIndex) {
-        displayStats(cars.get(buttonIndex));
-    }
 
 
     private void updateCarButtons() {
@@ -89,12 +100,6 @@ public class MenuGarageController extends ScreenController {
         }
         if (selectedCar != null) {
             selectedCarButton.setText(selectedCar.garageString());
-        }
-    }
-
-    private void onSelectedCarButtonHovered() {
-        if (selectedCar != null) {
-            displayStats(selectedCar);
         }
     }
 
@@ -108,32 +113,25 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
-    private void onPartSelected(Part part) {
+    private void onPartButtonClicked(Part part) {
         installPartButton.setDisable(part == null);
         selectedPart = part;
-        if (part != null) displayStats(part);
+        if (part != null) displayCarPlusPartStats(selectedCar, part);
     }
 
     private void onInstallPartButtonClicked() {
         if (selectedCar != null) {
-            installPart(selectedCar, selectedPart);
+            garageService.installPart(selectedCar, selectedPart);
+            parts.remove(selectedPart);
+            displayStats(selectedCar);
+            partListView.getSelectionModel().select(null);
+            updateCarButtons();
         } else {
             mustSelectCarText.setVisible(true);
         }
-        selectedPart = parts.isEmpty() ? null : partListView.getSelectionModel().getSelectedItem();
     }
 
-    private void installPart(Car car, Part part) {
-        car.setSpeed(car.getSpeed() + part.getSpeed());
-        car.setHandling(car.getHandling() + part.getHandling());
-        car.setReliability(car.getReliability() + part.getReliability());
-        car.setFuelEconomy(car.getFuelEconomy() + part.getFuelEconomy());
-        car.setOverall(car.recalculateOverall());
-        parts.remove(part);
-        car.setName(car.getName() + "+");
-        updateCarButtons();
-        displayStats(car);
-    }
+
 
     public void initialize() {
         cars = getGameEnvironment().getPlayerCars();
@@ -147,7 +145,7 @@ public class MenuGarageController extends ScreenController {
                 carButtons.get(i).setOnAction(event ->
                         onCarButtonClicked(buttonIndex, cars.get(buttonIndex)));
                 carButtons.get(i).hoverProperty().addListener((observable, oldValue, newValue) ->
-                        onCarButtonHovered(buttonIndex));
+                        onCarButtonHovered(buttonIndex, newValue));
             } else {
                 carButtons.get(i).setText("");
                 carButtons.get(i).setSelected(true);
@@ -156,17 +154,19 @@ public class MenuGarageController extends ScreenController {
 
         }
 
-        if (selectedCar != null) {
-            selectedCarButton.setText(selectedCar.garageString());
-            selectedCarButton.setSelected(false);
-        }
-        selectedCarButton.setOnAction(event -> removeCarFromSelected());
-        selectedCarButton.hoverProperty().addListener((observable, oldValue, newValue) ->
-                onSelectedCarButtonHovered());
+        selectedCarButton.setText(selectedCar.garageString());
+        selectedCarButton.setSelected(false);
 
+        selectedCarButton.setOnAction(event -> onSelectedCarButtonClicked());
+        selectedCarButton.hoverProperty().addListener((observable, oldValue, newValue) ->
+                onSelectedCarButtonHovered(newValue));
+
+
+        partListView.setCellFactory(new PartCellFactory());
         partListView.setItems(parts);
+
         partListView.getSelectionModel().getSelectedItems().addListener(
-                (ListChangeListener<Part>) change -> onPartSelected(change.getList().isEmpty() ? null : change.getList().getFirst()));
+                (ListChangeListener<Part>) change -> onPartButtonClicked(change.getList().isEmpty() ? null : change.getList().getFirst()));
 
 
         installPartButton.setOnAction(event -> onInstallPartButtonClicked());
@@ -175,5 +175,6 @@ public class MenuGarageController extends ScreenController {
 
         updateCarButtons();
         updatePlayerMoneyText();
+        displayStats(selectedCar);
     }
 }

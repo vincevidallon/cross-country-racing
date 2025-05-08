@@ -66,8 +66,4 @@ public class GameEnvironment {
 
     public void setSelectedCar(Car selectedCar) { this.selectedCar = selectedCar; }
 
-    public void onQuitRequested() {
-        System.exit(0);
-    }
-
 }
