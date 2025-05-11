@@ -11,11 +11,13 @@ public class MenuShopController extends ScreenController {
     private Label shopBalanceLabel;
 
     @FXML
-    private Button upgradeButton1, upgradeButton2, upgradeButton3;
+    private Button upgradeButton1, upgradeButton2, upgradeButton3, upgradeButton4, upgradeButton5;
 
     @FXML
-    private Button upgradeButton4, upgradeButton5;
+    private Button backButton;
 
+    @FXML
+    private Button selectedPart1, selectedPart2, selectedPart3;
 
     public MenuShopController(GameEnvironment gameEnvironment) {
         super (gameEnvironment);
@@ -30,4 +32,12 @@ public class MenuShopController extends ScreenController {
     protected String getTitle() {
         return "Shop";
     }
+
+    @FXML
+    public void initialize() {
+        updatePlayerMoneyText();
+    }
+
+
+    
 }
