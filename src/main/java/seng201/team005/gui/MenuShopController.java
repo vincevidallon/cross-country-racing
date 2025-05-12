@@ -38,14 +38,28 @@ public class MenuShopController extends ScreenController {
         return "Shop";
     }
 
+    private void onUpgradeButtonClicked(ActionEvent event) {
+        if (nextSlotidx >= selectedParts.size()) {
+            return;
+        }
 
+        Button clicked = (Button) event.getSource();
+        ToggleButton slot = selectedParts.get(nextSlotidx);
+        slot.setText(clicked.getText());
+        slot.setSelected(true);
+        nextSlotidx++;
+    }
     @FXML
     public void initialize() {
         updatePlayerMoneyText();
 
-        upgradeButtons = List.of(upgradeButton1);
+        upgradeButtons = List.of(upgradeButton1, upgradeButton2, upgradeButton3, upgradeButton4, upgradeButton5);
         selectedParts = List.of(selectedPart1, selectedPart2, selectedPart3);
         nextSlotidx = 0;
+
+        for (Button button : upgradeButtons) {
+            button.setOnAction(this::onUpgradeButtonClicked);
+        }
 
 
         backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
