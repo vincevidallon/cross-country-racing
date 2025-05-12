@@ -4,15 +4,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import javafx.scene.control.Button;
 import seng201.team005.models.Part;
 import seng201.team005.models.Car;
+import seng201.team005.models.Purchasable;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+
+/**
+ * Controller class for the shop menu
+ *
+ * @author vvi29
+ */
 
 
 public class MenuShopController extends ScreenController {
@@ -21,6 +29,9 @@ public class MenuShopController extends ScreenController {
 
     @FXML
     private Label statsLabel;
+
+    @FXML
+    private Text carSpeedText, carHandlingText, carReliabilityText, carFuelEconomyText, carOverallText;
 
     @FXML
     private Button itemButton1, itemButton2, itemButton3, itemButton4, itemButton5;
@@ -93,7 +104,7 @@ public class MenuShopController extends ScreenController {
 
     private void loadCars() {
         clearItems();
-        availableLabel.setText("Available cars:");
+        availableLabel.setText("Available Cars:");
         List<Car> cars = new ArrayList<>();
         for (int i = 0; i < itemButtons.size(); i++) {
             cars.add(new Car());
@@ -118,6 +129,14 @@ public class MenuShopController extends ScreenController {
 
         itemButtons.forEach(button -> button.setOnAction(this::onUpgradeButtonClicked));
 
+        itemButtons.forEach(button -> {
+            button.setOnMouseEntered(event -> {
+                Purchasable item = (Purchasable) button.getUserData();
+                if (item != null) displayStats(item);
+            });
+        });
+
+
         for (int i = 0; i < selectedItems.size(); i++) {
             int index = i;
             ToggleButton toggleButton = selectedItems.get(i);
@@ -127,26 +146,35 @@ public class MenuShopController extends ScreenController {
                     toggleButton.setUserData(null);
                     nextSlotidx = index;
                 }
+                else {
+                    Purchasable purchased = (Purchasable) toggleButton.getUserData();
+                    displayStats(purchased);
+                }
             });
+
+            toggleButton.setOnMouseEntered(event -> {
+                Purchasable item = (Purchasable) toggleButton.getUserData();
+                if (item != null) displayStats(item);
+            });
+
+
+            purchaseCarsButton.setOnAction(event -> {
+                if (!showCars) {
+                    loadCars();
+                    showCars = true;
+                    purchaseCarsButton.setText("Switch to Parts");
+                    statsLabel.setText("Car Stats:");
+                }
+                else {
+                    loadParts();
+                    showCars = false;
+                    purchaseCarsButton.setText("Switch to Cars");
+                    statsLabel.setText("Part Stats:");
+                }
+            });
+
+            backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
         }
 
-        purchaseCarsButton.setOnAction(event -> {
-            if (!showCars) {
-                loadCars();
-                showCars = true;
-                purchaseCarsButton.setText("Switch to Parts");
-                statsLabel.setText("Car Stats:");
-            }
-            else {
-                loadParts();
-                showCars = false;
-                purchaseCarsButton.setText("Switch to Cars");
-                statsLabel.setText("Part Stats:");
-            }
-        });
-
-        backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
-        }
-
-
+    }
 }
