@@ -27,31 +27,31 @@
       <RowConstraints maxHeight="182.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="upgradeButton1" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Enhanced Tyre Grip" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Button fx:id="itemButton1" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Enhanced Tyre Grip" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin></Button>
-      <Button fx:id="upgradeButton2" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Nitrous Oxide" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Button fx:id="itemButton2" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Nitrous Oxide" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin></Button>
-      <Button fx:id="upgradeButton3" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Upgraded suspension" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Button fx:id="itemButton3" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Upgraded suspension" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin></Button>
-      <Button fx:id="upgradeButton4" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="New brake pads" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button fx:id="itemButton4" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="New brake pads" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin></Button>
-      <Button fx:id="upgradeButton5" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Weight reduction" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="itemButton5" mnemonicParsing="false" prefHeight="97.0" prefWidth="113.0" text="Weight reduction" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <Button fx:id="backButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="63.0" text="Back" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Button fx:id="purchaseCarsButton" mnemonicParsing="false" prefHeight="108.0" prefWidth="193.0" text="Purchase Cars" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Button>
-      <ToggleButton fx:id="selectedPart1" mnemonicParsing="false" prefHeight="87.0" prefWidth="108.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <ToggleButton fx:id="selectedPart2" mnemonicParsing="false" prefHeight="87.0" prefWidth="108.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <ToggleButton fx:id="selectedPart3" mnemonicParsing="false" prefHeight="87.0" prefWidth="108.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <ToggleButton fx:id="selectedItem1" mnemonicParsing="false" prefHeight="87.0" prefWidth="108.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <ToggleButton fx:id="selectedItem2" mnemonicParsing="false" prefHeight="87.0" prefWidth="108.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <ToggleButton fx:id="selectedItem3" mnemonicParsing="false" prefHeight="87.0" prefWidth="108.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
       <Text fx:id="playerMoneyText" strokeType="OUTSIDE" strokeWidth="0.0" text="Remaining Balance: " textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
          <font>
             <Font size="17.0" />
@@ -80,11 +80,11 @@
                   <Insets top="16.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Available Parts:">
+            <Label fx:id="availableLabel" text="Available Parts:">
                <font>
-                  <Font name="System Italic" size="18.0" />
+                  <Font size="18.0" />
                </font>
-            </Text>
+            </Label>
          </children>
       </VBox>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cart:" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -115,7 +115,7 @@
                </GridPane.margin>
             </Text>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="250.0" stroke="BLACK" strokeType="INSIDE" width="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-            <Label text="Part Stats:" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Label fx:id="statsLabel" prefHeight="29.0" prefWidth="83.0" text="Part Stats:" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
