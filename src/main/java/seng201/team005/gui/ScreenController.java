@@ -11,8 +11,8 @@ import seng201.team005.models.Purchasable;
 
 import java.util.List;
 
-import static seng201.team005.gui.MenuService.convertStatToStars;
-import static seng201.team005.gui.MenuService.getSpacedSign;
+import static seng201.team005.services.MenuService.convertStatToStars;
+import static seng201.team005.services.MenuService.getSpacedSign;
 
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.

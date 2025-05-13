@@ -1,5 +1,7 @@
 package seng201.team005.models;
 
+import seng201.team005.services.MenuService;
+
 import java.util.Random;
 
 public abstract class Purchasable {
@@ -42,7 +44,7 @@ public abstract class Purchasable {
     }
 
     public String garageString() {
-        return name + "\n" + "✪".repeat(overall);
+        return name + "\n" + (overall > 0 ? MenuService.convertStatToStars(overall) : "...");
     }
 
     public String getName() {

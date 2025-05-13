@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
+import seng201.team005.services.GarageService;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class MenuGarageController extends ScreenController {
     @FXML
     private ListView<Part> partListView;
 
-    private final GarageService garageService = new GarageService();
+    private final GarageService garageService = new GarageService(this);
     private List<ToggleButton> carButtons = List.of();
     private List<Car> cars = List.of();
     private Car selectedCar = getGameEnvironment().getSelectedCar();
@@ -114,9 +115,24 @@ public class MenuGarageController extends ScreenController {
     }
 
     private void onPartButtonClicked(Part part) {
-        installPartButton.setDisable(part == null);
-        selectedPart = part;
-        if (part != null) displayCarPlusPartStats(selectedCar, part);
+        if (part == selectedPart) {
+            installPartButton.setDisable(true);
+            partListView.getSelectionModel().select(null);
+        } else {
+            installPartButton.setDisable(part == null);
+            selectedPart = part;
+            if (part != null) displayCarPlusPartStats(selectedCar, part);
+        }
+    }
+
+    public void onPartButtonHovered(Part part, boolean isHovered) {
+        if (isHovered) {
+            displayCarPlusPartStats(selectedCar, part);
+        } else if (selectedPart != null) {
+            displayCarPlusPartStats(selectedCar, selectedPart);
+        } else {
+            displayStats(selectedCar);
+        }
     }
 
     private void onInstallPartButtonClicked() {
@@ -162,7 +178,7 @@ public class MenuGarageController extends ScreenController {
                 onSelectedCarButtonHovered(newValue));
 
 
-        partListView.setCellFactory(new PartCellFactory());
+        partListView.setCellFactory(new PartCellFactory(garageService));
         partListView.setItems(parts);
 
         partListView.getSelectionModel().getSelectedItems().addListener(
