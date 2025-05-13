@@ -11,8 +11,7 @@ import seng201.team005.models.Purchasable;
 
 import java.util.List;
 
-import static seng201.team005.services.MenuService.convertStatToStars;
-import static seng201.team005.services.MenuService.getSpacedSign;
+import static seng201.team005.services.MenuService.*;
 
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.
@@ -93,15 +92,15 @@ public abstract class ScreenController {
     }
 
     protected void displayCarPlusPartStats(Car car, Part part) {
-        if (!carSpeedText.getText().isEmpty()) {
+        if (!isTooltipShowing) {
             carNameText.setText(String.format("%s stats:", car.getName()));
-            carSpeedText.setText(convertStatToStars(car.getSpeed()) + getSpacedSign(part.getSpeed()) + convertStatToStars(part.getSpeed()));
-            carHandlingText.setText(convertStatToStars(car.getHandling()) + getSpacedSign(part.getHandling()) + convertStatToStars(part.getHandling()));
-            carReliabilityText.setText(convertStatToStars(car.getReliability()) + getSpacedSign(part.getReliability()) + convertStatToStars(part.getReliability()));
-            carFuelEconomyText.setText(convertStatToStars(car.getFuelEconomy()) + getSpacedSign(part.getFuelEconomy()) + convertStatToStars(part.getFuelEconomy()));
+            carSpeedText.setText(partAdjustStars(car.getSpeed(), part.getSpeed(), 6));
+            carHandlingText.setText(partAdjustStars(car.getHandling(), part.getHandling(), 6));
+            carReliabilityText.setText(partAdjustStars(car.getReliability(), part.getReliability(), 6));
+            carFuelEconomyText.setText(partAdjustStars(car.getFuelEconomy(), part.getFuelEconomy(), 6));
             int overallAdjust = (car.getSpeed() + part.getSpeed() + car.getHandling() + part.getHandling() +
                     car.getReliability() + part.getReliability() + car.getFuelEconomy() + part.getFuelEconomy()) / 4 - car.getOverall();
-            carOverallText.setText(convertStatToStars(car.getOverall()) + getSpacedSign(overallAdjust) + convertStatToStars(overallAdjust));
+            carOverallText.setText(partAdjustStars(car.getOverall(), overallAdjust, 6));
         }
     }
 }
