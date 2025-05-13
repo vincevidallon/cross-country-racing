@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -10,21 +9,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="461.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="seng201.team005.gui.RaceMenuController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="163.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="218.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="130.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="0.0" prefWidth="92.66666412353516" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="201.66665649414062" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="50.333343505859375" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="64.0" minHeight="7.0" prefHeight="63.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="30.333335876464844" minHeight="10.0" prefHeight="30.333335876464844" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="64.0" minHeight="7.0" prefHeight="36.666664123535156" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="192.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="169.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="169.0" minHeight="10.0" prefHeight="77.66668701171875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="53.33331298828125" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your race!" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your race!" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -52,7 +53,7 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <GridPane prefHeight="156.0" prefWidth="102.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4">
+      <GridPane prefHeight="156.0" prefWidth="102.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.33331298828125" minWidth="10.0" prefWidth="105.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.33334350585938" minWidth="10.0" prefWidth="94.0" />
@@ -66,27 +67,27 @@
             <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="59.33331298828125" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Difficulty:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets right="8.0" />
                </GridPane.margin>
-            </Label>
-            <Label text="Fuel Stops:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel Stops:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets right="8.0" />
                </GridPane.margin>
-            </Label>
-            <Label text="Distance:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets right="8.0" />
                </GridPane.margin>
-            </Label>
-            <Label text="Description:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets right="8.0" />
                </GridPane.margin>
-            </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="236.0" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.valignment="TOP" />
+            </Text>
+            <Rectangle fx:id="raceDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="207.0" stroke="BLACK" strokeType="INSIDE" width="198.0" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Race Details" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
          </children>
          <GridPane.margin>
@@ -96,11 +97,12 @@
             <Insets />
          </opaqueInsets>
       </GridPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Race Menu" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Race Menu" GridPane.halignment="CENTER">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Text>
+      <Button fx:id="exitToMenuButton" mnemonicParsing="false" text="Exit to Main Menu" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
    </children>
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
