@@ -55,7 +55,7 @@ public class MenuShopController extends ScreenController {
 
     @Override
     protected String getFxmlFile() {
-        return "/fxml/shop_menu.fxml";
+        return "/fxml/menu_shop.fxml";
     }
 
     @Override
