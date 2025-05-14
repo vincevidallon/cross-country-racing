@@ -11,10 +11,7 @@ import seng201.team005.models.Part;
 import seng201.team005.models.Car;
 import seng201.team005.models.Purchasable;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Controller class for the shop menu
@@ -24,14 +21,13 @@ import java.util.Random;
 
 
 public class MenuShopController extends ScreenController {
+
+
     @FXML
     private Label availableLabel;
 
     @FXML
     private Label statsLabel;
-
-    @FXML
-    private Text carSpeedText, carHandlingText, carReliabilityText, carFuelEconomyText, carOverallText;
 
     @FXML
     private Button itemButton1, itemButton2, itemButton3, itemButton4, itemButton5;
@@ -48,6 +44,9 @@ public class MenuShopController extends ScreenController {
     private final Random random = new Random();
     private boolean showCars = false;
 
+    private final List<Part> parts = new ArrayList<>();
+    private final List<Car> cars = new ArrayList<>();
+
 
     public MenuShopController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -63,14 +62,6 @@ public class MenuShopController extends ScreenController {
         return "Shop";
     }
 
-    private void clearItems() {
-        selectedItems.forEach(item -> {
-            item.setSelected(false);
-            item.setText("");
-            item.setUserData(null);
-        });
-        nextSlotidx = 0;
-    }
 
     private void onUpgradeButtonClicked(ActionEvent event) {
         if (nextSlotidx >= selectedItems.size()) {
@@ -85,40 +76,6 @@ public class MenuShopController extends ScreenController {
     }
 
 
-    private void loadParts() {
-        clearItems();
-        availableLabel.setText("Available Parts:");
-        List<Part> parts = new ArrayList<>();
-        for (int i = 0; i < itemButtons.size(); i++) {
-            parts.add(new Part());
-        }
-        Collections.shuffle(parts, random);
-        for (int i = 0; i < itemButtons.size(); i++) {
-            Button button = itemButtons.get(i);
-            Part part = parts.get(i);
-            button.setText(part.getName());
-            button.setUserData(part);
-        }
-    }
-
-
-    private void loadCars() {
-        clearItems();
-        availableLabel.setText("Available Cars:");
-        List<Car> cars = new ArrayList<>();
-        for (int i = 0; i < itemButtons.size(); i++) {
-            cars.add(new Car());
-        }
-        Collections.shuffle(cars, random);
-        for (int i = 0; i < itemButtons.size(); i++) {
-            Button button = itemButtons.get(i);
-            Car car = cars.get(i);
-            button.setText(car.getName());
-            button.setUserData(car);
-        }
-    }
-
-
     @FXML
     public void initialize() {
         updatePlayerMoneyText();
@@ -126,6 +83,19 @@ public class MenuShopController extends ScreenController {
         itemButtons = List.of(itemButton1, itemButton2, itemButton3, itemButton4, itemButton5);
         selectedItems = List.of(selectedItem1, selectedItem2, selectedItem3);
         nextSlotidx = 0;
+
+        for (Button button : itemButtons) {
+            String text = button.getText();
+            Part part = new Part(text);
+            parts.add(part);
+            button.setUserData(part);
+        }
+
+        for (int i = 0; i < itemButtons.size(); i++) {
+            cars.add(new Car());
+        }
+        Collections.shuffle(cars, random);
+
 
         itemButtons.forEach(button -> button.setOnAction(this::onUpgradeButtonClicked));
 
@@ -145,8 +115,7 @@ public class MenuShopController extends ScreenController {
                     toggleButton.setText("");
                     toggleButton.setUserData(null);
                     nextSlotidx = index;
-                }
-                else {
+                } else {
                     Purchasable purchased = (Purchasable) toggleButton.getUserData();
                     displayStats(purchased);
                 }
@@ -156,25 +125,40 @@ public class MenuShopController extends ScreenController {
                 Purchasable item = (Purchasable) toggleButton.getUserData();
                 if (item != null) displayStats(item);
             });
+        }
 
 
             purchaseCarsButton.setOnAction(event -> {
                 if (!showCars) {
-                    loadCars();
                     showCars = true;
                     purchaseCarsButton.setText("Switch to Parts");
                     statsLabel.setText("Car Stats:");
+                    availableLabel.setText("Available Cars:");
+                    for (int idx = 0; idx < itemButtons.size(); idx++) {
+                        Button button = itemButtons.get(idx);
+                        Car car = cars.get(idx);
+                        button.setText(car.getName());
+                        button.setUserData(car);
+                    }
                 }
+
                 else {
-                    loadParts();
                     showCars = false;
                     purchaseCarsButton.setText("Switch to Cars");
                     statsLabel.setText("Part Stats:");
+                    availableLabel.setText("Available Parts:");
+                    for (int idx = 0; idx < itemButtons.size(); idx++) {
+                        Button button = itemButtons.get(idx);
+                        Part part = parts.get(idx);
+                        button.setText(part.getName());
+                        button.setUserData(part);
+                    }
                 }
             });
 
+            showCars = true;
+            purchaseCarsButton.fire();
             backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
         }
 
-    }
 }
