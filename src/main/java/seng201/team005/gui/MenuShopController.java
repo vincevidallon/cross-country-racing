@@ -125,6 +125,8 @@ public class MenuShopController extends ScreenController {
             showCars = !showCars;
             availableLabel.setText(showCars ? "Available Cars:" : "Available Parts:");
             statsLabel.setText(showCars ? "Car Stats:" : "Part Stats:");
+            purchaseCarsButton.setText(showCars ? "Purchase Parts:" : "Purchase Cars:");
+            refreshShopButtons();
         });
     }
 
