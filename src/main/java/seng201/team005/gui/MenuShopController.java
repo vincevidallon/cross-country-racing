@@ -22,7 +22,6 @@ import java.util.*;
 
 public class MenuShopController extends ScreenController {
 
-
     @FXML
     private Label availableLabel;
 
@@ -44,6 +43,8 @@ public class MenuShopController extends ScreenController {
     private final Random random = new Random();
     private boolean showCars = false;
 
+    private final List<Integer> partCosts = new ArrayList<>();
+    private final List<Integer> carCosts = new ArrayList<>();
     private final List<Part> parts = new ArrayList<>();
     private final List<Car> cars = new ArrayList<>();
 
@@ -75,6 +76,58 @@ public class MenuShopController extends ScreenController {
         nextSlotidx++;
     }
 
+    private void generatePartsandCars() {
+        for (Button button : itemButtons) {
+            parts.add(new Part(button.getText()));
+        }
+        for (int i = 0; i < itemButtons.size(); i++) {
+            cars.add(new Car());
+        }
+        Collections.shuffle(cars, random);
+    }
+
+    private void itemButtonSetup() {
+        for (int i = 0; i < itemButtons.size(); i++) {
+            final int index = i;
+            Button button = itemButtons.get(i);
+            button.setOnAction(this::onUpgradeButtonClicked);
+            button.setOnMouseEntered( event -> {
+                Purchasable item = (Purchasable) button.getUserData();
+                if (item != null) displayStats(item);
+            });
+        }
+    }
+
+    private void toggleSlotSetup() {
+        for (int i = 0; i < selectedItems.size(); i++) {
+            final int index = i;
+            Button button = itemButtons.get(i);
+            button.setOnMouseEntered(event -> {
+                Purchasable item = (Purchasable) button.getUserData();
+                if (item != null) displayStats(item);
+            });
+        }
+    }
+
+    private void slotClickHandle(int slotIdx, ToggleButton button) {
+        if (!button.isSelected()) {
+            button.setText("");
+            button.setUserData(null);
+            nextSlotidx = slotIdx;
+        }
+        else {
+            Purchasable item = (Purchasable) button.getUserData();
+            if (item != null) displayStats(item);
+        }
+    }
+
+    private void purchaseSwitch() {
+        purchaseCarsButton.setOnAction(event -> {
+            showCars = !showCars;
+            availableLabel.setText(showCars ? "Available Cars:" : "Available Parts:");
+            statsLabel.setText(showCars ? "Car Stats:" : "Part Stats:");
+        });
+    }
 
     @FXML
     public void initialize() {
@@ -84,28 +137,33 @@ public class MenuShopController extends ScreenController {
         selectedItems = List.of(selectedItem1, selectedItem2, selectedItem3);
         nextSlotidx = 0;
 
+        // Mapping the five part names from FXML buttons in the same order as it appears in SceneBuilder
+        // as well as generating a random cost for each part
         for (Button button : itemButtons) {
             String text = button.getText();
             Part part = new Part(text);
             parts.add(part);
-            button.setUserData(part);
+            partCosts.add(random.nextInt(10, 20));
         }
 
+        // Shuffling cars only once, stay the same for the entire iteration
         for (int i = 0; i < itemButtons.size(); i++) {
             cars.add(new Car());
+            carCosts.add(random.nextInt(20, 40));
         }
         Collections.shuffle(cars, random);
+        Collections.shuffle(carCosts, random);
 
-
+        // Action for adding a part to the cart when clicked
         itemButtons.forEach(button -> button.setOnAction(this::onUpgradeButtonClicked));
 
+        // Hover functionality for showing item stats in the stats grid pane, not finished yet
         itemButtons.forEach(button -> {
             button.setOnMouseEntered(event -> {
                 Purchasable item = (Purchasable) button.getUserData();
                 if (item != null) displayStats(item);
             });
         });
-
 
         for (int i = 0; i < selectedItems.size(); i++) {
             int index = i;
@@ -115,7 +173,8 @@ public class MenuShopController extends ScreenController {
                     toggleButton.setText("");
                     toggleButton.setUserData(null);
                     nextSlotidx = index;
-                } else {
+                }
+                else {
                     Purchasable purchased = (Purchasable) toggleButton.getUserData();
                     displayStats(purchased);
                 }
@@ -127,7 +186,7 @@ public class MenuShopController extends ScreenController {
             });
         }
 
-
+            // Toggle functionality for switching between purchasing cars and parts
             purchaseCarsButton.setOnAction(event -> {
                 if (!showCars) {
                     showCars = true;
@@ -156,9 +215,37 @@ public class MenuShopController extends ScreenController {
                 }
             });
 
+            // Functionality for the buy button
+            buyButton.setOnAction(event -> {
+                int costTotal = 0;
+                List<Purchasable> toBuy = new ArrayList<>();
+                for (int i = 0; i < selectedItems.size(); i++) {
+                    ToggleButton button = selectedItems.get(i);
+                    Purchasable item = (Purchasable) button.getUserData();
+                    if (item != null) {
+                        toBuy.add(item);
+                        costTotal += showCars ? carCosts.get(i) : partCosts.get(i);
+                    }
+                }
+                if (toBuy.isEmpty()) {
+                    return;
+                }
+
+                int balance = getGameEnvironment().getMoney();
+                if (balance < costTotal) {
+                    // Warning message here
+                    return;
+                }
+
+                getGameEnvironment().setMoney(balance - costTotal);
+                updatePlayerMoneyText();
+
+            });
+
             showCars = true;
             purchaseCarsButton.fire();
             backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
-        }
+    }
 
 }
+
