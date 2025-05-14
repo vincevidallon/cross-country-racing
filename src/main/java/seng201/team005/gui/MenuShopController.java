@@ -91,7 +91,7 @@ public class MenuShopController extends ScreenController {
             final int index = i;
             Button button = itemButtons.get(i);
             button.setOnAction(this::onUpgradeButtonClicked);
-            button.setOnMouseEntered( event -> {
+            button.setOnMouseEntered(event -> {
                 Purchasable item = (Purchasable) button.getUserData();
                 if (item != null) displayStats(item);
             });
@@ -114,8 +114,7 @@ public class MenuShopController extends ScreenController {
             button.setText("");
             button.setUserData(null);
             nextSlotidx = slotIdx;
-        }
-        else {
+        } else {
             Purchasable item = (Purchasable) button.getUserData();
             if (item != null) displayStats(item);
         }
@@ -129,17 +128,70 @@ public class MenuShopController extends ScreenController {
         });
     }
 
+    private void refreshShopButtons() {
+        List<? extends Purchasable> items = showCars ? cars : parts;
+        for (int i = 0; i < itemButtons.size(); i++) {
+            Purchasable item = items.get(i);
+            Button button = itemButtons.get(i);
+            button.setText(item.shopString());
+            button.setUserData(item);
+        }
+    }
+
+    private void handleBackButton() {
+        backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
+    }
+
+    private void clearSelectedItems() {
+        selectedItems.forEach(item -> {
+            item.setSelected(false);
+            item.setText("");
+            item.setUserData(null);
+        });
+        nextSlotidx = 0;
+    }
+
+    private void buyButtonSetup() {
+        buyButton.setOnAction(event -> {
+            List<Purchasable> toBuy = new ArrayList<>();
+            for (ToggleButton button : selectedItems) {
+                if (button.isSelected()) {
+                    Purchasable item = (Purchasable) button.getUserData();
+                    if (item != null) toBuy.add(item);
+                }
+            }
+            int costTotal = toBuy.stream().mapToInt(Purchasable::getBuyValue).sum();
+            int balance = getGameEnvironment().getMoney();
+            if (balance < costTotal) {
+                return;
+            }
+            getGameEnvironment().setMoney(balance - costTotal);
+            updatePlayerMoneyText();
+            clearSelectedItems();
+        });
+    }
+
     @FXML
     public void initialize() {
-        updatePlayerMoneyText();
-
         itemButtons = List.of(itemButton1, itemButton2, itemButton3, itemButton4, itemButton5);
         selectedItems = List.of(selectedItem1, selectedItem2, selectedItem3);
-        nextSlotidx = 0;
+
+        generatePartsandCars();
+        itemButtonSetup();
+        toggleSlotSetup();
+        purchaseSwitch();
+        handleBackButton();
+        buyButtonSetup();
+
+        showCars = false;
+        refreshShopButtons();
+        updatePlayerMoneyText();
+    }
+}
 
         // Mapping the five part names from FXML buttons in the same order as it appears in SceneBuilder
         // as well as generating a random cost for each part
-        for (Button button : itemButtons) {
+        /*for (Button button : itemButtons) {
             String text = button.getText();
             Part part = new Part(text);
             parts.add(part);
@@ -248,4 +300,6 @@ public class MenuShopController extends ScreenController {
     }
 
 }
+
+*/
 
