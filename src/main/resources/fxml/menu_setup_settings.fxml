@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuSetupSettingsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuSetupSettingsController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="189.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.0" minWidth="10.0" prefWidth="379.0" />
@@ -114,6 +114,11 @@
             </Text>
          </children>
       </VBox>
+      <Text fx:id="incompatibleNameText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Your name must be 3-15 alphanumeric characters!" textAlignment="CENTER" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

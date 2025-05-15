@@ -4,9 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Controller for the setup_main.fxml window
@@ -15,6 +18,8 @@ import java.util.List;
  */
 public class MenuSetupSettingsController extends ScreenController {
 
+    @FXML
+    private Text incompatibleNameText;
     @FXML
     private TextField nameField;
     @FXML
@@ -39,7 +44,16 @@ public class MenuSetupSettingsController extends ScreenController {
 
     @FXML
     private void onGoButtonClicked() {
-        getGameEnvironment().onSetupComplete(nameField.getText().strip(), (int) seasonLengthSlider.getValue(), difficulty);
+        String name = nameField.getText().strip();
+        Pattern pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(name);
+        boolean isSpecialCharacterDetected = matcher.find();
+
+        if (isSpecialCharacterDetected || name.length() < 3 || name.length() > 15) {
+            incompatibleNameText.setVisible(true);
+        } else {
+            getGameEnvironment().onSetupComplete(name, (int) seasonLengthSlider.getValue(), difficulty);
+        }
     }
 
 
