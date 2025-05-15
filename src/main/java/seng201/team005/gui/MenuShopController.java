@@ -63,7 +63,8 @@ public class MenuShopController extends ScreenController {
         return "Shop";
     }
 
-
+    // Clicking on an item in the button and adding to the next
+    // available slot in the cart
     private void onUpgradeButtonClicked(ActionEvent event) {
         if (nextSlotidx >= selectedItems.size()) {
             return;
@@ -76,6 +77,9 @@ public class MenuShopController extends ScreenController {
         nextSlotidx++;
     }
 
+    // Randomly generating parts and cars for the shop.
+    // The shop refreshes every iteration, so a new set of
+    // cars are available when relaunching the screen
     private void generatePartsandCars() {
         for (Button button : itemButtons) {
             parts.add(new Part(button.getText()));
@@ -86,7 +90,8 @@ public class MenuShopController extends ScreenController {
         Collections.shuffle(cars, random);
     }
 
-    private void itemButtonSetup() {
+    // Click and hover functionality for item buttons
+    private void selectedItemSetup() {
         for (int i = 0; i < itemButtons.size(); i++) {
             final int index = i;
             Button button = itemButtons.get(i);
@@ -98,10 +103,12 @@ public class MenuShopController extends ScreenController {
         }
     }
 
-    private void toggleSlotSetup() {
+    // Click and hover functionality for selected item toggle buttons
+    private void toggleButtonSetup() {
         for (int i = 0; i < selectedItems.size(); i++) {
             final int index = i;
-            Button button = itemButtons.get(i);
+            ToggleButton button = selectedItems.get(i);
+            button.setOnAction(event -> toggleClick(index, button));
             button.setOnMouseEntered(event -> {
                 Purchasable item = (Purchasable) button.getUserData();
                 if (item != null) displayStats(item);
@@ -109,17 +116,21 @@ public class MenuShopController extends ScreenController {
         }
     }
 
-    private void slotClickHandle(int slotIdx, ToggleButton button) {
+    // Selection and deselection logic for toggle buttons
+    private void toggleClick(int slotIdx, ToggleButton button) {
         if (!button.isSelected()) {
             button.setText("");
             button.setUserData(null);
             nextSlotidx = slotIdx;
-        } else {
+        }
+        else {
             Purchasable item = (Purchasable) button.getUserData();
             if (item != null) displayStats(item);
         }
     }
 
+    // Managing the purchase cars button to toggle between purchasing
+    // cars and purchasing parts
     private void purchaseSwitch() {
         purchaseCarsButton.setOnAction(event -> {
             showCars = !showCars;
@@ -130,6 +141,8 @@ public class MenuShopController extends ScreenController {
         });
     }
 
+
+    // Updating the shop with
     private void refreshShopButtons() {
         List<? extends Purchasable> items = showCars ? cars : parts;
         for (int i = 0; i < itemButtons.size(); i++) {
@@ -140,10 +153,12 @@ public class MenuShopController extends ScreenController {
         }
     }
 
+    // Wiring up the back button to go back to main menu
     private void handleBackButton() {
         backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
     }
 
+    // Clearing the selected items and resetting insertion index
     private void clearSelectedItems() {
         selectedItems.forEach(item -> {
             item.setSelected(false);
@@ -153,6 +168,7 @@ public class MenuShopController extends ScreenController {
         nextSlotidx = 0;
     }
 
+    // Wiring up the buy button for purchasing selected items in the cart
     private void buyButtonSetup() {
         buyButton.setOnAction(event -> {
             List<Purchasable> toBuy = new ArrayList<>();
@@ -173,17 +189,19 @@ public class MenuShopController extends ScreenController {
         });
     }
 
+
     @FXML
     public void initialize() {
         itemButtons = List.of(itemButton1, itemButton2, itemButton3, itemButton4, itemButton5);
         selectedItems = List.of(selectedItem1, selectedItem2, selectedItem3);
 
         generatePartsandCars();
-        itemButtonSetup();
-        toggleSlotSetup();
+        selectedItemSetup();
+        toggleButtonSetup();
         purchaseSwitch();
         handleBackButton();
         buyButtonSetup();
+
 
         showCars = false;
         refreshShopButtons();
