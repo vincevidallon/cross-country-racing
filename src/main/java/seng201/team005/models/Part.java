@@ -5,6 +5,7 @@ public class Part extends Purchasable {
 
     public Part(String name) {
         super(name, -1, 4);
+        buyValue += 2;
     }
 
     public Part() {
