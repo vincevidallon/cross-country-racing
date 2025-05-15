@@ -1,7 +1,7 @@
-# SENG201 Template Project Overview
-Welcome to the template project for SENG201 which you will transform into your own.
-This README file includes some useful information to help you get started.
-However, we expect that this README becomes your own.
+# SENG201 2025 Project: Cross Country Racing
+The Cross Country Racing game is a JavaFX-based application made for the SENG201 project. The primary focus of
+this application is to make a game in which players are able to buy, sell, maintain, and race vehicles with the aim
+of accumulating the highest amount of prize money possible over a selected number of days. 
 
 ## Notes
 Remember you are required to commit your code to the **main** branch of your repository before the deadline.
@@ -12,8 +12,8 @@ This can be done by renaming any instance of `team0` with `team<x>` (where x is 
 IntelliJ can help with this using `ctrl+shift+f` to find all instances of a string, and `ctrl+shift+r` to replace them, though make sure to change the package names as well.
 
 ## Authors
-- SENG201 Teaching team
-
+- Sky Harrington-Baker
+- Vince Vidallon
 ## Prerequisites
 - JDK >= 21 [click here to get the latest stable OpenJDK release (as of writing this README)](https://jdk.java.net/21/)
 - *(optional)* Gradle [Download](https://gradle.org/releases/) and [Install](https://gradle.org/install/)
