@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuRaceController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuRaceController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -92,12 +92,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text fx:id="carNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Race stats: " GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+            <Text fx:id="carNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Your stats: " GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Text fx:id="carFuelEconomyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Text fx:id="carFuelEconomyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -111,6 +111,14 @@
                </font>
                <GridPane.margin>
                   <Insets left="30.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fx:id="carFuelEconomyLabelText2" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="8.0" />
                </GridPane.margin>
             </Text>
          </children>
