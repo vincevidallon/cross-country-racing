@@ -118,21 +118,33 @@
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="carReliabilityText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="carHandlingText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="carSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="statTooltipText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Hover over a part to view its stats!" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
@@ -193,6 +205,9 @@
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
          </children>
       </GridPane>

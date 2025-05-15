@@ -23,7 +23,7 @@ public class MenuMainController extends ScreenController {
     protected String getTitle() { return "Cross Country Racing"; }
 
     public void initialize() {
-        raceButton.setOnAction(event -> getGameEnvironment().launchScreen(new RaceMenuController(getGameEnvironment())));
+        raceButton.setOnAction(event -> getGameEnvironment().launchScreen(new RaceSetupController(getGameEnvironment())));
         shopButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuShopController(getGameEnvironment())));
         garageButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuGarageController(getGameEnvironment())));
         quitButton.setOnAction(event -> onQuitRequested());
