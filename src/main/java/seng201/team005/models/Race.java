@@ -5,41 +5,57 @@ import java.util.List;
 import java.util.Random;
 
 public class Race {
-    private int hours;
+    private int maxDuration;
     private int entries;
-    private List<Route> routeList = List.of();
     private int prizeMoney;
-    private Route route;
+    private List<Route> routeList = new ArrayList<>();
+    private Route selectedRoute;
 
     public Race(int difficulty) {
         Random rng = new Random();
         switch (difficulty) {
             case 0: // easy
-                hours = rng.nextInt(5, 10);
+                maxDuration = rng.nextInt(5, 10);
                 entries = rng.nextInt(1, 5);
-                for (int i = 0; i < rng.nextInt(1, 3); i++) {
-                    routeList.add(new Route());
-                }
                 prizeMoney = rng.nextInt(3, 6);
-            case 1: // medium
-                hours = rng.nextInt(10, 15);
-                entries = rng.nextInt(3, 9);
+
                 for (int i = 0; i < rng.nextInt(1, 3); i++) {
                     routeList.add(new Route());
                 }
+                break;
+            case 1: // medium
+                maxDuration = rng.nextInt(10, 15);
+                entries = rng.nextInt(3, 9);
                 prizeMoney = rng.nextInt(6, 10);
+
+                for (int i = 0; i < rng.nextInt(1, 3); i++) {
+                    routeList.add(new Route());
+                }
+                break;
             case 2: // hard
-                hours = rng.nextInt(15, 21);
+                maxDuration = rng.nextInt(15, 21);
                 entries = rng.nextInt(5, 13);
+                prizeMoney = rng.nextInt(10, 16);
+
                 for (int i = 0; i < rng.nextInt(2,4); i++) {
                     routeList.add(new Route());
                 }
-                prizeMoney = rng.nextInt(10, 16);
         }
     }
 
-    public int getHours() {
-        return hours;
+    @Override
+    public String toString() {
+        return "Race{" +
+                "maxDuration=" + maxDuration +
+                ", entries=" + entries +
+                ", prizeMoney=" + prizeMoney +
+                ", routeList=" + routeList +
+                ", selectedRoute=" + selectedRoute +
+                '}';
+    }
+
+    public int getMaxDuration() {
+        return maxDuration;
     }
 
     public int getEntries() {
@@ -54,7 +70,11 @@ public class Race {
         return prizeMoney;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public Route getSelectedRoute() {
+        return selectedRoute;
+    }
+
+    public void setSelectedRoute(Route selectedRoute) {
+        this.selectedRoute = selectedRoute;
     }
 }

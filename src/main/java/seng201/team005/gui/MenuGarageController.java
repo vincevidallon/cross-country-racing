@@ -87,10 +87,7 @@ public class MenuGarageController extends ScreenController {
     }
 
     private void onSelectedCarButtonClicked() {
-        selectedCar = null;
-        selectedCarButton.setText("");
-        selectedCarButton.setSelected(true);
-        updateCarButtons();
+        selectedCarButton.setSelected(false);
     }
 
 
@@ -107,22 +104,15 @@ public class MenuGarageController extends ScreenController {
 
 
     private void onBackButtonClicked() {
-        if (selectedCar == null) {
-            mustSelectCarText.setVisible(true);
-        } else {
-            getGameEnvironment().setSelectedCar(selectedCar);
-            getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
-        }
+        getGameEnvironment().setSelectedCar(selectedCar);
+        getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
     private void onPartButtonClicked(Part part) {
-        if (part == selectedPart) {
-            installPartButton.setDisable(true);
-            partListView.getSelectionModel().select(null);
-        } else {
-            installPartButton.setDisable(part == null);
-            selectedPart = part;
-            if (part != null) displayCarPlusPartStats(selectedCar, part);
+        installPartButton.setDisable(part == null);
+        selectedPart = part;
+        if (part != null) {
+            displayCarPlusPartStats(selectedCar, part);
         }
     }
 
