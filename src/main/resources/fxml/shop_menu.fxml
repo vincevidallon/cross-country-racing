@@ -114,42 +114,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text fx:id="carSpeedText1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font>
+            <Text fx:id="carFuelEconomyText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carHandlingText1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-               <font>
-                  <Font size="18.0" />
-               </font>
+            <Text fx:id="carReliabilityText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carReliabilityText1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
-               <font>
-                  <Font size="18.0" />
-               </font>
+            <Text fx:id="carHandlingText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carFuelEconomyText1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="8.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fx:id="carOverallText1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
-               <font>
-                  <Font size="18.0" />
-               </font>
+            <Text fx:id="carSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
@@ -166,7 +146,7 @@
             </Text>
             <Text fx:id="carSpeedLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
                <GridPane.margin>
                   <Insets right="8.0" />
@@ -174,7 +154,7 @@
             </Text>
             <Text fx:id="carHandlingLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Handling:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
                <GridPane.margin>
                   <Insets right="8.0" />
@@ -182,7 +162,7 @@
             </Text>
             <Text fx:id="carReliabilityLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Reliability:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
                <GridPane.margin>
                   <Insets right="8.0" />
@@ -190,7 +170,7 @@
             </Text>
             <Text fx:id="carFuelEconomyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel economy:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
                <GridPane.margin>
                   <Insets right="8.0" />
@@ -198,17 +178,22 @@
             </Text>
             <Text fx:id="carOverallLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Overall:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Label fx:id="statsLabel" text="Part Stats:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Text fx:id="carNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Part Stats:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="21.0" />
                </font>
-            </Label>
+            </Text>
+            <Text fx:id="carOverallText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="8.0" />
+               </GridPane.margin>
+            </Text>
          </children>
       </GridPane>
    </children>

@@ -26,7 +26,7 @@ public class MenuShopController extends ScreenController {
     private Label availableLabel;
 
     @FXML
-    private Label statsLabel;
+    private Text carNameText;
 
     @FXML
     private Button itemButton1, itemButton2, itemButton3, itemButton4, itemButton5;
@@ -55,7 +55,7 @@ public class MenuShopController extends ScreenController {
 
     @Override
     protected String getFxmlFile() {
-        return "/fxml/menu_shop.fxml";
+        return "/fxml/shop_menu.fxml";
     }
 
     @Override
@@ -135,7 +135,7 @@ public class MenuShopController extends ScreenController {
         purchaseCarsButton.setOnAction(event -> {
             showCars = !showCars;
             availableLabel.setText(showCars ? "Available Cars:" : "Available Parts:");
-            statsLabel.setText(showCars ? "Car Stats:" : "Part Stats:");
+            carNameText.setText(showCars ? "Car Stats:" : "Part Stats:");
             purchaseCarsButton.setText(showCars ? "Purchase Parts:" : "Purchase Cars:");
             refreshShopButtons();
         });

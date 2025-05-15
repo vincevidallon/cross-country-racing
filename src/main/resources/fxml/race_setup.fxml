@@ -67,28 +67,31 @@
             <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="59.33331298828125" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prize Money:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel Stops:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Routes:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Entries:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hours:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
             <Rectangle fx:id="raceDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="207.0" stroke="BLACK" strokeType="INSIDE" width="198.0" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Race Details" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Race Details" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Text>
          </children>
          <GridPane.margin>
             <Insets left="12.0" right="16.0" top="55.0" />
