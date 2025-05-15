@@ -16,8 +16,18 @@ public class Route {
 
         List<String> descriptionList = List.of("Baby Land", "Dusty Trail", "Hell Bends");
         description = descriptionList.get(difficulty);
-        distance = 3 * (difficulty + 1) + rng.nextInt(-2, 3);
+        distance = 10 * (difficulty + 1); // + rng.nextInt(-2, 3) can be added for some random variation
         fuelStops = 3 - difficulty;
+    }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "description='" + description + '\'' +
+                ", distance=" + distance +
+                ", fuelStops=" + fuelStops +
+                ", difficulty=" + difficulty +
+                '}';
     }
 
     public String getDescription() {
