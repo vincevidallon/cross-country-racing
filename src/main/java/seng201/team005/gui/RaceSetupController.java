@@ -2,14 +2,40 @@ package seng201.team005.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
+import seng201.team005.models.Race;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Controller for the race setup screen
+ *
+ * @author vvi29
+ */
+
 
 public class RaceSetupController extends ScreenController {
     @FXML
-    private Button exitToMenuButton;
+    private Button exitToMenuButton, confirmRaceButton;
 
     @FXML
     private Button raceButton1, raceButton2, raceButton3;
+
+    @FXML
+    private Text raceHoursLabelText, raceEntriesLabelText, raceRoutesLabelText, racePrizeMoneyLabelText;
+
+    @FXML
+    private Text raceHoursText, raceEntriesText, raceRoutesText, racePrizeMoneyText;
+
+    @FXML
+    private javafx.scene.shape.Rectangle raceDetailsPane;
+
+    private List<Text> raceStats;
+
+    private List<Button> raceButtons = List.of();
+    private List<Race> races = new ArrayList<>();
 
     public RaceSetupController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -32,8 +58,57 @@ public class RaceSetupController extends ScreenController {
         exitToMenuButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
     }
 
+    // Handling the confirm race button to proceed to the next screen
+    // private void handleConfirmRaceButton()
+
+
+    // Method for generating races
+    private void generateRaces(int difficulty) {
+        for (int i = 0; i < raceButtons.size(); i++) {
+            Race race = new Race(difficulty);
+            races.add(race);
+        }
+    }
+
+    // Method for handling the hover setup logic, similar to shop screen
+    private void hoverSetup() {
+        for (int i = 0; i < raceButtons.size(); i++) {
+            Button button  = raceButtons.get(i);
+            button.setUserData(races.get(i));
+            button.setOnMouseEntered(event -> {
+                Race hoveredRace = (Race) button.getUserData();
+                if (hoveredRace != null) {
+                    displayRaceStats(hoveredRace);
+                    setStatVisibility(true);
+                }
+            });
+            button.setOnMouseExited(event -> setStatVisibility(false));
+        }
+    }
+
+    // Obtaining the race stats
+    private void displayRaceStats(Race race) {
+        raceHoursText.setText(String.valueOf(race.getHours()));
+        raceEntriesText.setText(String.valueOf(race.getEntries()));
+        racePrizeMoneyText.setText("$" + race.getPrizeMoney());
+    }
+
+    private void setStatVisibility(boolean showing) {
+        raceStats.forEach(text -> text.setVisible(showing));
+    }
+
     @FXML
     public void initialize() {
+
+        raceButtons = List.of(raceButton1, raceButton2, raceButton3);
+        raceStats = List.of(raceHoursLabelText, raceEntriesLabelText, raceRoutesLabelText,
+                racePrizeMoneyLabelText, raceHoursText, raceEntriesText, raceRoutesText, racePrizeMoneyText);
+
+
+        raceDetailsPane.toBack();
+        setStatVisibility(false);
         handleExitButton();
+        generateRaces(1);
+        hoverSetup();
     }
 }
