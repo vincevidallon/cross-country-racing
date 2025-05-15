@@ -1,6 +1,7 @@
 package seng201.team005.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -25,8 +26,10 @@ public class MenuSetupSettingsController extends ScreenController {
     @FXML
     private Slider seasonLengthSlider;
     @FXML
-    private ToggleButton easyDifficultyButton, normalDifficultyButton, hardDifficultyButton;
-    private int difficulty = 1;
+    private ToggleButton normalDifficultyButton, hardDifficultyButton;
+    @FXML
+    private Button goButton;
+    private int difficulty = 0;
 
     public MenuSetupSettingsController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -42,7 +45,6 @@ public class MenuSetupSettingsController extends ScreenController {
         return "Cross Country Racing | Setup";
     }
 
-    @FXML
     private void onGoButtonClicked() {
         String name = nameField.getText().strip();
         Pattern pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
@@ -52,7 +54,7 @@ public class MenuSetupSettingsController extends ScreenController {
         if (isSpecialCharacterDetected || name.length() < 3 || name.length() > 15) {
             incompatibleNameText.setVisible(true);
         } else {
-            getGameEnvironment().onSetupComplete(name, (int) seasonLengthSlider.getValue(), difficulty);
+            getGameEnvironment().onSetupComplete(name, (int) seasonLengthSlider.getValue(), difficulty + 1);
         }
     }
 
@@ -63,11 +65,13 @@ public class MenuSetupSettingsController extends ScreenController {
     }
 
     public void initialize() {
-        List<ToggleButton> difficultyButtons = List.of(easyDifficultyButton, normalDifficultyButton, hardDifficultyButton);
+        List<ToggleButton> difficultyButtons = List.of(normalDifficultyButton, hardDifficultyButton);
 
         for (int i = 0; i < difficultyButtons.size(); i++) {
             int difficultyIndex = i;
             difficultyButtons.get(i).setOnAction(event -> onDifficultyButtonSelected(difficultyButtons, difficultyIndex));
         }
+
+        goButton.setOnAction(event -> onGoButtonClicked());
     }
 }

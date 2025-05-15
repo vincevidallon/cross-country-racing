@@ -51,22 +51,13 @@
       <GridPane GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ToggleButton fx:id="easyDifficultyButton" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Easy (implement if we want to later on)" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-               </GridPane.margin>
-            </ToggleButton>
-            <ToggleButton fx:id="normalDifficultyButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Normal" textAlignment="CENTER" GridPane.columnIndex="1">
+            <ToggleButton fx:id="normalDifficultyButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="Normal" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
@@ -74,7 +65,7 @@
                   <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                </GridPane.margin>
             </ToggleButton>
-            <ToggleButton fx:id="hardDifficultyButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Hard" textAlignment="CENTER" GridPane.columnIndex="2">
+            <ToggleButton fx:id="hardDifficultyButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Hard" textAlignment="CENTER" GridPane.columnIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
@@ -87,7 +78,7 @@
             <Insets />
          </GridPane.margin>
       </GridPane>
-      <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#onGoButtonClicked" prefHeight="77.0" prefWidth="341.0" text="GO!!!" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+      <Button fx:id="goButton" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="77.0" prefWidth="341.0" text="GO!!!" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5">
          <font>
             <Font name="System Bold Italic" size="48.0" />
          </font>
