@@ -8,7 +8,7 @@ plugins {
 archivesBaseName = 'seng201_team0'
 group = 'seng201.team0'
 version = '1.0-SNAPSHOT'
-mainClassName = 'seng201.team0.App'
+mainClassName = 'seng201.team005.App'
 
 def javaVersion = '21'
 def javafxVersion = '21.0.2'
