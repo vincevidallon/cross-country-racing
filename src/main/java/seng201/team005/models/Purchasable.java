@@ -75,6 +75,10 @@ public abstract class Purchasable {
         return buyValue;
     }
 
+    public int getSellValue() {
+        return sellValue;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

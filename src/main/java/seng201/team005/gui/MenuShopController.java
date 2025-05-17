@@ -32,7 +32,7 @@ public class MenuShopController extends ScreenController {
     private Button itemButton1, itemButton2, itemButton3, itemButton4, itemButton5;
 
     @FXML
-    private Button backButton, purchaseCarsButton, buyButton;
+    private Button backButton, purchaseCarsButton, buyButton, ownedItemsButton;
 
     @FXML
     private Text errorText;
@@ -74,8 +74,10 @@ public class MenuShopController extends ScreenController {
         }
 
         Button clicked = (Button) event.getSource();
+        Purchasable item = (Purchasable) clicked.getUserData();
         ToggleButton slot = selectedItems.get(nextSlotidx);
         slot.setText(clicked.getText());
+        slot.setUserData(item);
         slot.setSelected(true);
         nextSlotidx++;
     }
@@ -154,11 +156,17 @@ public class MenuShopController extends ScreenController {
             button.setText(item.shopString());
             button.setUserData(item);
         }
+        errorText.setVisible(false);
     }
 
     // Wiring up the back button to go back to main menu
     private void handleBackButton() {
         backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
+    }
+
+    // Action for clicking the view owned items button
+    private void handleOwnedItemsButton() {
+        ownedItemsButton.setOnAction(event -> getGameEnvironment().launchScreen(new OwnedItemsController(getGameEnvironment())));
     }
 
     // Clearing the selected items and resetting insertion index
@@ -169,6 +177,7 @@ public class MenuShopController extends ScreenController {
             item.setUserData(null);
         });
         nextSlotidx = 0;
+        errorText.setVisible(false);
     }
 
     // Wiring up the buy button for purchasing selected items in the cart
@@ -183,7 +192,9 @@ public class MenuShopController extends ScreenController {
             }
             int costTotal = toBuy.stream().mapToInt(Purchasable::getBuyValue).sum();
             int balance = getGameEnvironment().getMoney();
+
             if (balance < costTotal) {
+                errorText.setText("You have insufficient funds!");
                 errorText.setVisible(true);
                 return;
             }
@@ -191,7 +202,21 @@ public class MenuShopController extends ScreenController {
             getGameEnvironment().setMoney(balance - costTotal);
             updatePlayerMoneyText();
             clearSelectedItems();
+            recordPurchasedItems(toBuy);
         });
+    }
+
+    // When items are successfully purchased from shop, transfer
+    // over to the owned items screen
+    private void recordPurchasedItems(List<Purchasable> bought) {
+        if (showCars) {
+            List<Car> ownedCars = getGameEnvironment().getOwnedCars();
+            bought.stream().map(purchased ->(Car) purchased).forEach(ownedCars::add);
+        }
+        else {
+            List<Part> ownedParts = getGameEnvironment().getOwnedParts();
+            bought.stream().map(purchased -> (Part) purchased).forEach(ownedParts::add);
+        }
     }
 
 
@@ -206,10 +231,13 @@ public class MenuShopController extends ScreenController {
         purchaseSwitch();
         handleBackButton();
         buyButtonSetup();
+        handleOwnedItemsButton();
 
-        errorText.setVisible(false);
+
         showCars = false;
         refreshShopButtons();
+        errorText.toFront();
+        errorText.setVisible(false);
         updatePlayerMoneyText();
     }
 }
