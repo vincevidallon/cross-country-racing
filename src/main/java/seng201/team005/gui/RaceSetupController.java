@@ -88,8 +88,9 @@ public class RaceSetupController extends ScreenController {
 
     // Obtaining the race stats
     private void displayRaceStats(Race race) {
-        raceHoursText.setText(String.valueOf(race.getHours()));
+        raceHoursText.setText(String.valueOf(race.getMaxDuration()));
         raceEntriesText.setText(String.valueOf(race.getEntries()));
+        raceRoutesText.setText(String.valueOf(race.getRouteList().size()));
         racePrizeMoneyText.setText("$" + race.getPrizeMoney());
     }
 
