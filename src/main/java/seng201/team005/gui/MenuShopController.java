@@ -35,6 +35,9 @@ public class MenuShopController extends ScreenController {
     private Button backButton, purchaseCarsButton, buyButton;
 
     @FXML
+    private Text errorText;
+
+    @FXML
     private ToggleButton selectedItem1, selectedItem2, selectedItem3;
 
     private List<Button> itemButtons = List.of();
@@ -181,8 +184,10 @@ public class MenuShopController extends ScreenController {
             int costTotal = toBuy.stream().mapToInt(Purchasable::getBuyValue).sum();
             int balance = getGameEnvironment().getMoney();
             if (balance < costTotal) {
+                errorText.setVisible(true);
                 return;
             }
+            errorText.setVisible(false);
             getGameEnvironment().setMoney(balance - costTotal);
             updatePlayerMoneyText();
             clearSelectedItems();
@@ -202,7 +207,7 @@ public class MenuShopController extends ScreenController {
         handleBackButton();
         buyButtonSetup();
 
-
+        errorText.setVisible(false);
         showCars = false;
         refreshShopButtons();
         updatePlayerMoneyText();
