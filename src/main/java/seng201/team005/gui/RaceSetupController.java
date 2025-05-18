@@ -37,6 +37,8 @@ public class RaceSetupController extends ScreenController {
     private List<Button> raceButtons = List.of();
     private List<Race> races = new ArrayList<>();
 
+    private Button selectedRaceButton = null;
+
     public RaceSetupController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
@@ -71,19 +73,32 @@ public class RaceSetupController extends ScreenController {
     }
 
     // Method for handling the hover setup logic, similar to shop screen
-    private void hoverSetup() {
+    private void hoverClickSetup() {
         for (int i = 0; i < raceButtons.size(); i++) {
-            Button button  = raceButtons.get(i);
-            button.setUserData(races.get(i));
+            Button button = raceButtons.get(i);
+            Race race = races.get(i);
+            button.setUserData(race);
+
             button.setOnMouseEntered(event -> {
-                Race hoveredRace = (Race) button.getUserData();
-                if (hoveredRace != null) {
-                    displayRaceStats(hoveredRace);
+                if (selectedRaceButton != button) {
+                    displayRaceStats(race);
                     setStatVisibility(true);
                 }
             });
-            button.setOnMouseExited(event -> setStatVisibility(false));
+
+            button.setOnMouseExited(event -> {
+                if (selectedRaceButton == null) {
+                    setStatVisibility(false);
+                }
+            });
+
+            button.setOnAction(event -> {
+                selectedRaceButton = button;
+                displayRaceStats(race);
+                setStatVisibility(true);
+            });
         }
+
     }
 
     // Obtaining the race stats
@@ -109,7 +124,7 @@ public class RaceSetupController extends ScreenController {
         raceDetailsPane.toBack();
         setStatVisibility(false);
         handleExitButton();
-        generateRaces(1);
-        hoverSetup();
+        generateRaces(getGameEnvironment().getDifficulty());
+        hoverClickSetup();
     }
 }

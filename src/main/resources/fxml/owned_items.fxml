@@ -25,7 +25,7 @@
       <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(this player)'s Owned Items:" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Text fx:id="playerOwnedItemsText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -65,11 +65,39 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text fx:id="overallText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Text fx:id="fuelEconomyText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Text fx:id="reliabilityText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Text fx:id="handlingText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text fx:id="speedText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Text fx:id="sellValueText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="sellValueLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sell Value:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fx:id="overallText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <Text fx:id="fuelEconomyText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <Text fx:id="reliabilityText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <Text fx:id="handlingText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <Text fx:id="speedText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
             <Text fx:id="carSpeedLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
@@ -115,7 +143,7 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="353.0" stroke="BLACK" strokeType="INSIDE" width="335.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Rectangle fx:id="statsRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="353.0" stroke="BLACK" strokeType="INSIDE" width="335.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="185.0" />
                </GridPane.margin>
