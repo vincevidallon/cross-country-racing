@@ -6,6 +6,8 @@ import seng201.team005.gui.ScreenController;
 import seng201.team005.gui.ScreenNavigator;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
+import seng201.team005.models.Race;
+import seng201.team005.models.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,8 @@ public class GameEnvironment {
     private final ScreenNavigator navigator;
     private final List<Part> ownedParts = new ArrayList<>();
     private final List<Car> ownedCars = new ArrayList<>();
+    private Race selectedRace;
+    private Route selectedRoute;
 
     public GameEnvironment(ScreenNavigator navigator) {
         this.navigator = navigator;
@@ -76,5 +80,21 @@ public class GameEnvironment {
 
     public List<Car> getOwnedCars() {
         return ownedCars;
+    }
+
+    public void setSelectedRace(Race selectedRace) {
+        this.selectedRace = selectedRace;
+    }
+
+    public Race getSelectedRace() {
+        return selectedRace;
+    }
+
+    public void setSelectedRoute(Route selectedRoute) {
+        this.selectedRoute = selectedRoute;
+    }
+
+    public Route getSelectedRoute() {
+        return selectedRoute;
     }
 }

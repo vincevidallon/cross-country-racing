@@ -2,8 +2,13 @@ package seng201.team005.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
+import seng201.team005.models.Route;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RouteSetupController extends ScreenController {
 
@@ -15,6 +20,17 @@ public class RouteSetupController extends ScreenController {
 
     @FXML
     private Text routeDescriptionLabelText, routeDistanceLabelText, routeFuelStopsLabelText, routeDifficultyLabelText;
+
+    @FXML
+    private Text routeDescriptionText, routeDistanceText, routeFuelStopsText, routeDifficultyText;
+
+    @FXML
+    private Rectangle statRectangle;
+
+    private List<Text> routeStats;
+    private List<Button> routeButtons;
+    private List<Route> raceRoutes = new ArrayList<>();
+    private Button selectedRoute = null;
 
     public RouteSetupController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -28,6 +44,93 @@ public class RouteSetupController extends ScreenController {
     @Override
     protected String getTitle() {
         return "Route Setup";
+    }
+
+    private void generateRaceRoutes() {
+        for (int i = 0; i < routeButtons.size(); i++) {
+            raceRoutes.add(new Route());
+        }
+    }
+
+
+    private void handleBackToRaces() {
+        backToRacesButton.setOnAction(event -> getGameEnvironment().launchScreen(new RaceSetupController(getGameEnvironment())));
+    }
+
+
+    private void showRouteStats(Route route) {
+        routeDescriptionText.setText(route.getDescription());
+        routeDistanceText.setText(route.getDistance() + " km");
+        routeFuelStopsText.setText(String.valueOf(route.getFuelStops()));
+        routeDifficultyText.setText(String.valueOf(route.getDifficulty()));
+    }
+
+    private void hideRouteStats() {
+        routeDescriptionText.setText("");
+        routeDistanceText.setText("");
+        routeFuelStopsText.setText("");
+        routeDifficultyText.setText("");
+    }
+
+    private void showStatVisibility(boolean visible) {
+        routeStats.forEach(stat -> stat.setVisible(visible));
+    }
+
+    private void handleConfirmRoute() {
+        confirmRouteButton.setOnAction( event -> {
+            if (selectedRoute == null) {
+                return;
+            }
+            Route chosenRoute = (Route) selectedRoute.getUserData();
+            getGameEnvironment().setSelectedRoute(chosenRoute);
+            getGameEnvironment().launchScreen(new RaceConfirmController(getGameEnvironment()));
+        }
+    );
+    }
+
+
+    private void hoverAndClickSetup() {
+        for (int i = 0; i < routeButtons.size(); i++) {
+            Button routeButton = routeButtons.get(i);
+            Route raceRoute = raceRoutes.get(i);
+
+            routeButton.setOnMouseEntered(event -> {
+                if (selectedRoute != routeButton) {
+                    showRouteStats(raceRoute);
+                    showStatVisibility(true);
+                }
+            });
+
+            routeButton.setOnMouseExited(event -> {
+                if (selectedRoute == null) {
+                    showStatVisibility(false);
+                    hideRouteStats();
+                }
+            });
+
+            routeButton.setOnAction(event -> {
+                selectedRoute = routeButton;
+                showRouteStats(raceRoute);
+                showStatVisibility(true);
+            });
+        }
+    }
+
+
+    @FXML
+    public void initialize() {
+        routeButtons = List.of(route1Button, route2Button, route3Button);
+        routeStats = List.of(routeDescriptionLabelText, routeDistanceLabelText, routeFuelStopsLabelText,
+                routeFuelStopsLabelText, routeDifficultyLabelText);
+
+        statRectangle.toBack();
+        showStatVisibility(false);
+        generateRaceRoutes();
+        hoverAndClickSetup();
+        handleBackToRaces();
+        handleConfirmRoute();
+
+
     }
 
     

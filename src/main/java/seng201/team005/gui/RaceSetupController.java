@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Race;
+import seng201.team005.models.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,17 @@ public class RaceSetupController extends ScreenController {
     }
 
     // Handling the confirm race button to proceed to the next screen
-    // private void handleConfirmRaceButton()
+    private void handleConfirmRaceButton() {
+        confirmRaceButton.setOnAction(event -> {
+            if (selectedRaceButton == null) {
+                return;
+            }
+            Race selectedRace = (Race) selectedRaceButton.getUserData();
+            getGameEnvironment().setSelectedRace(selectedRace);
+
+            getGameEnvironment().launchScreen(new RaceConfirmController(getGameEnvironment()));
+        });
+    }
 
 
     // Method for generating races
@@ -123,6 +134,7 @@ public class RaceSetupController extends ScreenController {
 
         raceDetailsPane.toBack();
         setStatVisibility(false);
+        handleConfirmRaceButton();
         handleExitButton();
         generateRaces(getGameEnvironment().getDifficulty());
         hoverClickSetup();
