@@ -20,7 +20,7 @@ public class GarageService extends MenuService {
         car.setHandling(car.getHandling() + part.getHandling());
         car.setReliability(car.getReliability() + part.getReliability());
         car.setFuelEconomy(car.getFuelEconomy() + part.getFuelEconomy());
-        car.setOverall(car.recalculateOverall());
+        car.setOverall(car.recalculateOverallStats());
         car.setName(car.getName() + "+");
     }
 }
