@@ -111,6 +111,10 @@ public class RaceConfirmController extends ScreenController {
         routeDifficultyText.setText(String.valueOf(selectedRoute.getDifficulty()));
     }
 
+    private void onConfirmButtonClicked() {
+        getGameEnvironment().launchScreen(new MenuRaceController(getGameEnvironment()));
+    }
+
 
     @FXML
     public void initialize() {
@@ -119,6 +123,7 @@ public class RaceConfirmController extends ScreenController {
         routeDetailsPane.toBack();
 
         handleBackButton();
+        confirmButton.setOnAction(event -> onConfirmButtonClicked());
 
         Car userCar = getGameEnvironment().getSelectedCar();
         Race selectedRace = getGameEnvironment().getSelectedRace();
