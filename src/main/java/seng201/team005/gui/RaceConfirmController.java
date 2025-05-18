@@ -8,6 +8,8 @@ import seng201.team005.models.Car;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
 
+import java.awt.*;
+
 public class RaceConfirmController extends ScreenController {
 
     @FXML
@@ -26,6 +28,10 @@ public class RaceConfirmController extends ScreenController {
     private Text selectedRouteText, routeDescriptionLabelText, routeDescriptionText,
     routeDistanceLabelText, routeDistanceText, routeFuelStopsLabelText, routeFuelStopsText,
     routeDifficultyLabelText, routeDifficultyText;
+
+    @FXML
+    private javafx.scene.shape.Rectangle carStatPane, raceDetailsPane, routeDetailsPane;
+
 
     public RaceConfirmController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -47,6 +53,18 @@ public class RaceConfirmController extends ScreenController {
 
 
     private void showSelectedCar(Car selectedCar) {
+        carSpeedLabelText.setVisible(true);
+        carHandlingLabelText.setVisible(true);
+        carReliabilityLabelText.setVisible(true);
+        carFuelEconomyLabelText.setVisible(true);
+        carOverallLabelText.setVisible(true);
+
+        carSpeedText.setVisible(true);
+        carHandlingText.setVisible(true);
+        carReliabilityText.setVisible(true);
+        carFuelEconomyText.setVisible(true);
+        carOverallText.setVisible(true);
+
         selectedCarText.setText("Car: " + selectedCar.getName());
         carSpeedText.setText(String.valueOf(selectedCar.getSpeed()));
         carHandlingText.setText(String.valueOf(selectedCar.getHandling()));
@@ -55,7 +73,17 @@ public class RaceConfirmController extends ScreenController {
         carOverallText.setText(String.valueOf(selectedCar.getOverall()));
     }
 
+
     private void showSelectedRace(Race selectedRace) {
+        raceHoursLabelText.setVisible(true);
+        raceEntriesLabelText.setVisible(true);
+        raceRoutesLabelText.setVisible(true);
+        racePrizeMoneyLabelText.setVisible(true);
+        raceHoursText.setVisible(true);
+        raceEntriesText.setVisible(true);
+        raceRoutesText.setVisible(true);
+        racePrizeMoneyText.setVisible(true);
+
         selectedRaceText.setText("Race:");
         raceHoursText.setText(String.valueOf(selectedRace.getMaxDuration()));
         raceEntriesText.setText(String.valueOf(selectedRace.getEntries()));
@@ -63,23 +91,43 @@ public class RaceConfirmController extends ScreenController {
         racePrizeMoneyText.setText("$" + selectedRace.getPrizeMoney());
     }
 
+
     private void showSelectedRoute(Route selectedRoute) {
+        selectedRouteText.setVisible(true);
+        routeDescriptionLabelText.setVisible(true);
+        routeDistanceLabelText.setVisible(true);
+        routeFuelStopsLabelText.setVisible(true);
+        routeDifficultyLabelText.setVisible(true);
+
+        routeDescriptionText.setVisible(true);
+        routeDistanceText.setVisible(true);
+        routeFuelStopsText.setVisible(true);
+        routeDifficultyText.setVisible(true);
+
+        selectedRouteText.setText("Route:");
         routeDescriptionText.setText(selectedRoute.getDescription());
         routeDistanceText.setText(selectedRoute.getDistance() + " km");
         routeFuelStopsText.setText(String.valueOf(selectedRoute.getFuelStops()));
         routeDifficultyText.setText(String.valueOf(selectedRoute.getDifficulty()));
     }
 
+
     @FXML
     public void initialize() {
+        carStatPane.toBack();
+        raceDetailsPane.toBack();
+        routeDetailsPane.toBack();
+
         handleBackButton();
 
         Car userCar = getGameEnvironment().getSelectedCar();
         Race selectedRace = getGameEnvironment().getSelectedRace();
         Route selectedRoute = getGameEnvironment().getSelectedRoute();
-        showSelectedCar(userCar);
-        showSelectedRace(selectedRace);
-        showSelectedRoute(selectedRoute);
+
+
+        if (userCar != null) showSelectedCar(userCar);
+        if (selectedRace != null) showSelectedRace(selectedRace);
+        if (selectedRoute != null) showSelectedRoute(selectedRoute);
     }
 
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.RaceConfirmController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.RaceConfirmController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="87.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="285.0" />
@@ -29,7 +29,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pre-Race Confirmation:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pre-Race Confirmation:" wrappingWidth="251.81201171875" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="8.0" />
          </GridPane.margin>
@@ -97,7 +97,7 @@
                   <Font name="System Italic" size="14.0" />
                </font>
             </Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="301.0" stroke="BLACK" strokeType="INSIDE" width="347.0" GridPane.rowIndex="3">
+            <Rectangle fx:id="carStatPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="301.0" stroke="BLACK" strokeType="INSIDE" width="347.0" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -226,7 +226,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Rectangle fx:id="statRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="328.0" stroke="BLACK" strokeType="INSIDE" width="270.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Rectangle fx:id="routeDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="328.0" stroke="BLACK" strokeType="INSIDE" width="270.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets top="150.0" />
                </GridPane.margin>
@@ -248,7 +248,7 @@
       </Button>
       <Button fx:id="backButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="80.0" text="Back" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4">
          <font>
-            <Font size="19.0" />
+            <Font name="System Bold" size="19.0" />
          </font>
       </Button>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Here is what you have selected:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -275,41 +275,65 @@
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="raceRoutesText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="raceEntriesText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="raceHoursText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="racePrizeMoneyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Prize Money:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="raceRoutesLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Routes:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="raceEntriesLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Entries:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Text fx:id="raceHoursLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Hours:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Text>
             <Rectangle fx:id="raceDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="342.0" stroke="BLACK" strokeType="INSIDE" width="247.0" GridPane.valignment="TOP" />
             <Text fx:id="selectedRaceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Race Details:" GridPane.columnSpan="2" GridPane.halignment="CENTER">

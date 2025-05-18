@@ -47,8 +47,10 @@ public class RouteSetupController extends ScreenController {
     }
 
     private void generateRaceRoutes() {
-        for (int i = 0; i < routeButtons.size(); i++) {
-            raceRoutes.add(new Route());
+        for (Button routeButton : routeButtons) {
+            Route route = new Route();
+            raceRoutes.add(route);
+            routeButton.setUserData(route);
         }
     }
 
@@ -77,7 +79,7 @@ public class RouteSetupController extends ScreenController {
     }
 
     private void handleConfirmRoute() {
-        confirmRouteButton.setOnAction( event -> {
+        confirmRouteButton.setOnAction(event -> {
             if (selectedRoute == null) {
                 return;
             }
@@ -94,6 +96,7 @@ public class RouteSetupController extends ScreenController {
             Button routeButton = routeButtons.get(i);
             Route raceRoute = raceRoutes.get(i);
 
+
             routeButton.setOnMouseEntered(event -> {
                 if (selectedRoute != routeButton) {
                     showRouteStats(raceRoute);
@@ -103,8 +106,8 @@ public class RouteSetupController extends ScreenController {
 
             routeButton.setOnMouseExited(event -> {
                 if (selectedRoute == null) {
-                    showStatVisibility(false);
                     hideRouteStats();
+                    showStatVisibility(false);
                 }
             });
 
@@ -112,6 +115,7 @@ public class RouteSetupController extends ScreenController {
                 selectedRoute = routeButton;
                 showRouteStats(raceRoute);
                 showStatVisibility(true);
+                confirmRouteButton.setDisable(false);
             });
         }
     }
@@ -120,9 +124,10 @@ public class RouteSetupController extends ScreenController {
     @FXML
     public void initialize() {
         routeButtons = List.of(route1Button, route2Button, route3Button);
-        routeStats = List.of(routeDescriptionLabelText, routeDistanceLabelText, routeFuelStopsLabelText,
+        routeStats = List.of(routeDescriptionLabelText, routeDistanceLabelText,
                 routeFuelStopsLabelText, routeDifficultyLabelText);
 
+        confirmRouteButton.setDisable(true);
         statRectangle.toBack();
         showStatVisibility(false);
         generateRaceRoutes();

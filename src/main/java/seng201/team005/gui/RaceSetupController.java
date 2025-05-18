@@ -70,7 +70,7 @@ public class RaceSetupController extends ScreenController {
             Race selectedRace = (Race) selectedRaceButton.getUserData();
             getGameEnvironment().setSelectedRace(selectedRace);
 
-            getGameEnvironment().launchScreen(new RaceConfirmController(getGameEnvironment()));
+            getGameEnvironment().launchScreen(new RouteSetupController(getGameEnvironment()));
         });
     }
 
@@ -107,6 +107,7 @@ public class RaceSetupController extends ScreenController {
                 selectedRaceButton = button;
                 displayRaceStats(race);
                 setStatVisibility(true);
+                confirmRaceButton.setDisable(false);
             });
         }
 
@@ -131,7 +132,7 @@ public class RaceSetupController extends ScreenController {
         raceStats = List.of(raceHoursLabelText, raceEntriesLabelText, raceRoutesLabelText,
                 racePrizeMoneyLabelText, raceHoursText, raceEntriesText, raceRoutesText, racePrizeMoneyText);
 
-
+        confirmRaceButton.setDisable(true);
         raceDetailsPane.toBack();
         setStatVisibility(false);
         handleConfirmRaceButton();
