@@ -147,6 +147,7 @@ public class OwnedItemsController extends ScreenController {
         setupPlayerNameText();
         setupStatsRectangle();
         statsRectangle.toBack();
+        setStatVisibility(false);
         handleBackToShopButton();
         setupUserBalance();
         displayOwnedLists();

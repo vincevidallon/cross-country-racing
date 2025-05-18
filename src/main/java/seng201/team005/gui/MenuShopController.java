@@ -201,21 +201,24 @@ public class MenuShopController extends ScreenController {
             errorText.setVisible(false);
             getGameEnvironment().setMoney(balance - costTotal);
             updatePlayerMoneyText();
-            clearSelectedItems();
             recordPurchasedItems(toBuy);
+            clearSelectedItems();
         });
     }
 
     // When items are successfully purchased from shop, transfer
     // over to the owned items screen
     private void recordPurchasedItems(List<Purchasable> bought) {
-        if (showCars) {
-            List<Car> ownedCars = getGameEnvironment().getOwnedCars();
-            bought.stream().map(purchased ->(Car) purchased).forEach(ownedCars::add);
-        }
-        else {
-            List<Part> ownedParts = getGameEnvironment().getOwnedParts();
-            bought.stream().map(purchased -> (Part) purchased).forEach(ownedParts::add);
+        List<Car> ownedCars = getGameEnvironment().getOwnedCars();
+        List<Part> ownedParts = getGameEnvironment().getOwnedParts();
+
+        for (Purchasable item : bought) {
+            if (item instanceof Car) {
+                ownedCars.add((Car) item);
+            }
+            else if (item instanceof Part) {
+                ownedParts.add((Part) item);
+            }
         }
     }
 
