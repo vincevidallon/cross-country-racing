@@ -103,5 +103,9 @@ public abstract class ScreenController {
             carOverallText.setText(partAdjustStars(car.getOverall(), overallAdjust, 6));
         }
     }
+
+    public void addMoney(int money) {
+        getGameEnvironment().setMoney(gameEnvironment.getMoney() + money);
+    }
 }
 
