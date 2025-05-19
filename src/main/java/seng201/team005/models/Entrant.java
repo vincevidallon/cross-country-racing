@@ -5,6 +5,19 @@ public class Entrant extends Car implements Comparable<Entrant> {
     private int fuel = 100;
     private int position = -1;
 
+    public Entrant() {
+        super();
+    }
+
+    public Entrant(Car car) {
+        super();
+        this.name = car.getName();
+        this.speed = car.getSpeed();
+        this.handling = car.getHandling();
+        this.reliability = car.getReliability();
+        this.overall = calculateOverall();
+    }
+
     @Override
     public int compareTo(Entrant entrant) {
         return this.distance - entrant.distance;

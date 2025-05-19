@@ -120,6 +120,10 @@ public class RaceConfirmController extends ScreenController {
         routeDifficultyText.setText(String.valueOf(selectedRoute.getDifficulty()));
     }
 
+    private void onConfirmButtonClicked() {
+        getGameEnvironment().launchScreen(new MenuRaceController(getGameEnvironment()));
+    }
+
 
     // Initialize method, which sends the blue rectangles where the stats are displayed
     // to the back, retrieves info about the user's selected car, race and route and then calls
@@ -131,6 +135,7 @@ public class RaceConfirmController extends ScreenController {
         routeDetailsPane.toBack();
 
         handleBackButton();
+        confirmButton.setOnAction(event -> onConfirmButtonClicked());
 
         Car userCar = getGameEnvironment().getSelectedCar();
         Race selectedRace = getGameEnvironment().getSelectedRace();

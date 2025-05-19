@@ -29,11 +29,15 @@ public abstract class Purchasable {
         handling = rng.nextInt(STAT_MIN, STAT_MAX);
         reliability = rng.nextInt(STAT_MIN, STAT_MAX);
         fuelEconomy = rng.nextInt(STAT_MIN, STAT_MAX);
-        overall = recalculateOverall();
+        overall = recalculateOverallStats();
     }
 
-    public int recalculateOverall() {
-        overall = (speed + handling + reliability + fuelEconomy) / 4;
+    public int calculateOverall() {
+        return (speed + handling + reliability + fuelEconomy) / 4;
+    }
+
+    public int recalculateOverallStats() {
+        overall = calculateOverall();
         buyValue = overall > 0 ? overall : 1;
         sellValue = overall > 1 ? buyValue / 2 : 1;
         return overall;
