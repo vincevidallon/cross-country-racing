@@ -105,17 +105,16 @@ public class RaceService {
     }
 
     public void randomEvent(Entrant entrant) {
-        int randomEventInt = rng.nextInt(1, 101);
-        if (randomEventInt >= 95) {
+        int randomEventInt = rng.nextInt(100);
+        if (randomEventInt >= 98) {
             strandedTravelerEvent(entrant);
-        } else if (randomEventInt >= 92) {
+        } else if (randomEventInt >= 95) {
             carBreakDownEvent(entrant);
         }
     }
 
     public void randomGlobalEvent() {
-        int randomEventInt = rng.nextInt(1, 101);
-        if (randomEventInt >= 98) {
+        if (rng.nextInt(100) >= 98) {
             severeWeatherEvent();
         }
     }
@@ -131,23 +130,23 @@ public class RaceService {
     public void timeStep() {
 
         for (Entrant entrant : entrantList) {
+            if (!entrant.isFinished() && !entrant.isStopped() && !entrant.isBrokenDown()) {
+                randomEvent(entrant);
+                if (!entrant.isStopped() && !entrant.isBrokenDown()) {
+                    int speedAdjust = 10 * entrant.getSpeed();
+                    int reliabilityAdjust = rng.nextInt(-20, 21) / entrant.getReliability();
+                    entrant.addDistance(50 + speedAdjust + reliabilityAdjust);
 
-            randomEvent(entrant);
+                    int fuelEconomyAdjust = 2 * entrant.getFuelEconomy();
+                    int fuelAdjust = Math.max(fuelEconomyAdjust + reliabilityAdjust / 4, 0);
+                    int fuelDecrement = Math.max(15 - fuelAdjust, 1);
+                    entrant.setFuel(Math.max(entrant.getFuel() - fuelDecrement, 0));
 
-            if (entrant.getFuel() > 0 && !entrant.isStopped() && !entrant.isBrokenDown() && !entrant.isFinished()) {
-                int speedAdjust = 10 * entrant.getSpeed();
-                int reliabilityAdjust = rng.nextInt(-20, 21) / entrant.getReliability();
-                entrant.addDistance(50 + speedAdjust + reliabilityAdjust);
-
-                int fuelEconomyAdjust = 2 * entrant.getFuelEconomy();
-                int fuelAdjust = Math.max(fuelEconomyAdjust + reliabilityAdjust / 4, 0);
-                int fuelDecrement = Math.max(15 - fuelAdjust, 1);
-                entrant.setFuel(Math.max(entrant.getFuel() - fuelDecrement, 0));
-            }
-
-            if (entrant.getFuel() == 0) {
-                entrant.setBrokenDown(true);
-                sendBroadcast(entrant, entrant.getName() + " has ran out of fuel!");
+                    if (entrant.getFuel() == 0) {
+                        entrant.setBrokenDown(true);
+                        sendBroadcast(entrant, entrant.getName() + " has ran out of fuel!");
+                    }
+                }
             }
 
             entrant.setStopped(false);
@@ -159,9 +158,10 @@ public class RaceService {
         for (Entrant entrant: entrantList) {
             entrant.setPosition(entrantList.indexOf(entrant) + 1);
 
-            if (entrant.getDistance() > route.getDistance()) {
+            if (entrant.getDistance() > route.getDistance() && !entrant.isFinished()) {
                 entrant.setFinished(true);
                 finalEntrantList.add(entrant);
+                entrant.setPosition(finalEntrantList.indexOf(entrant));
                 sendBroadcast(entrant, entrant.getName() + " has completed the race at " +
                         positionString(entrant.getPosition()) + "!");
             }
