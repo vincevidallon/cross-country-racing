@@ -13,7 +13,12 @@ import java.util.List;
 
 /**
  * Controller for the race setup screen
- *
+ *<p>
+ *     Shows a list of races available to the player and allows the player to select
+ *     a race, based on radnomly generated attributes. Race stats are shown on hover,
+ *     and goes to the Route Selection screen once the user confirms a race.
+ *</p>
+ * The controller uses a service class {@link GenerateRaceService} for generating race options.
  * @author vvi29
  */
 
@@ -40,6 +45,7 @@ public class RaceSetupController extends ScreenController {
     private List<Race> races = new ArrayList<>();
 
     private Button selectedRaceButton = null;
+    private final GenerateRaceService raceService = new GenerateRaceService();
 
     public RaceSetupController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -57,12 +63,17 @@ public class RaceSetupController extends ScreenController {
         return "Race Setup:";
     }
 
-    // Handling the exit to menu button to return to main menu
+    /**
+     * Sets up the exit button to return to the main menu.
+     */
     private void handleExitButton() {
         exitToMenuButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
     }
 
-    // Handling the confirm race button to proceed to the next screen
+    /**
+     * Wires up the confirm race button, which stores the selected race in the game environment,
+     * then transitions to the Route Selection screen.
+     */
     private void handleConfirmRaceButton() {
         confirmRaceButton.setOnAction(event -> {
             if (selectedRaceButton == null) {
@@ -75,10 +86,13 @@ public class RaceSetupController extends ScreenController {
         });
     }
 
-    private final GenerateRaceService raceService = new GenerateRaceService();
 
-
-    // Method for handling the hover setup logic, similar to shop screen
+    /**
+     * Sets up hover and click functionality for each available race button.
+     * Hovering over one of the race buttons displays the race stats, clicking
+     * a race button selects the race and makes the confirm button available
+     * to the player.
+     */
     private void hoverClickSetup() {
         for (int i = 0; i < raceButtons.size(); i++) {
             Button button = raceButtons.get(i);
@@ -108,7 +122,10 @@ public class RaceSetupController extends ScreenController {
 
     }
 
-    // Obtaining the race stats and displaying them in the rectangle pane
+    /**
+     * Displays the race statistics of the selected race in the UI.
+     * @param race the Race object which should have its stats displayed.
+     */
     private void displayRaceStats(Race race) {
         raceHoursText.setText(String.valueOf(race.getMaxDuration()));
         raceEntriesText.setText(String.valueOf(race.getEntries()));
@@ -116,10 +133,20 @@ public class RaceSetupController extends ScreenController {
         racePrizeMoneyText.setText("$" + race.getPrizeMoney());
     }
 
+    /**
+     * Sets visibility of all the race stat UI elements.
+     * @param showing true for showing stat labels and respective values, false when hiding them.
+     */
     private void setStatVisibility(boolean showing) {
         raceStats.forEach(text -> text.setVisible(showing));
     }
 
+    /**
+     * Initializes the Race Setup screen by performing the following:
+     * - Generates race options
+     * - Wires up all button handlers
+     * - Sets up stat display behaviour
+     */
     @FXML
     public void initialize() {
 
