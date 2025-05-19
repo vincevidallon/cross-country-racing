@@ -51,7 +51,9 @@ public class MenuSetupSettingsController extends ScreenController {
         Matcher matcher = pattern.matcher(name);
         boolean isSpecialCharacterDetected = matcher.find();
 
-        if (isSpecialCharacterDetected || name.length() < 3 || name.length() > 15) {
+        if (name.isEmpty()) {
+            getGameEnvironment().onSetupComplete("Anonymous", (int) seasonLengthSlider.getValue(), difficulty + 1);
+        } else if (isSpecialCharacterDetected || name.length() < 3 || name.length() > 15) {
             incompatibleNameText.setVisible(true);
         } else {
             getGameEnvironment().onSetupComplete(name, (int) seasonLengthSlider.getValue(), difficulty + 1);
