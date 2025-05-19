@@ -4,6 +4,10 @@ public class Entrant extends Car implements Comparable<Entrant> {
     private int distance = 0;
     private int fuel = 100;
     private int position = -1;
+    private boolean isStopped = false;
+    private boolean isBrokenDown = false;
+    private boolean isFinished = false;
+
 
     public Entrant() {
         super();
@@ -55,5 +59,29 @@ public class Entrant extends Car implements Comparable<Entrant> {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public boolean isStopped() {
+        return isStopped;
+    }
+
+    public void setStopped(boolean stopped) {
+        isStopped = stopped;
+    }
+
+    public boolean isBrokenDown() {
+        return isBrokenDown;
+    }
+
+    public void setBrokenDown(boolean brokenDown) {
+        isBrokenDown = brokenDown;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 }

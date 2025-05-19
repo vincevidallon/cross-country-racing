@@ -27,7 +27,37 @@
             <Insets />
          </GridPane.margin>
       </Rectangle>
-      <Button fx:id="quitButton" maxHeight="1.7976931348623157E308" maxWidth="261.0" mnemonicParsing="false" text="GO!" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="yesButton" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="261.0" mnemonicParsing="false" style="-fx-border-radius: 20px;" text="Yes" visible="false">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="noButton" cancelButton="true" maxHeight="1.7976931348623157E308" maxWidth="261.0" mnemonicParsing="false" text="No" visible="false" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold Italic" size="48.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </GridPane>
+      <Button fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="261.0" mnemonicParsing="false" text="GO!" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin>
@@ -50,19 +80,11 @@
                   <Font name="System Italic" size="18.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hour 0">
-               <font>
-                  <Font name="System Italic" size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="8.0" />
-               </VBox.margin>
-            </Text>
          </children>
       </VBox>
-      <VBox fx:id="broadcastVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <VBox fx:id="broadcastVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Let the race begin!">
+            <Text fx:id="broadcastLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Let the race begin!">
                <font>
                   <Font size="24.0" />
                </font>
@@ -77,7 +99,12 @@
             </Text>
          </children>
       </VBox>
-      <GridPane fx:id="statGridPane" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <Text fx:id="eventPromptText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="353.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -97,7 +124,15 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Text fx:id="carFuelEconomyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Text fx:id="timeText" strokeType="OUTSIDE" strokeWidth="0.0" text="0 hours passed" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Italic" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fx:id="distanceLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -105,21 +140,42 @@
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carFuelEconomyLabelText1" strokeType="OUTSIDE" strokeWidth="0.0" text="-th place" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+            <Text fx:id="fuelLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fx:id="positionText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="24.0" />
                </font>
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carFuelEconomyLabelText2" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Text fx:id="distanceText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="8.0" />
+                  <Insets left="8.0" />
                </GridPane.margin>
+            </Text>
+            <Text fx:id="fuelText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="8.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fx:id="carText" strokeType="OUTSIDE" strokeWidth="0.0" text="Car" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
             </Text>
          </children>
       </GridPane>
