@@ -26,15 +26,17 @@ public class ShopService {
     private final Random random = new Random();
 
     /**
-     * Generates a list of {@link Part} objects based on provided part names.
+     * Generates a list of randomly generated {@link Part} objects.
+     *
      * @param parts a list of part names which will be converted into Part objects.
      * @return a list of Part instances
      */
-    public List<Part> generateParts(List<String> parts) {
+    public List<Part> generateParts(int count) {
         List<Part> partList = new ArrayList<>();
-        for (String part : parts) {
-            partList.add(new Part(part));
+        for (int i = 0; i < count; i++) {
+            partList.add(new Part());
         }
+        Collections.shuffle(partList, random);
         return partList;
     }
 

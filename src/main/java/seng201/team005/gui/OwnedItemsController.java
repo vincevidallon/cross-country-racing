@@ -18,7 +18,7 @@ import java.util.List;
 public class OwnedItemsController extends ScreenController {
 
     @FXML
-    private Text userBalance, playerOwnedItemsText, statTooltipText1;
+    private Text userBalance, playerOwnedItemsText;
 
     @FXML
     private ListView<Part> ownedPartsView;
@@ -53,7 +53,7 @@ public class OwnedItemsController extends ScreenController {
 
     @Override
     protected String getTitle() {
-        return "Owned Items:";
+        return "Owned Items";
     }
 
     private void setupPlayerNameText() {
@@ -97,7 +97,6 @@ public class OwnedItemsController extends ScreenController {
     }
 
     private void displayOwnedItemStats(Purchasable item) {
-        statTooltipText1.setVisible(false);
         carNameText.setText(item.getName());
         speedText.setText(String.valueOf(item.getSpeed()));
         handlingText.setText(String.valueOf(item.getHandling()));
@@ -121,7 +120,6 @@ public class OwnedItemsController extends ScreenController {
             userBalance.setText("Money: $" + getGameEnvironment().getMoney());
             displayOwnedLists();
             setStatVisibility(false);
-            statTooltipText1.setVisible(true);
         });
     }
 

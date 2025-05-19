@@ -138,11 +138,6 @@
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="statTooltipText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Hover over a part to view its stats!" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
             <Rectangle fx:id="statsRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="353.0" stroke="BLACK" strokeType="INSIDE" width="335.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="185.0" />

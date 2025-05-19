@@ -15,7 +15,13 @@ import seng201.team005.services.ShopService;
 import java.util.*;
 
 /**
- * Controller class for the shop menu
+ * Controller class for the shop screen.
+ * <p>
+ *     This controller class handles the user interactions for purchasing
+ *     cars and parts. It manages the UI events, displays information about
+ *     available items, as well as interfacing with {@link ShopService} to
+ *     allow for shop transactions.
+ * </p>
  *
  * @author vvi29
  */
@@ -71,8 +77,11 @@ public class MenuShopController extends ScreenController {
     }
 
 
-    // Clicking on an item in the button and adding to the next
-    // available slot in the cart
+    /**
+     * Method for handling when an item button is clicked so that it can be
+     * added to the next available cart slot.
+     * @param event the button click event
+     */
     private void onUpgradeButtonClicked(ActionEvent event) {
         if (nextSlotidx >= selectedItems.size()) {
             return;
@@ -87,12 +96,20 @@ public class MenuShopController extends ScreenController {
         nextSlotidx++;
     }
 
+
+    /**
+     * Generates a list of available parts and cars through the shop service class.
+     */
     private void generatePartsandCars() {
-        List<String> partNames = itemButtons.stream().map(Button::getText).toList();
-        parts.addAll(shopService.generateParts(partNames));
+        parts.addAll(shopService.generateParts(itemButtons.size()));
         cars.addAll(shopService.generateCars(itemButtons.size()));
     }
 
+
+    /**
+     * Updates all item buttons with cars or parts, depending on which option
+     * is currently presented to the user.
+     */
     private void itemstoItemButtons() {
         List<? extends Purchasable> items = showCars ? cars : parts;
         for (int i = 0; i < itemButtons.size(); i++) {
@@ -104,7 +121,10 @@ public class MenuShopController extends ScreenController {
         errorText.setVisible(false);
     }
 
-    // Click and hover functionality for item buttons
+
+    /**
+     * Handles up the click and hover functionality for each item button.
+     */
     private void selectedItemSetup() {
         for (int i = 0; i < itemButtons.size(); i++) {
             final int index = i;
@@ -117,7 +137,11 @@ public class MenuShopController extends ScreenController {
         }
     }
 
-    // Click and hover functionality for selected item toggle buttons
+
+    /**
+     * Sets up click and hover functionality for the toggle buttons, which represent
+     * selected items currently in the cart.
+     */
     private void toggleButtonSetup() {
         for (int i = 0; i < selectedItems.size(); i++) {
             final int index = i;
@@ -130,7 +154,12 @@ public class MenuShopController extends ScreenController {
         }
     }
 
-    // Selection and deselection logic for toggle buttons
+
+    /**
+     * Handles when a user selects or deselects one of the cart toggle buttons.
+     * @param slotIdx the index of the toggle button slot
+     * @param button the toggle button clicked by the user
+     */
     private void toggleClick(int slotIdx, ToggleButton button) {
         if (!button.isSelected()) {
             button.setText("");
@@ -143,8 +172,11 @@ public class MenuShopController extends ScreenController {
         }
     }
 
-    // Managing the purchase cars button to toggle between purchasing
-    // cars and purchasing parts
+
+    /**
+     * Method for switching between displaying available cars or parts
+     * to the user. The UI text is updated to reflect this.
+     */
     private void purchaseSwitch() {
         purchaseCarsButton.setOnAction(event -> {
             showCars = !showCars;
@@ -156,7 +188,9 @@ public class MenuShopController extends ScreenController {
     }
 
 
-    // Updating the shop with
+    /**
+     * Refreshes shop buttons with correct item text and data.
+     */
     private void refreshShopButtons() {
         List<? extends Purchasable> items = showCars ? cars : parts;
         for (int i = 0; i < itemButtons.size(); i++) {
@@ -168,17 +202,26 @@ public class MenuShopController extends ScreenController {
         errorText.setVisible(false);
     }
 
-    // Wiring up the back button to go back to main menu
+
+    /**
+     * Programs the back button to return the user to the main menu.
+     */
     private void handleBackButton() {
         backButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
     }
 
-    // Action for clicking the view owned items button
+
+    /**
+     * Sets up the owned items button to allow the user to view items that they have purchased from the shop.
+     */
     private void handleOwnedItemsButton() {
         ownedItemsButton.setOnAction(event -> getGameEnvironment().launchScreen(new OwnedItemsController(getGameEnvironment())));
     }
 
-    // Clearing the selected items and resetting insertion index
+
+    /**
+     * Clears all the selected items in the cart, resets slot index.
+     */
     private void clearSelectedItems() {
         selectedItems.forEach(item -> {
             item.setSelected(false);
@@ -189,7 +232,11 @@ public class MenuShopController extends ScreenController {
         errorText.setVisible(false);
     }
 
-    // Wiring up the buy button for purchasing selected items in the cart
+
+    /**
+     * Sets up buy button behaviour so that the user can purchase all selected items.
+     * If the player cannot afford the items, an error message is displayed.
+     */
     private void buyButtonSetup() {
         buyButton.setOnAction(event -> {
             List<Purchasable> toBuy = new ArrayList<>();
@@ -201,6 +248,7 @@ public class MenuShopController extends ScreenController {
             }
             if (!shopService.canAfford(getGameEnvironment(), toBuy)) {
                 errorText.setVisible(true);
+                errorText.setText("You have insufficient funds!");
                 return;
             }
 
