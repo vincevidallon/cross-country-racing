@@ -6,6 +6,7 @@ import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
+import seng201.team005.services.GenerateRaceService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,14 +75,8 @@ public class RaceSetupController extends ScreenController {
         });
     }
 
+    private final GenerateRaceService raceService = new GenerateRaceService();
 
-    // Method for generating races
-    private void generateRaces(int difficulty) {
-        for (int i = 0; i < raceButtons.size(); i++) {
-            Race race = new Race(difficulty);
-            races.add(race);
-        }
-    }
 
     // Method for handling the hover setup logic, similar to shop screen
     private void hoverClickSetup() {
@@ -113,7 +108,7 @@ public class RaceSetupController extends ScreenController {
 
     }
 
-    // Obtaining the race stats
+    // Obtaining the race stats and displaying them in the rectangle pane
     private void displayRaceStats(Race race) {
         raceHoursText.setText(String.valueOf(race.getMaxDuration()));
         raceEntriesText.setText(String.valueOf(race.getEntries()));
@@ -137,7 +132,12 @@ public class RaceSetupController extends ScreenController {
         setStatVisibility(false);
         handleConfirmRaceButton();
         handleExitButton();
-        generateRaces(getGameEnvironment().getDifficulty());
+
+        races = raceService.generateRaces(getGameEnvironment().getDifficulty(), raceButtons.size());
+        for (int i = 0; i < raceButtons.size(); i++) {
+            raceButtons.get(i).setUserData(races.get(i));
+        }
+
         hoverClickSetup();
     }
 }

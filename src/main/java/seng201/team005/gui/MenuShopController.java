@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import seng201.team005.models.Part;
 import seng201.team005.models.Car;
 import seng201.team005.models.Purchasable;
+import seng201.team005.services.ShopService;
 
 import java.util.*;
 
@@ -43,13 +44,14 @@ public class MenuShopController extends ScreenController {
     private List<Button> itemButtons = List.of();
     private List<ToggleButton> selectedItems = List.of();
     private int nextSlotidx;
-    private final Random random = new Random();
     private boolean showCars = false;
 
     private final List<Integer> partCosts = new ArrayList<>();
     private final List<Integer> carCosts = new ArrayList<>();
     private final List<Part> parts = new ArrayList<>();
     private final List<Car> cars = new ArrayList<>();
+
+    private final ShopService shopService = new ShopService();
 
 
     public MenuShopController(GameEnvironment gameEnvironment) {
@@ -82,17 +84,21 @@ public class MenuShopController extends ScreenController {
         nextSlotidx++;
     }
 
-    // Randomly generating parts and cars for the shop.
-    // The shop refreshes every iteration, so a new set of
-    // cars are available when relaunching the screen
     private void generatePartsandCars() {
-        for (Button button : itemButtons) {
-            parts.add(new Part(button.getText()));
-        }
+        List<String> partNames = itemButtons.stream().map(Button::getText).toList();
+        parts.addAll(shopService.generateParts(partNames));
+        cars.addAll(shopService.generateCars(itemButtons.size()));
+    }
+
+    private void itemstoItemButtons() {
+        List<? extends Purchasable> items = showCars ? cars : parts;
         for (int i = 0; i < itemButtons.size(); i++) {
-            cars.add(new Car());
+            Button button = itemButtons.get(i);
+            Purchasable item = items.get(i);
+            button.setText(item.shopString());
+            button.setUserData(item);
         }
-        Collections.shuffle(cars, random);
+        errorText.setVisible(false);
     }
 
     // Click and hover functionality for item buttons
@@ -142,7 +148,7 @@ public class MenuShopController extends ScreenController {
             availableLabel.setText(showCars ? "Available Cars:" : "Available Parts:");
             carNameText.setText(showCars ? "Car Stats:" : "Part Stats:");
             purchaseCarsButton.setText(showCars ? "Purchase Parts:" : "Purchase Cars:");
-            refreshShopButtons();
+            itemstoItemButtons();
         });
     }
 
@@ -190,36 +196,16 @@ public class MenuShopController extends ScreenController {
                     if (item != null) toBuy.add(item);
                 }
             }
-            int costTotal = toBuy.stream().mapToInt(Purchasable::getBuyValue).sum();
-            int balance = getGameEnvironment().getMoney();
-
-            if (balance < costTotal) {
-                errorText.setText("You have insufficient funds!");
+            if (!shopService.canAfford(getGameEnvironment(), toBuy)) {
                 errorText.setVisible(true);
                 return;
             }
+
             errorText.setVisible(false);
-            getGameEnvironment().setMoney(balance - costTotal);
+            shopService.purchaseItem(getGameEnvironment(), toBuy);
             updatePlayerMoneyText();
-            recordPurchasedItems(toBuy);
             clearSelectedItems();
         });
-    }
-
-    // When items are successfully purchased from shop, transfer
-    // over to the owned items screen
-    private void recordPurchasedItems(List<Purchasable> bought) {
-        List<Car> ownedCars = getGameEnvironment().getOwnedCars();
-        List<Part> ownedParts = getGameEnvironment().getOwnedParts();
-
-        for (Purchasable item : bought) {
-            if (item instanceof Car) {
-                ownedCars.add((Car) item);
-            }
-            else if (item instanceof Part) {
-                ownedParts.add((Part) item);
-            }
-        }
     }
 
 

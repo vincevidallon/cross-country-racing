@@ -11,6 +11,7 @@ import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 import seng201.team005.models.Purchasable;
+import seng201.team005.services.OwnedItemsService;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class OwnedItemsController extends ScreenController {
     sellValueLabelText;
 
     private List<Text> itemStats;
+    private final OwnedItemsService ownedItemService = new OwnedItemsService();
 
     @FXML
     private Rectangle statsRectangle;
@@ -115,19 +117,9 @@ public class OwnedItemsController extends ScreenController {
             Purchasable itemToSell = (selectedCar != null) ? selectedCar : selectedPart;
             if (itemToSell == null) return;
 
-            if (itemToSell instanceof Car) {
-                getGameEnvironment().getOwnedCars().remove(itemToSell);
-            }
-            else {
-                getGameEnvironment().getOwnedParts().remove(itemToSell);
-            }
-
-            int newBalance = getGameEnvironment().getMoney() + itemToSell.getSellValue();
-            getGameEnvironment().setMoney(newBalance);
-            userBalance.setText("Money: $" + newBalance);
-
+            ownedItemService.sellItem(getGameEnvironment(), itemToSell);
+            userBalance.setText("Money: $" + getGameEnvironment().getMoney());
             displayOwnedLists();
-
             setStatVisibility(false);
             statTooltipText1.setVisible(true);
         });
