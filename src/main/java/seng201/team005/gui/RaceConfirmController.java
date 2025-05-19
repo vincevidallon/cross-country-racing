@@ -8,7 +8,11 @@ import seng201.team005.models.Car;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
 
-import java.awt.*;
+/**
+ * Controller for the race confirmation screen
+ *
+ * @author vvi29
+ */
 
 public class RaceConfirmController extends ScreenController {
 
@@ -47,11 +51,14 @@ public class RaceConfirmController extends ScreenController {
         return "Pre-Race Confirmation";
     }
 
+
+    // Wiring up the back button, takes the user back to the select route screen
     private void handleBackButton() {
         backButton.setOnAction(event -> getGameEnvironment().launchScreen(new RouteSetupController(getGameEnvironment())));
     }
 
 
+    // Method for showing the stats of the user's selected car
     private void showSelectedCar(Car selectedCar) {
         carSpeedLabelText.setVisible(true);
         carHandlingLabelText.setVisible(true);
@@ -74,6 +81,7 @@ public class RaceConfirmController extends ScreenController {
     }
 
 
+    // Method for showing the user's selected race and attributes
     private void showSelectedRace(Race selectedRace) {
         raceHoursLabelText.setVisible(true);
         raceEntriesLabelText.setVisible(true);
@@ -92,6 +100,7 @@ public class RaceConfirmController extends ScreenController {
     }
 
 
+    // Method for showing the user's selected route and attributes
     private void showSelectedRoute(Route selectedRoute) {
         selectedRouteText.setVisible(true);
         routeDescriptionLabelText.setVisible(true);
@@ -112,6 +121,9 @@ public class RaceConfirmController extends ScreenController {
     }
 
 
+    // Initialize method, which sends the blue rectangles where the stats are displayed
+    // to the back, retrieves info about the user's selected car, race and route and then calls
+    // the helper methods to display info
     @FXML
     public void initialize() {
         carStatPane.toBack();

@@ -10,6 +10,12 @@ import seng201.team005.models.Route;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the Route Selection screen
+ *
+ * @author vvi29
+ */
+
 public class RouteSetupController extends ScreenController {
 
     @FXML

@@ -2,7 +2,21 @@ plugins {
     id 'application'
     id 'java'
     id "org.openjfx.javafxplugin" version "0.1.0"
+    id 'checkstyle'
     id 'jacoco'
+}
+
+checkstyle {
+    toolVersion = '10.12.2' // You can change to the latest
+    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+        html.outputLocation = file("${buildDir}/reports/checkstyle/checkstyle.html")
+    }
 }
 
 archivesBaseName = 'seng201_team0'
