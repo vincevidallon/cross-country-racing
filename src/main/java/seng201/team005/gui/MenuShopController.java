@@ -58,15 +58,18 @@ public class MenuShopController extends ScreenController {
         super(gameEnvironment);
     }
 
+
     @Override
     protected String getFxmlFile() {
         return "/fxml/shop_menu.fxml";
     }
 
+
     @Override
     protected String getTitle() {
         return "Shop";
     }
+
 
     // Clicking on an item in the button and adding to the next
     // available slot in the cart

@@ -9,7 +9,12 @@ import seng201.team005.models.Race;
 import seng201.team005.models.Route;
 
 /**
- * Controller for the race confirmation screen
+ * Controller for the race confirmation screen.
+ * <p>
+ *     Shows a final summary of the user's selected car, race and route before beginning the race.
+ *     Provides the user with an option to confirm their selections and proceed to the race or
+ *     return to the route selection screen if they wish to change their choices.
+ * </p>
  *
  * @author vvi29
  */
@@ -41,10 +46,12 @@ public class RaceConfirmController extends ScreenController {
         super(gameEnvironment);
     }
 
+
     @Override
     protected String getFxmlFile() {
         return "/fxml/race_confirm.fxml";
     }
+
 
     @Override
     protected String getTitle() {
@@ -52,13 +59,19 @@ public class RaceConfirmController extends ScreenController {
     }
 
 
-    // Wiring up the back button, takes the user back to the select route screen
+    /**
+     * A method for wiring up the back button to take the user back to the
+     * Route Selection screen.
+     */
     private void handleBackButton() {
         backButton.setOnAction(event -> getGameEnvironment().launchScreen(new RouteSetupController(getGameEnvironment())));
     }
 
 
-    // Method for showing the stats of the user's selected car
+    /**
+     * A method for showing the stats of the user's selected car.
+     * @param selectedCar the car chosen by the user for the race
+     */
     private void showSelectedCar(Car selectedCar) {
         carSpeedLabelText.setVisible(true);
         carHandlingLabelText.setVisible(true);
@@ -81,7 +94,12 @@ public class RaceConfirmController extends ScreenController {
     }
 
 
-    // Method for showing the user's selected race and attributes
+    /**
+     * Displays the details of the user's selected {@link Race} in the UI.
+     *
+     * @param selectedRace the race selected by the user, which has parameters such as the duration of the race,
+     *                     the number of other entrants, the routes available and the prize money on offer.
+     */
     private void showSelectedRace(Race selectedRace) {
         raceHoursLabelText.setVisible(true);
         raceEntriesLabelText.setVisible(true);
@@ -100,7 +118,12 @@ public class RaceConfirmController extends ScreenController {
     }
 
 
-    // Method for showing the user's selected route and attributes
+    /**
+     * Shows the attributes of the selected {@link Route} in the UI.
+     *
+     * @param selectedRoute the route selected by the user, including its distance, fuel stops and
+     *                      overall difficulty
+     */
     private void showSelectedRoute(Route selectedRoute) {
         selectedRouteText.setVisible(true);
         routeDescriptionLabelText.setVisible(true);
@@ -120,14 +143,19 @@ public class RaceConfirmController extends ScreenController {
         routeDifficultyText.setText(String.valueOf(selectedRoute.getDifficulty()));
     }
 
+    /**
+     * Proceeds to the race screen through a transition to {@link MenuRaceController}.
+     * This is called when the user confirms their selections.
+     */
     private void onConfirmButtonClicked() {
         getGameEnvironment().launchScreen(new MenuRaceController(getGameEnvironment()));
     }
 
 
-    // Initialize method, which sends the blue rectangles where the stats are displayed
-    // to the back, retrieves info about the user's selected car, race and route and then calls
-    // the helper methods to display info
+    /**
+     * Initializes the Pre-Race confirmation screen. All data required is obtained from the
+     * {@link GameEnvironment}.
+     */
     @FXML
     public void initialize() {
         carStatPane.toBack();

@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Race;
-import seng201.team005.models.Route;
 import seng201.team005.services.GenerateRaceService;
 
 import java.util.ArrayList;
@@ -47,6 +46,7 @@ public class RaceSetupController extends ScreenController {
     private Button selectedRaceButton = null;
     private final GenerateRaceService raceService = new GenerateRaceService();
 
+
     public RaceSetupController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
@@ -63,12 +63,14 @@ public class RaceSetupController extends ScreenController {
         return "Race Setup:";
     }
 
+
     /**
      * Sets up the exit button to return to the main menu.
      */
     private void handleExitButton() {
         exitToMenuButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
     }
+
 
     /**
      * Wires up the confirm race button, which stores the selected race in the game environment,
@@ -133,6 +135,7 @@ public class RaceSetupController extends ScreenController {
         racePrizeMoneyText.setText("$" + race.getPrizeMoney());
     }
 
+
     /**
      * Sets visibility of all the race stat UI elements.
      * @param showing true for showing stat labels and respective values, false when hiding them.
@@ -140,6 +143,7 @@ public class RaceSetupController extends ScreenController {
     private void setStatVisibility(boolean showing) {
         raceStats.forEach(text -> text.setVisible(showing));
     }
+
 
     /**
      * Initializes the Race Setup screen by performing the following:

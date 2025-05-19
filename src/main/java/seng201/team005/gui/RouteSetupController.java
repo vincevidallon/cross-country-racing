@@ -59,12 +59,17 @@ public class RouteSetupController extends ScreenController {
         return "Route Setup";
     }
 
-
+    /**
+     * Wires up the back button for the user to return to the Race Setup screen.
+     */
     private void handleBackToRaces() {
         backToRacesButton.setOnAction(event -> getGameEnvironment().launchScreen(new RaceSetupController(getGameEnvironment())));
     }
 
-
+    /**
+     * Displays the details of a {@link Route} on the screen.
+     * @param route the race route whose details are to be displayed.
+     */
     private void showRouteStats(Route route) {
         routeDescriptionText.setText(route.getDescription());
         routeDistanceText.setText(route.getDistance() + " km");
@@ -72,6 +77,9 @@ public class RouteSetupController extends ScreenController {
         routeDifficultyText.setText(String.valueOf(route.getDifficulty()));
     }
 
+    /**
+     * Clears all the route detail display fields.
+     */
     private void hideRouteStats() {
         routeDescriptionText.setText("");
         routeDistanceText.setText("");
@@ -79,10 +87,18 @@ public class RouteSetupController extends ScreenController {
         routeDifficultyText.setText("");
     }
 
+    /**
+     * Sets the visibility of all route stats labels and their values.
+     * @param visible whether the stats and labels should be shown to the user or hidden
+     */
     private void showStatVisibility(boolean visible) {
         routeStats.forEach(stat -> stat.setVisible(visible));
     }
 
+    /**
+     * Wires the confirm button to store the user's selected route in the {@link GameEnvironment}
+     * and then transitions to the race confirmation screen.
+     */
     private void handleConfirmRoute() {
         confirmRouteButton.setOnAction(event -> {
             if (selectedRoute == null) {
@@ -96,6 +112,11 @@ public class RouteSetupController extends ScreenController {
     }
 
 
+    /**
+     * Sets up the hover and clicking behaviour for the route selection buttons.
+     * Hovering on one of the buttons shows the route stats, clicking on one of
+     * the buttons selects the route and enables the confirm route button.
+     */
     private void hoverAndClickSetup() {
         for (int i = 0; i < routeButtons.size(); i++) {
             Button routeButton = routeButtons.get(i);
@@ -126,6 +147,12 @@ public class RouteSetupController extends ScreenController {
     }
 
 
+    /**
+     * Initializes the Route Selection screen. Generates race routes using
+     * {@link RouteService}, and then binds the route data to UI buttons.
+     * This method also sets up the hover and clicking behaviour for displaying
+     * the route stats, as well as wiring up the navigation buttons.
+     */
     @FXML
     public void initialize() {
         routeButtons = List.of(route1Button, route2Button, route3Button);
