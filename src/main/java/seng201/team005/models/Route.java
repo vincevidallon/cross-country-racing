@@ -16,7 +16,7 @@ public class Route {
 
         List<String> descriptionList = List.of("Baby Land", "Dusty Trail", "Hell Bends");
         description = descriptionList.get(difficulty);
-        distance = 10 * (difficulty + 1); // + rng.nextInt(-2, 3) can be added for some random variation
+        distance = 1000 + 500 * (difficulty + 1) + rng.nextInt(-200, 201);
         fuelStops = 3 - difficulty;
     }
 

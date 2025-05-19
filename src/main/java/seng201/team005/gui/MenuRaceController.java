@@ -82,6 +82,7 @@ public class MenuRaceController extends ScreenController {
                 You come across a fuel stop.
                 
                 Do you refuel your vehicle?""");
+
         yesButton.setOnAction(event -> raceService.fuelStopChoice(true));
         noButton.setOnAction(event -> raceService.fuelStopChoice(false));
     }
