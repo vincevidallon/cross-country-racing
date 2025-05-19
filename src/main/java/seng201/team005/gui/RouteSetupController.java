@@ -11,7 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller for the Route Selection screen
+ * Controller for the Route Selection screen.
+ * <p>
+ *     Allows the user to choose a route they want to do within their selected race through UI buttons.
+ *     Displays attributes about the selected route on hover and manages navigating to
+ *     other screens based on user selection.
+ * </p>
  *
  * @author vvi29
  */

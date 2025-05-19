@@ -75,7 +75,7 @@ public class RaceSetupController extends ScreenController {
     }
 
 
-    // Method for generating races
+    // Method for generating races based on the game difficulty
     private void generateRaces(int difficulty) {
         for (int i = 0; i < raceButtons.size(); i++) {
             Race race = new Race(difficulty);
@@ -113,7 +113,7 @@ public class RaceSetupController extends ScreenController {
 
     }
 
-    // Obtaining the race stats
+    // Obtaining the race stats and displaying them in the rectangle pane
     private void displayRaceStats(Race race) {
         raceHoursText.setText(String.valueOf(race.getMaxDuration()));
         raceEntriesText.setText(String.valueOf(race.getEntries()));
