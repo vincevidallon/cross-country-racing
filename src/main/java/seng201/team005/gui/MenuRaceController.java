@@ -1,11 +1,14 @@
 package seng201.team005.gui;
 
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Entrant;
+import seng201.team005.services.EntrantCellFactory;
 import seng201.team005.services.RaceService;
 
 public class MenuRaceController extends ScreenController {
@@ -14,8 +17,10 @@ public class MenuRaceController extends ScreenController {
     private Button nextButton, yesButton, noButton;
 
     @FXML
-    private Text distanceLabelText, fuelLabelText, timeText, distanceText, fuelText, positionText, carText,
-            broadcastLabelText, eventPromptText;
+    private ListView<Entrant> leaderboardListView;
+
+    @FXML
+    private Text timeText, distanceText, fuelText, positionText, carText, routeLengthText, timeLimitText, broadcastLabelText, eventPromptText;
 
     @FXML
     private VBox broadcastVBox;
@@ -47,6 +52,9 @@ public class MenuRaceController extends ScreenController {
         Text broadcastText = new Text(broadcast);
         broadcastText.setWrappingWidth(353);
         broadcastText.setStyle(style);
+
+        if (broadcastVBox.getChildren().size() > 12) broadcastVBox.getChildren().remove(1);
+
         broadcastVBox.getChildren().add(broadcastText);
     }
 
@@ -72,8 +80,8 @@ public class MenuRaceController extends ScreenController {
                 
                 Do you offer them a ride?""");
 
-        yesButton.setOnAction(event -> raceService.strandedTravelerChoice(true));
-        noButton.setOnAction(event -> raceService.strandedTravelerChoice(false));
+        yesButton.setOnAction(event -> raceService.strandedTravelerChoice(raceService.getPlayer(), true));
+        noButton.setOnAction(event -> raceService.strandedTravelerChoice(raceService.getPlayer(), false));
     }
 
     public void onFuelStopEvent() {
@@ -83,8 +91,8 @@ public class MenuRaceController extends ScreenController {
                 
                 Do you refuel your vehicle?""");
 
-        yesButton.setOnAction(event -> raceService.fuelStopChoice(true));
-        noButton.setOnAction(event -> raceService.fuelStopChoice(false));
+        yesButton.setOnAction(event -> raceService.fuelStopChoice(raceService.getPlayer(), true));
+        noButton.setOnAction(event -> raceService.fuelStopChoice(raceService.getPlayer(), false));
     }
 
     private void onNextButtonClicked() {
@@ -94,14 +102,13 @@ public class MenuRaceController extends ScreenController {
         timeText.setText(raceService.getCurrentTime() + " hours passed");
         distanceText.setText(player.getDistance() + " km");
         fuelText.setText(player.getFuel() + " L");
-        positionText.setText(RaceService.positionString(player.getPosition()));
+        positionText.setText(player.positionString() + " place");
 
+        leaderboardListView.setItems(raceService.getEntrantList());
+        leaderboardListView.scrollTo(raceService.getPlayer());
     }
 
     private void onGoButtonClicked() {
-        distanceLabelText.setVisible(true);
-        fuelLabelText.setVisible(true);
-
         nextButton.setText("Next >");
         nextButton.setOnAction(event -> onNextButtonClicked());
 
@@ -112,6 +119,14 @@ public class MenuRaceController extends ScreenController {
     public void initialize() {
         nextButton.setOnAction(event -> onGoButtonClicked());
         carText.setText(raceService.getPlayer().getName());
+
+        routeLengthText.setText(raceService.getRoute().getDistance() + " km");
+        timeLimitText.setText(raceService.getRace().getMaxDuration() + " hours");
+
+        leaderboardListView.setCellFactory(new EntrantCellFactory(raceService));
+        leaderboardListView.setItems(raceService.getEntrantList());
+        leaderboardListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<? super Entrant>)
+                change -> leaderboardListView.getSelectionModel().clearSelection());
 
         broadcastVBox.getChildren().remove(1);
         broadcastLabelText.setText("Race updates:");
