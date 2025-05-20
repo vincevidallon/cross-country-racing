@@ -31,7 +31,7 @@ public class Entrant extends Car implements Comparable<Entrant> {
     }
 
     public String leaderboardString() {
-        return positionString() + "\n" + name;
+        return positionString() + "\n" + name + "\n" + distance + " km";
     }
 
     @Override

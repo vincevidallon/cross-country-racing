@@ -125,8 +125,6 @@ public class MenuRaceController extends ScreenController {
 
         leaderboardListView.setCellFactory(new EntrantCellFactory(raceService));
         leaderboardListView.setItems(raceService.getEntrantList());
-        leaderboardListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<? super Entrant>)
-                change -> leaderboardListView.getSelectionModel().clearSelection());
 
         broadcastVBox.getChildren().remove(1);
         broadcastLabelText.setText("Race updates:");
