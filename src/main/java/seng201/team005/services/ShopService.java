@@ -28,8 +28,8 @@ public class ShopService {
     /**
      * Generates a list of randomly generated {@link Part} objects.
      *
-     * @param parts a list of part names which will be converted into Part objects.
-     * @return a list of Part instances
+     * @param count the number of Part objects to be generated
+     * @return a shuffled list of Part instances
      */
     public List<Part> generateParts(int count) {
         List<Part> partList = new ArrayList<>();

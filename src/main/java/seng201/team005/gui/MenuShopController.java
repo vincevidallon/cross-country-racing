@@ -73,7 +73,7 @@ public class MenuShopController extends ScreenController {
 
     @Override
     protected String getTitle() {
-        return "Shop";
+        return "Cross Country Racing | Shop";
     }
 
 

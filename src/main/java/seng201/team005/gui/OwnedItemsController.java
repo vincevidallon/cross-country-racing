@@ -53,7 +53,7 @@ public class OwnedItemsController extends ScreenController {
 
     @Override
     protected String getTitle() {
-        return "Owned Items";
+        return "Cross Country Racing | Owned Items";
     }
 
     private void setupPlayerNameText() {

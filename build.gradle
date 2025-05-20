@@ -47,6 +47,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
 
+    testImplementation 'org.mockito:mockito-core:5.+'
+
 }
 
 application {
