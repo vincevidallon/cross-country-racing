@@ -29,7 +29,7 @@ public abstract class Purchasable {
         handling = rng.nextInt(STAT_MIN, STAT_MAX);
         reliability = rng.nextInt(STAT_MIN, STAT_MAX);
         fuelEconomy = rng.nextInt(STAT_MIN, STAT_MAX);
-        overall = recalculateOverallStats();
+        recalculateOverallStats();
     }
 
     public int calculateOverall() {

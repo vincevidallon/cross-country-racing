@@ -131,7 +131,7 @@ public class MenuGarageController extends ScreenController {
             garageService.installPart(selectedCar, selectedPart);
             parts.remove(selectedPart);
             displayStats(selectedCar);
-            partListView.getSelectionModel().select(null);
+            partListView.getSelectionModel().clearSelection();
             updateCarButtons();
         } else {
             mustSelectCarText.setVisible(true);

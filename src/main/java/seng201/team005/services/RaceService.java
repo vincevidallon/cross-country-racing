@@ -1,5 +1,7 @@
 package seng201.team005.services;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seng201.team005.gui.MenuRaceController;
 import seng201.team005.models.Entrant;
 import seng201.team005.models.Race;
@@ -12,24 +14,17 @@ public class RaceService {
     private final Race race;
     private final Route route;
     private final Entrant playerEntrant;
-    private final List<Entrant> entrantList = new ArrayList<>();
+    private final ObservableList<Entrant> entrantList = FXCollections.observableArrayList();
     private final List<Entrant> finalEntrantList = new ArrayList<>();
     private int currentTime = 0;
 
     private final Random rng = new Random();
 
-    public static String positionString(int pos) {
-        if (pos % 10 == 1 && pos != 11) return pos + "st place";
-        if (pos % 10 == 2 && pos != 12) return pos + "nd place";
-        if (pos % 10 == 3 && pos != 13) return pos + "rd place";
-        return pos + "th place";
-    }
-
     public enum RaceEvent {
         STRANDED_TRAVELER, FUEL_STOP
     }
 
-    public List<Entrant> getEntrantList() {
+    public ObservableList<Entrant> getEntrantList() {
         return entrantList;
     }
 
@@ -45,6 +40,9 @@ public class RaceService {
         return race;
     }
 
+    public Route getRoute() {
+        return route;
+    }
 
     public RaceService(MenuRaceController raceController, Race race, Route route, Entrant playerEntrant) {
         this.raceController = raceController;
@@ -70,37 +68,41 @@ public class RaceService {
         if (entrant.equals(playerEntrant)) {
             raceController.onCurrentEvent(RaceEvent.STRANDED_TRAVELER);
         } else {
-            sendBroadcast(entrant, entrant.getName() + " has stopped to pick up a stranded traveler!");
+            strandedTravelerChoice(entrant, rng.nextBoolean());
         }
     }
 
-    public void strandedTravelerChoice(boolean stopping) {
+    public void strandedTravelerChoice(Entrant entrant, boolean stopping) {
         if (stopping) {
-            playerEntrant.setStopped(true);
-            raceController.addMoney(rng.nextInt(2, 5));
+            entrant.setStopped(true);
+            sendBroadcast(entrant, entrant.getName() + " has stopped to pick up a stranded traveler!");
+
+            if (entrant == playerEntrant) raceController.addMoney(rng.nextInt(2, 5));
         }
-        raceController.onCurrentEvent(null);
+        if (entrant == playerEntrant) raceController.onCurrentEvent(null);
     }
 
     public void fuelStopEvent(Entrant entrant) {
         if (entrant.equals(playerEntrant)) {
             raceController.onCurrentEvent(RaceEvent.FUEL_STOP);
         } else {
-            sendBroadcast(entrant, entrant.getName() + " has reached a fuel stop!");
+            fuelStopChoice(entrant, rng.nextBoolean());
         }
     }
 
-    public void fuelStopChoice(boolean stopping) {
+    public void fuelStopChoice(Entrant entrant, boolean stopping) {
         if (stopping) {
-            playerEntrant.setStopped(true);
-            playerEntrant.setFuel(100);
+            entrant.setStopped(true);
+            sendBroadcast(entrant, entrant.getName() + " has reached a fuel stop!");
+            entrant.setFuel(100);
         }
-        raceController.onCurrentEvent(null);
+        if (entrant == playerEntrant) raceController.onCurrentEvent(null);
     }
 
     private void severeWeatherEvent() {
-        finalEntrantList.addAll(entrantList);
-        entrantList.clear();
+        for (Entrant e : entrantList) {
+            e.setBrokenDown(true);
+        }
         sendBroadcast(playerEntrant, "A severe weather event has occurred on the current route.");
     }
 
@@ -114,7 +116,7 @@ public class RaceService {
     }
 
     public void randomGlobalEvent() {
-        if (rng.nextInt(100) >= 98) {
+        if (rng.nextInt(200) == 199) {
             severeWeatherEvent();
         }
     }
@@ -132,10 +134,15 @@ public class RaceService {
         for (Entrant entrant : entrantList) {
             if (!entrant.isFinished() && !entrant.isStopped() && !entrant.isBrokenDown()) {
                 randomEvent(entrant);
+
+
                 if (!entrant.isStopped() && !entrant.isBrokenDown()) {
                     int speedAdjust = 10 * entrant.getSpeed();
                     int reliabilityAdjust = rng.nextInt(-20, 21) / entrant.getReliability();
                     entrant.addDistance(50 + speedAdjust + reliabilityAdjust);
+                    if (entrant.getDistance() >= route.getDistance() / route.getFuelStops()) {
+                        fuelStopEvent(entrant);
+                    }
 
                     int fuelEconomyAdjust = 2 * entrant.getFuelEconomy();
                     int fuelAdjust = Math.max(fuelEconomyAdjust + reliabilityAdjust / 4, 0);
@@ -163,12 +170,11 @@ public class RaceService {
                 finalEntrantList.add(entrant);
                 entrant.setPosition(finalEntrantList.indexOf(entrant));
                 sendBroadcast(entrant, entrant.getName() + " has completed the race at " +
-                        positionString(entrant.getPosition()) + "!");
+                        entrant.positionString() + " place!");
             }
         }
 
         currentTime++;
-        System.out.println(entrantList);
     }
 
 
