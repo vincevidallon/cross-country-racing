@@ -11,9 +11,8 @@ import seng201.team005.GameEnvironment;
  * @author seng201 teaching team
  */
 public class MenuMainController extends ScreenController {
-    // TODO: Implement new functionality (stats window, results screen)
     @FXML
-    private Text thanksText;
+    private Text nameText, difficultyText, seasonLengthText, moneyText, selectedCarText, prepareForRaceText, thanksText;
 
     @FXML
     private Button raceButton, shopButton, garageButton, quitButton, resultsButton;
@@ -27,7 +26,7 @@ public class MenuMainController extends ScreenController {
     protected String getTitle() { return "Cross Country Racing"; }
 
     public void initialize() {
-        if (getGameEnvironment().getCurrentSeason() == getGameEnvironment().getSeasonLength()) {
+        if (getGameEnvironment().getNumberOfRacesPlayed() == getGameEnvironment().getSeasonLength()) {
             raceButton.setVisible(false);
             shopButton.setVisible(false);
             garageButton.setVisible(false);
@@ -37,6 +36,15 @@ public class MenuMainController extends ScreenController {
             resultsButton.setVisible(true);
             resultsButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuResultsController(getGameEnvironment())));
         }
+
+        nameText.setText(getGameEnvironment().getName() + "'s Stats:");
+        difficultyText.setText(getGameEnvironment().getDifficulty() == 1 ? "Normal" : "Hard");
+        seasonLengthText.setText(getGameEnvironment().getSeasonLength() + " races");
+        moneyText.setText("$" + getGameEnvironment().getMoney());
+        selectedCarText.setText(getGameEnvironment().getSelectedCar().mainMenuString());
+        prepareForRaceText.setText("Prepare for race " + (getGameEnvironment().getNumberOfRacesPlayed() + 1) + " of " + getGameEnvironment().getSeasonLength() + "!");
+
+
         raceButton.setOnAction(event -> getGameEnvironment().launchScreen(new RaceSetupController(getGameEnvironment())));
         shopButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuShopController(getGameEnvironment())));
         garageButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuGarageController(getGameEnvironment())));

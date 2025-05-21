@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuMainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuMainController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="100.0" />
@@ -32,11 +32,6 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Group 05 - sha378, vvi29">
                <font>
                   <Font name="System Italic" size="18.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-               <font>
-                  <Font size="18.0" />
                </font>
             </Text>
          </children>
@@ -80,8 +75,7 @@
       <GridPane fx:id="statGridPane" maxHeight="180.0" minHeight="180.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
@@ -91,83 +85,75 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your stats:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+            <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Your stats:" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font size="24.0" />
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="8.0" />
+                  <Insets right="12.0" />
                </GridPane.margin>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Season length:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="8.0" />
+                  <Insets right="12.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="positionText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+            <Text fx:id="difficultyText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="30.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fx:id="distanceText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="fuelText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Text fx:id="seasonLengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carText" strokeType="OUTSIDE" strokeWidth="0.0" text="Prepare for race .../...!" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Text fx:id="prepareForRaceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Prepare for race ... of ...!" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
-                  <Font name="System Bold Italic" size="24.0" />
+                  <Font name="System Italic" size="24.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="8.0" />
+                  <Insets right="12.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Text fx:id="moneyText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Selected car:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Selected car:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="8.0" />
+                  <Insets right="12.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Text fx:id="selectedCarText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="8.0" />
