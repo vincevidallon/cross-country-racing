@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.RaceSetupController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.RaceSetupController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="130.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="201.66665649414062" />
@@ -60,18 +60,11 @@
             <RowConstraints maxHeight="200.33334350585938" minHeight="10.0" prefHeight="45.66667175292969" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="200.33334350585938" minHeight="10.0" prefHeight="32.666656494140625" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="33.66667175292969" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="41.666656494140625" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="32.66668701171875" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="32.66668701171875" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="59.33331298828125" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text fx:id="racePrizeMoneyText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="8.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fx:id="raceRoutesText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+            <Text fx:id="racePrizeMoneyText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="8.0" />
                </GridPane.margin>
@@ -86,12 +79,7 @@
                   <Insets left="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="racePrizeMoneyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Prize Money:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets right="8.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fx:id="raceRoutesLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Routes:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Text fx:id="racePrizeMoneyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Prize Money:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="8.0" />
                </GridPane.margin>
@@ -106,14 +94,17 @@
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Rectangle fx:id="raceDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="217.0" stroke="BLACK" strokeType="INSIDE" width="198.0" GridPane.valignment="TOP" />
+            <Rectangle fx:id="raceDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="217.0" stroke="BLACK" strokeType="INSIDE" width="198.0" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Rectangle>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Race Details" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Text>
          </children>
          <GridPane.margin>
-            <Insets left="12.0" right="16.0" top="55.0" />
+            <Insets bottom="12.0" left="12.0" right="16.0" top="55.0" />
          </GridPane.margin>
          <opaqueInsets>
             <Insets />

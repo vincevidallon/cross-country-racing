@@ -14,33 +14,16 @@ public class Race {
     public Race(int difficulty) {
         Random rng = new Random();
         switch (difficulty) {
-            case 0: // easy
-                maxDuration = rng.nextInt(5, 10);
-                entries = rng.nextInt(1, 5);
-                prizeMoney = rng.nextInt(3, 6);
-
-                for (int i = 0; i < rng.nextInt(1, 3); i++) {
-                    routeList.add(new Route());
-                }
-                break;
             case 1: // medium
-                maxDuration = rng.nextInt(10, 15);
-                entries = rng.nextInt(3, 9);
-                prizeMoney = rng.nextInt(6, 10);
-
-                for (int i = 0; i < rng.nextInt(1, 3); i++) {
-                    routeList.add(new Route());
-                }
+                maxDuration = rng.nextInt(8, 16);
+                entries = rng.nextInt(4, 9);
                 break;
             case 2: // hard
-                maxDuration = rng.nextInt(15, 21);
-                entries = rng.nextInt(5, 13);
-                prizeMoney = rng.nextInt(10, 16);
-
-                for (int i = 0; i < rng.nextInt(2,4); i++) {
-                    routeList.add(new Route());
-                }
+                maxDuration = rng.nextInt(12, 21);
+                entries = rng.nextInt(6, 13);
+                break;
         }
+        prizeMoney = entries + 2;
     }
 
     @Override
