@@ -166,8 +166,13 @@ public class MenuRaceController extends ScreenController {
             default -> message = "Better luck next time...";
         }
 
-        eventPromptText.setText(String.format("%s\nYou get $%s for coming %s!",
-                message, raceService.calculatePrizeMoney(), player.positionString()));
+        if (player.getPosition() <= 3) {
+            eventPromptText.setText(String.format("%s\nYou get $%s for coming %s!",
+                    message, raceService.calculatePrizeMoney(), player.positionString()));
+        } else {
+            eventPromptText.setText(message);
+        }
+
         eventPromptText.setVisible(true);
 
         nextButton.setText("Exit >");

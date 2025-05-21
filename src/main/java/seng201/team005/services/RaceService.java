@@ -53,7 +53,9 @@ public class RaceService {
     }
 
     public int calculatePrizeMoney() {
-        return race.getPrizeMoney() / playerEntrant.getPosition();
+        if (playerEntrant.getPosition() <= 3) {
+            return race.getPrizeMoney() / playerEntrant.getPosition();
+        } else return 0;
     }
 
     public void setCurrentPlayerEvent(RaceEvent currentPlayerEvent) {
@@ -162,8 +164,9 @@ public class RaceService {
         int speedAdjust = 10 * entrant.getSpeed();
         int reliabilityAdjust = rng.nextInt(-20, 21) / entrant.getReliability();
         entrant.addDistance(50 + speedAdjust + reliabilityAdjust);
-        if (entrant.getDistance() >= route.getDistance() / route.getFuelStops()) {
+        if (entrant.getDistance() >= route.getDistance() * (double) (entrant.getFuelStopsPassed() + 1) / route.getFuelStops() + 1) {
             fuelStopEvent(entrant);
+            entrant.incrementFuelStopsPassed();
         }
 
         int fuelEconomyAdjust = 2 * entrant.getFuelEconomy();
