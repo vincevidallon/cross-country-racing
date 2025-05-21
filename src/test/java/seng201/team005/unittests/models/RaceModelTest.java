@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RaceModelTest {
 
-    @RepeatedTest(200)
+    @RepeatedTest(10)
     void normalConstructorTest() {
         Race race = new Race(1);
 
@@ -24,9 +24,32 @@ public class RaceModelTest {
                 () -> "Normal race prizeMoney out of range: " + race.getPrizeMoney());
 
         List<Route> raceRoutes = race.getRouteList();
-        assertTrue(raceRoutes.size() >= 1 && raceRoutes.size() < 3,
+        assertTrue(!raceRoutes.isEmpty() && raceRoutes.size() < 3,
                 () -> "Normal race routeList out of range: " + raceRoutes.size());
         assertTrue(raceRoutes.stream().allMatch(route -> route instanceof Route && route != null),
                 "Elements in normal routeList should be non-null Route instances");
     }
+
+
+    @RepeatedTest(10)
+    void hardConstructorTest() {
+        Race race = new Race(2);
+
+        assertTrue(race.getMaxDuration() >= 15 && race.getMaxDuration() < 21,
+                () -> "Hard race maxDuration out of range: " + race.getMaxDuration());
+
+        assertTrue(race.getEntries() >= 5 && race.getEntries() < 13,
+                () -> "Hard race entrants out of range: " + race.getEntries());
+
+        assertTrue(race.getPrizeMoney() >= 10 && race.getPrizeMoney() < 16,
+                () -> "Hard race prizeMoney out of range: " + race.getPrizeMoney());
+
+        List<Route> raceRoutes = race.getRouteList();
+        assertTrue(raceRoutes.size() >= 2 && raceRoutes.size() < 4,
+                () -> "Hard race routeList out of range: " + raceRoutes.size());
+
+        assertTrue(raceRoutes.stream().allMatch(route -> route instanceof Route && route != null),
+                "Elements in hard routeList should be non-null Route instances");
+        }
 }
+

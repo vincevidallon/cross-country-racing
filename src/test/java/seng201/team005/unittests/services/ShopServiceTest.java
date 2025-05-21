@@ -1,9 +1,11 @@
 package seng201.team005.unittests.services;
 
 
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng201.team005.GameEnvironment;
+import seng201.team005.gui.ScreenController;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 import seng201.team005.models.Purchasable;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 
 public class ShopServiceTest {

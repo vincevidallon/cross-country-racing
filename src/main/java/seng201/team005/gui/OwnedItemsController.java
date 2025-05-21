@@ -15,6 +15,15 @@ import seng201.team005.services.OwnedItemsService;
 
 import java.util.List;
 
+
+/**
+ * Controller for the owned items screen, which displays the user's
+ * items after successfully purchasing from the shop. The controller
+ * handles UI interactions for viewing purchased item stats, selling them
+ * and updating the user balance.
+ *
+ * @author vvi29
+ */
 public class OwnedItemsController extends ScreenController {
 
     @FXML
@@ -56,25 +65,48 @@ public class OwnedItemsController extends ScreenController {
         return "Cross Country Racing | Owned Items";
     }
 
+
+    /**
+     * Method to set the player name label to "<PlayerName>'s Owned Items.
+     */
     private void setupPlayerNameText() {
         String name = getGameEnvironment().getName();
         playerOwnedItemsText.setText(name + "'s Owned Items");
     }
 
+
+    /**
+     * Method to wire up the button for sending the player back to the shop screen.
+     */
     private void handleBackToShopButton() {
         backToShopButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuShopController(getGameEnvironment())));
     }
 
+
+    /**
+     * Updates the user balance text to be reflective of the current money in the
+     * game environment.
+     */
     private void setupUserBalance() {
         userBalance.setText("Money: $" + getGameEnvironment().getMoney());
     }
 
-    // Functionality for showing the owned items into the ListView
+
+    /**
+     * Populates the part and car ListViews with the user's currently owned items.
+     */
     private void displayOwnedLists() {
         ownedPartsView.setItems(FXCollections.observableArrayList(getGameEnvironment().getOwnedParts()));
         ownedCarsView.setItems(FXCollections.observableArrayList(getGameEnvironment().getOwnedCars()));
     }
 
+
+    /**
+     * Sets up the hover functionality for displaying the item stats when the mouse
+     * is hovered over a cell.
+     * @param listView the ListView to be configured
+     * @param <T> the type of Purchasable item
+     */
     private <T extends Purchasable> void hoverSetup(ListView<T> listView) {
         listView.setCellFactory(list -> {
             ListCell<T> cell = new ListCell<>() {
@@ -92,10 +124,20 @@ public class OwnedItemsController extends ScreenController {
         });
     }
 
+
+    /**
+     * Toggles the visibility of all stat nodes.
+     * @param visible whether the stat nodes should be visible or invisible
+     */
     private void setStatVisibility(boolean visible) {
         itemStats.forEach(text -> text.setVisible(visible));
     }
 
+
+    /**
+     * Shows the detailed stats for the selected item.
+     * @param item the {@link Purchasable} item whose stats are to be shown
+     */
     private void displayOwnedItemStats(Purchasable item) {
         carNameText.setText(item.getName());
         speedText.setText(String.valueOf(item.getSpeed()));
@@ -108,6 +150,12 @@ public class OwnedItemsController extends ScreenController {
         setStatVisibility(true);
     }
 
+
+    /**
+     * Configures the sell button for the user to be able to sell any of
+     * their selected items. This updates their balance to reflect the
+     * sell value of the item.
+     */
     private void handleSellButton() {
         sellItemButton.setOnAction(event -> {
             Part selectedPart = ownedPartsView.getSelectionModel().getSelectedItem();
@@ -123,6 +171,11 @@ public class OwnedItemsController extends ScreenController {
         });
     }
 
+
+    /**
+     * Sets up the Text nodes which will be used to display item stats
+     * when the stats rectangle is set up.
+     */
     @FXML
     private void setupStatsRectangle() {
         itemStats = List.of(carNameText, speedText, carSpeedLabelText, handlingText,
@@ -132,6 +185,9 @@ public class OwnedItemsController extends ScreenController {
     }
 
 
+    /**
+     * Initialize method, sets up UI components as well as event handlers.
+     */
     @FXML
     public void initialize() {
         setupPlayerNameText();
