@@ -1,6 +1,5 @@
 package seng201.team005.gui;
 
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -180,7 +179,7 @@ public class MenuRaceController extends ScreenController {
     }
 
     private void onExitButtonClicked() {
-        getGameEnvironment().incrementCurrentSeason();
+        getGameEnvironment().incrementNumberOfRacesPlayed();
         getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 

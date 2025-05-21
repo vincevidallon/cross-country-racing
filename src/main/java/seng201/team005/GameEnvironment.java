@@ -53,8 +53,8 @@ public class GameEnvironment {
     // The route currently selected by the player.
     private Route selectedRoute;
 
-    // The current season number.
-    private int currentSeason = 1;
+    // The number of races played. Once this reaches the season length, the game ends.
+    private int numberOfRacesPlayed = 0;
 
     /**
      * Constructs a GameEnvironment with the specified screen navigator.
@@ -226,18 +226,18 @@ public class GameEnvironment {
     }
 
     /**
-     * Returns the current season number.
+     * Returns the current number of races played.
      *
-     * @return the current season.
+     * @return the current number of races played.
      */
-    public int getCurrentSeason() {
-        return currentSeason;
+    public int getNumberOfRacesPlayed() {
+        return numberOfRacesPlayed;
     }
 
     /**
-     * Increments the current season number by one.
+     * Increments the current race count by one.
      */
-    public void incrementCurrentSeason() {
-        this.currentSeason++;
+    public void incrementNumberOfRacesPlayed() {
+        this.numberOfRacesPlayed++;
     }
 }
