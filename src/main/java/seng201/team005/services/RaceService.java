@@ -15,14 +15,14 @@ public class RaceService {
     private final Route route;
     private final Entrant playerEntrant;
     private final ObservableList<Entrant> entrantList = FXCollections.observableArrayList();
-    private final List<Entrant> finalEntrantList = new ArrayList<>();
+    private int finishedEntrantCount = 0;
     private int currentTime = 0;
     private RaceEvent currentPlayerEvent = null;
 
     private final Random rng = new Random();
 
     public enum RaceEvent {
-        STRANDED_TRAVELER, FUEL_STOP
+        STRANDED_TRAVELER, FUEL_STOP, BROKEN_DOWN
     }
 
     public ObservableList<Entrant> getEntrantList() {
@@ -52,6 +52,10 @@ public class RaceService {
         this.playerEntrant = playerEntrant;
     }
 
+    public int calculatePrizeMoney() {
+        return race.getPrizeMoney() / playerEntrant.getPosition();
+    }
+
     public void setCurrentPlayerEvent(RaceEvent currentPlayerEvent) {
         this.currentPlayerEvent = currentPlayerEvent;
         raceController.onCurrentEvent(currentPlayerEvent);
@@ -65,9 +69,22 @@ public class RaceService {
         }
     }
 
+    public void carBreakDownChoice(Entrant entrant, boolean payingForRepairs) {
+        if (payingForRepairs) {
+            entrant.setStopped(true);
+            sendBroadcast(entrant, entrant.getName() + " has stopped for repairs.");
+        } else {
+            entrant.setBrokenDown(true);
+            sendBroadcast(entrant, entrant.getName() + " has broken down.");
+        }
+    }
+
     private void carBreakDownEvent(Entrant entrant) {
-        entrant.setBrokenDown(true);
-        sendBroadcast(entrant, entrant.getName() + " has broken down.");
+        if (entrant.equals(playerEntrant)) {
+            setCurrentPlayerEvent(RaceEvent.BROKEN_DOWN);
+        } else {
+            carBreakDownChoice(entrant, rng.nextBoolean());
+        }
     }
 
     private void strandedTravelerEvent(Entrant entrant) {
@@ -161,8 +178,7 @@ public class RaceService {
     }
 
     public void timeStep() {
-
-
+        // FIXME: for some reason the leaderboard labels get updated one timeStep behind??
         for (Entrant entrant : entrantList) {
 
             if (!entrant.isFinished() && !entrant.isStopped() && !entrant.isBrokenDown()) {
@@ -176,15 +192,17 @@ public class RaceService {
 
             entrant.setStopped(false);
         }
+
         randomGlobalEvent();
 
+        entrantList.sort(Entrant::compareTo);
         entrantList.sort(Collections.reverseOrder());
 
         for (Entrant entrant: entrantList) {
             if (entrant.getDistance() > route.getDistance() && !entrant.isFinished()) {
                 entrant.setFinished(true);
-                finalEntrantList.add(entrant);
-                entrant.setPosition(finalEntrantList.indexOf(entrant) + 1);
+                finishedEntrantCount++;
+                entrant.setPosition(finishedEntrantCount);
                 sendBroadcast(entrant, entrant.getName() + " has completed the race at " +
                         entrant.positionString() + " place!");
             } else {
@@ -193,12 +211,10 @@ public class RaceService {
         }
 
         currentTime++;
-        if (currentTime == race.getMaxDuration() || entrantList.stream().allMatch(Entrant::isFinished)) {
-            endRace();
+        if (currentTime == race.getMaxDuration() || entrantList.stream().allMatch(Entrant::isFinished)
+                || entrantList.stream().allMatch(Entrant::isBrokenDown)) {
+            raceController.onEndReached();
+            raceController.addMoney(calculatePrizeMoney());
         }
-    }
-
-    private void endRace() {
-        raceController.onEndReached();
     }
 }

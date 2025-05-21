@@ -69,6 +69,7 @@ public class MenuRaceController extends ScreenController {
         switch (event) {
             case STRANDED_TRAVELER -> onStrandedTravelerEvent();
             case FUEL_STOP -> onFuelStopEvent();
+            case BROKEN_DOWN -> onCarBreakDownEvent();
             case null, default -> eventPromptText.setText("");
         }
     }
@@ -78,7 +79,8 @@ public class MenuRaceController extends ScreenController {
         eventPromptText.setText("""
                 You come across a stranded traveler on the side of the road.
                 
-                Do you offer them a ride?""");
+                Do you offer them a ride?
+                This will cost you some race time.""");
 
         yesButton.setOnAction(event -> {
             raceService.strandedTravelerChoice(raceService.getPlayer(), true);
@@ -92,7 +94,8 @@ public class MenuRaceController extends ScreenController {
         eventPromptText.setText("""
                 You come across a fuel stop.
                 
-                Do you refuel your vehicle?""");
+                Do you refuel your vehicle?
+                This will cost you some race time.""");
 
         yesButton.setOnAction(event -> {
             raceService.fuelStopChoice(raceService.getPlayer(), true);
@@ -100,6 +103,22 @@ public class MenuRaceController extends ScreenController {
         });
         noButton.setOnAction(event -> raceService.fuelStopChoice(raceService.getPlayer(), false));
     }
+
+    public void onCarBreakDownEvent() {
+
+        eventPromptText.setText("""
+                Your car has broken down!
+                
+                Do you repair your vehicle?
+                This will cost you some race time.""");
+
+        yesButton.setOnAction(event -> {
+            raceService.fuelStopChoice(raceService.getPlayer(), true);
+            nextButton.setText("Repair >");
+        });
+        noButton.setOnAction(event -> raceService.carBreakDownChoice(raceService.getPlayer(), false));
+    }
+
 
     private void updatePlayerStatDisplay() {
         Entrant player = raceService.getPlayer();
@@ -135,21 +154,28 @@ public class MenuRaceController extends ScreenController {
     }
 
     private void onEndButtonClicked() {
-        broadcastVBox.getChildren().removeAll();
+        broadcastVBox.getChildren().clear();
 
-        Text endTitleText = new Text();
-        endTitleText.setWrappingWidth(353);
-        endTitleText.setStyle("-fx-font-size: 24");
+        Entrant player = raceService.getPlayer();
+        String message;
 
-        switch (raceService.getPlayer().getPosition()) {
-            case 1 -> endTitleText.setText("Congratulations!");
-            case 2 -> endTitleText.setText("Well done!");
-            case 3 -> endTitleText.setText("Good job!");
-            default -> endTitleText.setText("Better luck next time...");
+        switch (player.getPosition()) {
+            case 1 -> message = "Congratulations!";
+            case 2 -> message = "Well done!";
+            case 3 -> message = "Good job!";
+            default -> message = "Better luck next time...";
         }
 
+        eventPromptText.setText(String.format("%s\nYou get $%s for coming %s!",
+                message, raceService.calculatePrizeMoney(), player.positionString()));
+        eventPromptText.setVisible(true);
 
+        nextButton.setText("Exit >");
+        nextButton.setOnAction(event -> onExitButtonClicked());
+    }
 
+    private void onExitButtonClicked() {
+        getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
     public void initialize() {
