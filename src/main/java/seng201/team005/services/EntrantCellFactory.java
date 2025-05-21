@@ -25,9 +25,12 @@ public class EntrantCellFactory implements Callback<ListView<Entrant>, ListCell<
             @Override
             public void updateItem(Entrant entrant, boolean empty) {
                 super.updateItem(entrant, empty);
-                if (empty || entrant == null) {
-                    setGraphic(null);
-                } else {
+                if (!empty && entrant != null) {
+
+                    // I don't know why, but I need to re-set the entrant's position here
+                    // for it to display properly on the leaderboard. :(
+                    entrant.setPosition(raceService.getEntrantList().indexOf(entrant) + 1);
+
                     Label nameLabel = new Label(entrant.leaderboardString());
                     nameLabel.setTextAlignment(TextAlignment.CENTER);
                     if (entrant.equals(raceService.getPlayer())) {
