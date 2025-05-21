@@ -3,12 +3,27 @@ package seng201.team005.models;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * Model class representing a route in the game. Has specific attributes such as description,
+ * distance, fuel stops and difficulty.
+ *<p>
+ *     A single race route is randomly generated when created. The difficulty
+ *     determines the other attributes (e.g distance, number of fuel stops, and description).
+ *</p>
+ *
+ * <p>
+ */
 public class Route {
     private String description;
     private int distance;
     private int fuelStops;
     private int difficulty;
 
+
+    /**
+     * Constructs a randomly generated Route.
+     */
     public Route() {
         Random rng = new Random();
 
@@ -20,6 +35,11 @@ public class Route {
         fuelStops = 3 - difficulty;
     }
 
+
+    /**
+     * Returns a string representation of the route with all attributes.
+     * @return a string representation of the Route object
+     */
     @Override
     public String toString() {
         return "Route{" +
@@ -30,18 +50,38 @@ public class Route {
                 '}';
     }
 
+
+    /**
+     * Returns the route description.
+     *
+     * @return the route description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Return the route distance.
+     *
+     * @return the route distance in km
+     */
     public int getDistance() {
         return distance;
     }
 
+    /**
+     * Returns the difficult level of the route.
+     *
+     * @return difficulty ()
+     */
     public int getDifficulty() {
         return difficulty;
     }
 
+    /**
+     * Returns the number of fuel stops on the route
+     * @return number of fuel stops
+     */
     public int getFuelStops() {
         return fuelStops;
     }
