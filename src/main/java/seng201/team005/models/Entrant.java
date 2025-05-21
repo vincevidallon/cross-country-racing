@@ -1,19 +1,30 @@
 package seng201.team005.models;
 
+/**
+ * Represents an entrant in a race, extending the Car class and implementing the Comparable interface.
+ * This class tracks the entrant's progress, fuel, position, and status during the race.
+ */
 public class Entrant extends Car implements Comparable<Entrant> {
-    private int distance = 0;
-    private int fuel = 100;
-    private int position = -1;
-    private int fuelStopsPassed = 0;
-    private boolean isStopped = false;
-    private boolean isBrokenDown = false;
-    private boolean isFinished = false;
+    private int distance = 0; // The distance traveled by the entrant in kilometers.
+    private int fuel = 100; // The current fuel level of the entrant.
+    private int position = -1; // The position of the entrant in the race.
+    private int fuelStopsPassed = 0; // The number of fuel stops passed by the entrant.
+    private boolean isStopped = false; // Whether the entrant is currently stopped.
+    private boolean isBrokenDown = false; // Whether the entrant is currently broken down.
+    private boolean isFinished = false; // Whether the entrant has finished the race.
 
-
+    /**
+     * Default constructor for Entrant.
+     */
     public Entrant() {
         super();
     }
 
+    /**
+     * Constructs an Entrant based on an existing Car object.
+     *
+     * @param car The Car object to base the Entrant on.
+     */
     public Entrant(Car car) {
         this.name = car.getName();
         this.speed = car.getSpeed();
@@ -23,6 +34,11 @@ public class Entrant extends Car implements Comparable<Entrant> {
         this.overall = calculateOverall();
     }
 
+    /**
+     * Returns the position of the entrant as a formatted string (e.g., "1st", "2nd").
+     *
+     * @return The formatted position string.
+     */
     public String positionString() {
         if (position % 10 == 1 && position != 11) return position + "st";
         if (position % 10 == 2 && position != 12) return position + "nd";
@@ -30,22 +46,41 @@ public class Entrant extends Car implements Comparable<Entrant> {
         return position + "th";
     }
 
+    /**
+     * Returns a string representation of the entrant for the leaderboard.
+     *
+     * @return The leaderboard string containing position, name, and distance.
+     */
     public String leaderboardString() {
         return positionString() + "\n" + name + "\n" + distance + " km";
     }
 
+    /**
+     * Compares this entrant to another entrant based on their race status and progress.
+     *
+     * @param entrant The entrant to compare to.
+     * @return A negative integer, zero, or a positive integer as this entrant is less than,
+     * equal to, or greater than the specified entrant.
+     */
     @Override
     public int compareTo(Entrant entrant) {
         if (this.isFinished && entrant.isFinished) {
             return this.position - entrant.position;
-        } if (this.isFinished) {
+        }
+        if (this.isFinished) {
             return 1;
-        } if (entrant.isFinished) {
+        }
+        if (entrant.isFinished) {
             return -1;
         }
         return this.distance - entrant.distance;
     }
 
+    /**
+     * Returns a string representation of the entrant.
+     *
+     * @return A string containing the entrant's distance, fuel, position, and name.
+     */
     @Override
     public String toString() {
         return "Entrant{" +
@@ -56,59 +91,127 @@ public class Entrant extends Car implements Comparable<Entrant> {
                 '}';
     }
 
+    /**
+     * Returns the distance traveled by the entrant.
+     *
+     * @return The distance traveled.
+     */
     public int getDistance() {
         return distance;
     }
 
+    /**
+     * Returns the fuel level of the entrant.
+     *
+     * @return The fuel level.
+     */
     public int getFuel() {
         return fuel;
     }
 
+    /**
+     * Adds a specified distance to the entrant's total distance traveled.
+     *
+     * @param distance The distance to add.
+     */
     public void addDistance(int distance) {
         this.distance += distance;
     }
 
+    /**
+     * Sets the fuel level of the entrant.
+     *
+     * @param fuel The fuel level to set.
+     */
     public void setFuel(int fuel) {
         this.fuel = fuel;
     }
 
+    /**
+     * Returns the position of the entrant.
+     *
+     * @return The position of the entrant.
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     * Sets the position of the entrant.
+     *
+     * @param position The position to set.
+     */
     public void setPosition(int position) {
         this.position = position;
     }
 
+    /**
+     * Returns whether the entrant is currently stopped.
+     *
+     * @return True if the entrant is stopped, false otherwise.
+     */
     public boolean isStopped() {
         return isStopped;
     }
 
+    /**
+     * Sets whether the entrant is currently stopped.
+     *
+     * @param stopped True to indicate the entrant is stopped, false otherwise.
+     */
     public void setStopped(boolean stopped) {
         isStopped = stopped;
     }
 
+    /**
+     * Returns whether the entrant is currently broken down.
+     *
+     * @return True if the entrant is broken down, false otherwise.
+     */
     public boolean isBrokenDown() {
         return isBrokenDown;
     }
 
+    /**
+     * Sets whether the entrant is currently broken down.
+     *
+     * @param brokenDown True to indicate the entrant is broken down, false otherwise.
+     */
     public void setBrokenDown(boolean brokenDown) {
         isBrokenDown = brokenDown;
     }
 
+    /**
+     * Returns whether the entrant has finished the race.
+     *
+     * @return True if the entrant has finished, false otherwise.
+     */
     public boolean isFinished() {
         return isFinished;
     }
 
+    /**
+     * Sets the finished status of the entrant.
+     *
+     * @param finished True to indicate the entrant has finished, false otherwise.
+     */
     public void setFinished(boolean finished) {
         isFinished = finished;
     }
 
+    /**
+     * Returns the number of fuel stops passed by the entrant.
+     *
+     * @return The number of fuel stops passed.
+     */
     public int getFuelStopsPassed() {
         return fuelStopsPassed;
     }
 
-    public void setFuelStopsPassed(int fuelStopsPassed) {
-        this.fuelStopsPassed = fuelStopsPassed;
+    /**
+     * Increments the number of fuel stops passed by the entrant.
+     */
+    public void incrementFuelStopsPassed() {
+        this.fuelStopsPassed++;
     }
 }
