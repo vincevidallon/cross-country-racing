@@ -30,10 +30,10 @@ public class RaceSetupController extends ScreenController {
     private Button raceButton1, raceButton2, raceButton3;
 
     @FXML
-    private Text raceHoursLabelText, raceEntriesLabelText, raceRoutesLabelText, racePrizeMoneyLabelText;
+    private Text raceHoursLabelText, raceEntriesLabelText, racePrizeMoneyLabelText;
 
     @FXML
-    private Text raceHoursText, raceEntriesText, raceRoutesText, racePrizeMoneyText;
+    private Text raceHoursText, raceEntriesText, racePrizeMoneyText;
 
     @FXML
     private javafx.scene.shape.Rectangle raceDetailsPane;
@@ -131,7 +131,6 @@ public class RaceSetupController extends ScreenController {
     private void displayRaceStats(Race race) {
         raceHoursText.setText(String.valueOf(race.getMaxDuration()));
         raceEntriesText.setText(String.valueOf(race.getEntries()));
-        raceRoutesText.setText(String.valueOf(race.getRouteList().size()));
         racePrizeMoneyText.setText("$" + race.getPrizeMoney());
     }
 
@@ -155,8 +154,8 @@ public class RaceSetupController extends ScreenController {
     public void initialize() {
 
         raceButtons = List.of(raceButton1, raceButton2, raceButton3);
-        raceStats = List.of(raceHoursLabelText, raceEntriesLabelText, raceRoutesLabelText,
-                racePrizeMoneyLabelText, raceHoursText, raceEntriesText, raceRoutesText, racePrizeMoneyText);
+        raceStats = List.of(raceHoursLabelText, raceEntriesLabelText,
+                racePrizeMoneyLabelText, raceHoursText, raceEntriesText, racePrizeMoneyText);
 
         confirmRaceButton.setDisable(true);
         raceDetailsPane.toBack();
