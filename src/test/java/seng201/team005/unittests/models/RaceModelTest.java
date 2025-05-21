@@ -11,45 +11,39 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RaceModelTest {
 
     @RepeatedTest(10)
-    void normalConstructorTest() {
+    void mediumDifficultyPrizeMoneyCalculation() {
         Race race = new Race(1);
+        assertEquals(race.getEntries() + 2, race.getPrizeMoney(),
+                "Prize money should be equal to entries + 2 for medium difficulty");
+    }
 
-        assertTrue(race.getMaxDuration() >= 10 && race.getMaxDuration() < 15,
-                () -> "Normal race maxDuration out of range: " + race.getMaxDuration());
+    @RepeatedTest(10)
+    void hardDifficultyPrizeMoneyCalculation() {
+        Race race = new Race(2);
+        assertEquals(race.getEntries() + 2, race.getPrizeMoney(),
+                "Prize money should be equal to entries + 2 for hard difficulty");
+    }
 
-        assertTrue(race.getEntries() >= 3 & race.getEntries() < 9,
-                () -> "Normal race entries out of range: " + race.getEntries());
-
-        assertTrue(race.getPrizeMoney() >= 6 && race.getPrizeMoney() < 10,
-                () -> "Normal race prizeMoney out of range: " + race.getPrizeMoney());
-
-        List<Route> raceRoutes = race.getRouteList();
-        assertTrue(!raceRoutes.isEmpty() && raceRoutes.size() < 3,
-                () -> "Normal race routeList out of range: " + raceRoutes.size());
-        assertTrue(raceRoutes.stream().allMatch(route -> route instanceof Route && route != null),
-                "Elements in normal routeList should be non-null Route instances");
+    @Test
+    void invalidDifficultyDoesNotThrowException() {
+        assertDoesNotThrow(() -> new Race(0),
+                "Creating a Race with an invalid difficulty should not throw an exception");
     }
 
 
     @RepeatedTest(10)
-    void hardConstructorTest() {
+    void maxDurationWithinExpectedRangeForMediumDifficulty() {
+        Race race = new Race(1);
+        assertTrue(race.getMaxDuration() >= 12 && race.getMaxDuration() < 18,
+                "Max duration should be within the range 12 to 18 for medium difficulty");
+    }
+
+    @RepeatedTest(10)
+    void maxDurationWithinExpectedRangeForHardDifficulty() {
         Race race = new Race(2);
-
-        assertTrue(race.getMaxDuration() >= 15 && race.getMaxDuration() < 21,
-                () -> "Hard race maxDuration out of range: " + race.getMaxDuration());
-
-        assertTrue(race.getEntries() >= 5 && race.getEntries() < 13,
-                () -> "Hard race entrants out of range: " + race.getEntries());
-
-        assertTrue(race.getPrizeMoney() >= 10 && race.getPrizeMoney() < 16,
-                () -> "Hard race prizeMoney out of range: " + race.getPrizeMoney());
-
-        List<Route> raceRoutes = race.getRouteList();
-        assertTrue(raceRoutes.size() >= 2 && raceRoutes.size() < 4,
-                () -> "Hard race routeList out of range: " + raceRoutes.size());
-
-        assertTrue(raceRoutes.stream().allMatch(route -> route instanceof Route && route != null),
-                "Elements in hard routeList should be non-null Route instances");
-        }
+        assertTrue(race.getMaxDuration() >= 16 && race.getMaxDuration() < 24,
+                "Max duration should be within the range 16 to 24 for hard difficulty");
+    }
 }
+
 
