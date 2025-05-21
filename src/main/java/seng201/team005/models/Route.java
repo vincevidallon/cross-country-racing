@@ -12,13 +12,10 @@ import java.util.Random;
  *     determines the other attributes (e.g distance, number of fuel stops, and description).
  *</p>
  *
- * <p>
  */
 public class Route {
-    private String description;
-    private int distance;
-    private int fuelStops;
-    private int difficulty;
+    private final String description;
+    private final int distance, fuelStops, difficulty;
 
 
     /**

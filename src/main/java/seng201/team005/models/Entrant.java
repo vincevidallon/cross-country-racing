@@ -57,6 +57,7 @@ public class Entrant extends Car implements Comparable<Entrant> {
 
     /**
      * Compares this entrant to another entrant based on their race status and progress.
+     * A finished entrant is always considered greater than a non-finished entrant.
      *
      * @param entrant The entrant to compare to.
      * @return A negative integer, zero, or a positive integer as this entrant is less than,
@@ -74,21 +75,6 @@ public class Entrant extends Car implements Comparable<Entrant> {
             return -1;
         }
         return this.distance - entrant.distance;
-    }
-
-    /**
-     * Returns a string representation of the entrant.
-     *
-     * @return A string containing the entrant's distance, fuel, position, and name.
-     */
-    @Override
-    public String toString() {
-        return "Entrant{" +
-                "distance=" + distance +
-                ", fuel=" + fuel +
-                ", position=" + position +
-                ", name='" + name + '\'' +
-                '}';
     }
 
     /**

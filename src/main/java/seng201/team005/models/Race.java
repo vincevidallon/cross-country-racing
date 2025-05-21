@@ -11,9 +11,8 @@ import java.util.Random;
 public class Race {
     private int maxDuration; // The maximum duration of the race in hours.
     private int entries; // The number of entries in the race.
-    private int prizeMoney; // The prize money for the race.
-    private List<Route> routeList = new ArrayList<>(); // The list of routes available for the race.
-    private Route selectedRoute; // The route selected for the race.
+    private final int prizeMoney; // The prize money for the race.
+    private final List<Route> routeList = new ArrayList<>(); // The list of routes available for the race.
 
     /**
      * Constructs a Race object based on the specified difficulty level.
@@ -69,23 +68,5 @@ public class Race {
      */
     public int getPrizeMoney() {
         return prizeMoney;
-    }
-
-    /**
-     * Returns the selected route for the race.
-     *
-     * @return The selected Route object.
-     */
-    public Route getSelectedRoute() {
-        return selectedRoute;
-    }
-
-    /**
-     * Sets the selected route for the race.
-     *
-     * @param selectedRoute The Route object to set as the selected route.
-     */
-    public void setSelectedRoute(Route selectedRoute) {
-        this.selectedRoute = selectedRoute;
     }
 }
