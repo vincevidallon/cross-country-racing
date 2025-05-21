@@ -113,7 +113,7 @@ public class MenuRaceController extends ScreenController {
                 This will cost you some race time.""");
 
         yesButton.setOnAction(event -> {
-            raceService.fuelStopChoice(raceService.getPlayer(), true);
+            raceService.carBreakDownChoice(raceService.getPlayer(), true);
             nextButton.setText("Repair >");
         });
         noButton.setOnAction(event -> raceService.carBreakDownChoice(raceService.getPlayer(), false));

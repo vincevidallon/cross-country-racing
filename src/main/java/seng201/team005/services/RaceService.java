@@ -181,7 +181,6 @@ public class RaceService {
     }
 
     public void timeStep() {
-        // FIXME: for some reason the leaderboard labels get updated one timeStep behind??
         for (Entrant entrant : entrantList) {
 
             if (!entrant.isFinished() && !entrant.isStopped() && !entrant.isBrokenDown()) {
