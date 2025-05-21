@@ -34,7 +34,7 @@ public class GameEnvironment {
         this.name = name;
         this.seasonLength = seasonLength;
         this.difficulty = difficulty;
-        this.money = 15 - 5 * difficulty;
+        this.money = 9 - 3 * difficulty;
         navigator.launchScreen(new MenuSetupCarsController(this));
     }
 
