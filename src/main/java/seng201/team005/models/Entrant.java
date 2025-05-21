@@ -36,6 +36,13 @@ public class Entrant extends Car implements Comparable<Entrant> {
 
     @Override
     public int compareTo(Entrant entrant) {
+        if (this.isFinished && entrant.isFinished) {
+            return this.position - entrant.position;
+        } if (this.isFinished) {
+            return 1;
+        } if (entrant.isFinished) {
+            return -1;
+        }
         return this.distance - entrant.distance;
     }
 
