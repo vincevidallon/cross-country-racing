@@ -22,7 +22,7 @@ public class RouteService {
     public List<Route> generateRoutes(int count) {
         List<Route> raceRoutes = new ArrayList<>();
         for (int i =0; i < count; i++) {
-            raceRoutes.add(new Route());
+            raceRoutes.add(new Route(i));
         }
         return raceRoutes;
     }
