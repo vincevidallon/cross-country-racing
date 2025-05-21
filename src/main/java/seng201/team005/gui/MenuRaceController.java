@@ -80,7 +80,10 @@ public class MenuRaceController extends ScreenController {
                 
                 Do you offer them a ride?""");
 
-        yesButton.setOnAction(event -> raceService.strandedTravelerChoice(raceService.getPlayer(), true));
+        yesButton.setOnAction(event -> {
+            raceService.strandedTravelerChoice(raceService.getPlayer(), true);
+            nextButton.setText("Pick up >");
+        });
         noButton.setOnAction(event -> raceService.strandedTravelerChoice(raceService.getPlayer(), false));
     }
 
@@ -91,18 +94,27 @@ public class MenuRaceController extends ScreenController {
                 
                 Do you refuel your vehicle?""");
 
-        yesButton.setOnAction(event -> raceService.fuelStopChoice(raceService.getPlayer(), true));
+        yesButton.setOnAction(event -> {
+            raceService.fuelStopChoice(raceService.getPlayer(), true);
+            nextButton.setText("Refill >");
+        });
         noButton.setOnAction(event -> raceService.fuelStopChoice(raceService.getPlayer(), false));
     }
 
-    private void onNextButtonClicked() {
-        raceService.timeStep();
-
+    private void updatePlayerStatDisplay() {
         Entrant player = raceService.getPlayer();
         timeText.setText(raceService.getCurrentTime() + " hours passed");
         distanceText.setText(player.getDistance() + " km");
         fuelText.setText(player.getFuel() + " L");
         positionText.setText(player.positionString() + " place");
+    }
+
+    private void onNextButtonClicked() {
+        nextButton.setText("Next >");
+
+        raceService.timeStep();
+
+        updatePlayerStatDisplay();
 
         leaderboardListView.setItems(raceService.getEntrantList());
         leaderboardListView.scrollTo(raceService.getPlayer());
@@ -112,8 +124,32 @@ public class MenuRaceController extends ScreenController {
         nextButton.setText("Next >");
         nextButton.setOnAction(event -> onNextButtonClicked());
 
-        raceService.initEntrantList();
         onNextButtonClicked();
+    }
+
+    public void onEndReached() {
+        nextButton.setText("End >");
+        nextButton.setOnAction(event -> onEndButtonClicked());
+
+        displayEventBroadcast("The race is finished!", "-fx-font-weight: bold");
+    }
+
+    private void onEndButtonClicked() {
+        broadcastVBox.getChildren().removeAll();
+
+        Text endTitleText = new Text();
+        endTitleText.setWrappingWidth(353);
+        endTitleText.setStyle("-fx-font-size: 24");
+
+        switch (raceService.getPlayer().getPosition()) {
+            case 1 -> endTitleText.setText("Congratulations!");
+            case 2 -> endTitleText.setText("Well done!");
+            case 3 -> endTitleText.setText("Good job!");
+            default -> endTitleText.setText("Better luck next time...");
+        }
+
+
+
     }
 
     public void initialize() {
@@ -123,10 +159,10 @@ public class MenuRaceController extends ScreenController {
         routeLengthText.setText(raceService.getRoute().getDistance() + " km");
         timeLimitText.setText(raceService.getRace().getMaxDuration() + " hours");
 
+        raceService.initEntrantList();
+
         leaderboardListView.setCellFactory(new EntrantCellFactory(raceService));
         leaderboardListView.setItems(raceService.getEntrantList());
-        leaderboardListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<? super Entrant>)
-                change -> leaderboardListView.getSelectionModel().clearSelection());
 
         broadcastVBox.getChildren().remove(1);
         broadcastLabelText.setText("Race updates:");

@@ -31,11 +31,18 @@ public class Entrant extends Car implements Comparable<Entrant> {
     }
 
     public String leaderboardString() {
-        return positionString() + "\n" + name;
+        return positionString() + "\n" + name + "\n" + distance + " km";
     }
 
     @Override
     public int compareTo(Entrant entrant) {
+        if (this.isFinished && entrant.isFinished) {
+            return this.position - entrant.position;
+        } if (this.isFinished) {
+            return 1;
+        } if (entrant.isFinished) {
+            return -1;
+        }
         return this.distance - entrant.distance;
     }
 
