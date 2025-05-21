@@ -19,22 +19,40 @@ public class GenerateRaceServiceTest {
     }
 
     @Test
-    void generateMediumRacesTest() {
-        int difficulty = 2;
-        int count = 5;
+    void generateRacesWithZeroCount() {
+        int difficulty = 1;
+        int count = 0;
         List<Race> races = generateRaceService.generateRaces(difficulty, count);
 
-        assertEquals(count, races.size(), "Race List should be matching with the count parameter");
+        assertTrue(races.isEmpty(), "Race List should be empty when count is zero");
+    }
+
+    @Test
+    void generateRacesWithNegativeCount() {
+        int difficulty = 1;
+        int count = -5;
+        List<Race> races = generateRaceService.generateRaces(difficulty, count);
+
+        assertTrue(races.isEmpty(), "Race List should be empty when count is negative");
+    }
+
+    @Test
+    void generateRacesWithInvalidDifficulty() {
+        int difficulty = -1;
+        int count = 3;
+        List<Race> races = generateRaceService.generateRaces(difficulty, count);
+
+        assertEquals(count, races.size(), "Race List should still match the count parameter even with invalid difficulty");
         assertNotNull(races, "Races List should not be null");
     }
 
     @Test
-    void generateHardRacesTest() {
-        int difficulty = 3;
-        int count = 7;
+    void generateRacesWithLargeCount() {
+        int difficulty = 1;
+        int count = 1000;
         List<Race> races = generateRaceService.generateRaces(difficulty, count);
 
-        assertEquals(count, races.size(), "Race List should be matching with the count parameter");
+        assertEquals(count, races.size(), "Race List should match the large count parameter");
         assertNotNull(races, "Races List should not be null");
     }
 }
