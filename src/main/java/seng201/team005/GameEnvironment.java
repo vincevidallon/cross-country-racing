@@ -235,11 +235,9 @@ public class GameEnvironment {
     }
 
     /**
-     * Sets the current season number.
-     *
-     * @param currentSeason the new current season.
+     * Increments the current season number by one.
      */
-    public void setCurrentSeason(int currentSeason) {
-        this.currentSeason = currentSeason;
+    public void incrementCurrentSeason() {
+        this.currentSeason++;
     }
 }

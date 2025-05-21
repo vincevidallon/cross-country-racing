@@ -180,6 +180,7 @@ public class MenuRaceController extends ScreenController {
     }
 
     private void onExitButtonClicked() {
+        getGameEnvironment().incrementCurrentSeason();
         getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
