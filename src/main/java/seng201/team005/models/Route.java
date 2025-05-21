@@ -35,22 +35,6 @@ public class Route {
         fuelStops = 3 - difficulty;
     }
 
-
-    /**
-     * Returns a string representation of the route with all attributes.
-     * @return a string representation of the Route object
-     */
-    @Override
-    public String toString() {
-        return "Route{" +
-                "description='" + description + '\'' +
-                ", distance=" + distance +
-                ", fuelStops=" + fuelStops +
-                ", difficulty=" + difficulty +
-                '}';
-    }
-
-
     /**
      * Returns the route description.
      *
