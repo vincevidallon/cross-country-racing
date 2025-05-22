@@ -273,7 +273,7 @@ public class GameEnvironment {
         this.ownedCars = ownedCars;
     }
 
-    public void setOwnedParts(List<Part> ownedParts) {
-        this.ownedParts = ownedParts;
+    public void removeOwnedPart(Part part) {
+        ownedParts.remove(part);
     }
 }
