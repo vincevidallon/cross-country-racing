@@ -74,7 +74,7 @@ public abstract class Purchasable {
      */
     public int recalculateOverallStats() {
         overall = calculateOverall();
-        buyValue = overall > 0 ? overall : 1;
+        buyValue = overall > 0 ? overall + 1 : 1;
         sellValue = overall > 1 ? buyValue / 2 : 1;
         return overall;
     }

@@ -127,7 +127,7 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     public void initialize() {
-        shopCars = List.of(new Car(), new Car(), new Car(), new Car(), new Car());
+        shopCars = List.of(new Car(5), new Car(5), new Car(5), new Car(5), new Car(5));
         shopCarButtons = List.of(carButton1, carButton2, carButton3, carButton4, carButton5);
         selectedCarButtons = List.of(selectedCarButton1, selectedCarButton2, selectedCarButton3);
 
