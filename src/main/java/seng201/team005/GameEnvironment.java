@@ -8,6 +8,7 @@ import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
+import seng201.team005.services.ShopService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,14 @@ public class GameEnvironment {
     private final ScreenNavigator navigator;
 
     // List of parts owned by the player.
-    private final List<Part> ownedParts = new ArrayList<>();
+    private List<Part> ownedParts = new ArrayList<>();
 
     // List of cars owned by the player.
-    private final List<Car> ownedCars = new ArrayList<>();
+    private List<Car> ownedCars = new ArrayList<>();
+
+    private List<Car> shopCars = new ArrayList<>();
+
+    private List<Part> shopParts = new ArrayList<>();
 
     // Name of the player.
     private String name;
@@ -40,9 +45,6 @@ public class GameEnvironment {
 
     // Amount of money the player has.
     private int money;
-
-    // List of cars selected by the player for the current season.
-    private List<Car> playerCars = List.of();
 
     // The car currently selected by the player.
     private Car selectedCar;
@@ -74,7 +76,6 @@ public class GameEnvironment {
         seasonLength = 0;
         difficulty = 0;
         money = 0;
-        playerCars = List.of();
         selectedCar = null;
         selectedRace = null;
         selectedRoute = null;
@@ -98,6 +99,9 @@ public class GameEnvironment {
         this.seasonLength = seasonLength;
         this.difficulty = difficulty;
         this.money = 9 - 3 * difficulty;
+
+        shopCars = ShopService.generateCars(5);
+        shopParts = ShopService.generateParts(5);
         navigator.launchScreen(new MenuSetupCarsController(this));
     }
 
@@ -153,24 +157,6 @@ public class GameEnvironment {
      */
     public void setMoney(int money) {
         this.money = money;
-    }
-
-    /**
-     * Returns the list of cars selected by the player for the current season.
-     *
-     * @return the list of player cars.
-     */
-    public List<Car> getPlayerCars() {
-        return playerCars;
-    }
-
-    /**
-     * Sets the list of cars selected by the player for the current season.
-     *
-     * @param playerCars the new list of player cars.
-     */
-    public void setPlayerCars(List<Car> playerCars) {
-        this.playerCars = playerCars;
     }
 
     /**
@@ -268,5 +254,26 @@ public class GameEnvironment {
 
     public int getAverageRaceResult() {
         return (int) raceResults.stream().mapToInt(i -> i).average().orElse(0);
+    }
+
+    public List<Car> getShopCars() {
+        return shopCars;
+    }
+
+    public List<Part> getShopParts() {
+        return shopParts;
+    }
+
+    public void regenerateShop() {
+        shopCars = ShopService.generateCars(5);
+        shopParts = ShopService.generateParts(5);
+    }
+
+    public void setOwnedCars(List<Car> ownedCars) {
+        this.ownedCars = ownedCars;
+    }
+
+    public void setOwnedParts(List<Part> ownedParts) {
+        this.ownedParts = ownedParts;
     }
 }

@@ -53,8 +53,6 @@ public class MenuShopController extends ScreenController {
     private int nextSlotidx;
     private boolean showCars = false;
 
-    private final List<Integer> partCosts = new ArrayList<>();
-    private final List<Integer> carCosts = new ArrayList<>();
     private final List<Part> parts = new ArrayList<>();
     private final List<Car> cars = new ArrayList<>();
 
@@ -99,15 +97,6 @@ public class MenuShopController extends ScreenController {
 
 
     /**
-     * Generates a list of available parts and cars through the shop service class.
-     */
-    private void generatePartsandCars() {
-        parts.addAll(shopService.generateParts(itemButtons.size()));
-        cars.addAll(shopService.generateCars(itemButtons.size()));
-    }
-
-
-    /**
      * Updates all item buttons with cars or parts, depending on which option
      * is currently presented to the user.
      */
@@ -127,9 +116,7 @@ public class MenuShopController extends ScreenController {
      * Handles up the click and hover functionality for each item button.
      */
     private void selectedItemSetup() {
-        for (int i = 0; i < itemButtons.size(); i++) {
-            final int index = i;
-            Button button = itemButtons.get(i);
+        for (Button button : itemButtons) {
             button.setOnAction(this::onUpgradeButtonClicked);
             button.setOnMouseEntered(event -> {
                 Purchasable item = (Purchasable) button.getUserData();
@@ -266,7 +253,9 @@ public class MenuShopController extends ScreenController {
         itemButtons = List.of(itemButton1, itemButton2, itemButton3, itemButton4, itemButton5);
         selectedItems = List.of(selectedItem1, selectedItem2, selectedItem3);
 
-        generatePartsandCars();
+        parts.addAll(getGameEnvironment().getShopParts());
+        cars.addAll(getGameEnvironment().getShopCars());
+
         selectedItemSetup();
         toggleButtonSetup();
         purchaseSwitch();

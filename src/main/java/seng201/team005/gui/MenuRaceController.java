@@ -179,7 +179,10 @@ public class MenuRaceController extends ScreenController {
 
         if (getGameEnvironment().getNumberOfRacesPlayed() == getGameEnvironment().getSeasonLength()) {
             getGameEnvironment().launchScreen(new MenuResultsController(getGameEnvironment()));
-        } else getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
+        } else {
+            getGameEnvironment().regenerateShop();
+            getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
+        }
     }
 
     public void initialize() {

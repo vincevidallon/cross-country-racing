@@ -2,7 +2,7 @@ package seng201.team005.models;
 
 
 /**
- * A class which representis a tuning part that can be purchased and then installed
+ * A class which represents a tuning part that can be purchased and then installed
  * on a car.
  * <p>
  *     A {@code Part} extends the {@link Purchasable} class. It includes
@@ -23,7 +23,7 @@ public class Part extends Purchasable {
      */
     public Part(String name) {
         super(name, -1, 4);
-        buyValue += 2;
+        buyValue++;
     }
 
     /**

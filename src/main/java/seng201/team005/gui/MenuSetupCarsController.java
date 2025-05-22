@@ -122,7 +122,7 @@ public class MenuSetupCarsController extends ScreenController {
 
     @FXML
     private void onGoButtonClicked() {
-        getGameEnvironment().setPlayerCars(selectedCars);
+        getGameEnvironment().setOwnedCars(selectedCars);
         getGameEnvironment().setSelectedCar(selectedCars.getFirst());
         getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }

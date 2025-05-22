@@ -142,9 +142,9 @@ public class MenuGarageController extends ScreenController {
 
 
     public void initialize() {
-        cars = getGameEnvironment().getPlayerCars();
+        cars = getGameEnvironment().getOwnedCars();
+        parts = FXCollections.observableArrayList(getGameEnvironment().getOwnedParts());
         carButtons = List.of(carButton1, carButton2, carButton3, carButton4, carButton5);
-        parts = FXCollections.observableArrayList(new Part(), new Part(), new Part(), new Part(), new Part());
 
 
         for (int i = 0; i < carButtons.size(); i++) {

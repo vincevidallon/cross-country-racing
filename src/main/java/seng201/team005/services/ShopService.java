@@ -23,7 +23,7 @@ import java.util.Random;
  */
 
 public class ShopService {
-    private final Random random = new Random();
+    private static final Random random = new Random();
 
     /**
      * Generates a list of randomly generated {@link Part} objects.
@@ -31,7 +31,7 @@ public class ShopService {
      * @param count the number of Part objects to be generated
      * @return a shuffled list of Part instances
      */
-    public List<Part> generateParts(int count) {
+    public static List<Part> generateParts(int count) {
         List<Part> partList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             partList.add(new Part());
@@ -46,7 +46,7 @@ public class ShopService {
      * @param count the number of Car objects to be generated
      * @return a shuffled list of Car instances
      */
-    public List<Car> generateCars(int count) {
+    public static List<Car> generateCars(int count) {
         List<Car> carList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             carList.add(new Car());
