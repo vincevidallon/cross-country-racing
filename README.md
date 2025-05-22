@@ -3,13 +3,6 @@ The Cross Country Racing game is a JavaFX-based application made for the SENG201
 this application is to make a game in which players are able to buy, sell, maintain, and race vehicles with the aim
 of accumulating the highest amount of prize money possible over a selected number of days. 
 
-## Notes
-Remember you are required to commit your code to the **main** branch of your repository before the deadline.
-
-This project contains default naming of `team0` throughout.
-If you are interested you can update this to reflect your team number, however it is **not required**.
-This can be done by renaming any instance of `team0` with `team<x>` (where x is your number).
-IntelliJ can help with this using `ctrl+shift+f` to find all instances of a string, and `ctrl+shift+r` to replace them, though make sure to change the package names as well.
 
 ## Authors
 - Sky Harrington-Baker
@@ -24,23 +17,20 @@ This project comes with some basic examples of the following (including dependen
 - JavaFX
 - Junit 5
 
-We have also included a basic setup of the Gradle project and Tasks required for the course including:
-- Required dependencies for the functionality above
-- Test Coverage with JaCoCo
-- Build plugins:
-    - JavaFX Gradle plugin for working with (and packaging) JavaFX applications easily
+This project also has the following contents in a ZIP archive:
+- UML Use Case Diagram (PDF)
+- UML Class Diagram (PDF)
+- Project Report (PDF)
+- Built JAR file
 
-You are expected to understand the content provided and build your application on top of it. If there is anything you
-would like more information about please reach out to the tutors.
 
 ## Importing Project (Using IntelliJ)
-IntelliJ has built-in support for Gradle. To import your project:
+IntelliJ has built-in support for Gradle. To import the project:
 
 - Launch IntelliJ and choose `Open` from the start-up window.
 - Select the project and click open
 - At this point in the bottom right notifications you may be prompted to 'load gradle scripts', If so, click load
 
-**Note:** *If you run into dependency issues when running the app or the Gradle pop up doesn't appear then open the Gradle sidebar and click the Refresh icon.*
 
 ## Run Project 
 1. Open a command line interface inside the project directory and run `./gradlew run` to run the app.
@@ -55,4 +45,3 @@ IntelliJ has built-in support for Gradle. To import your project:
 1. Open a command line interface inside the project directory and run `./gradlew test` to run the tests.
 2. Test results should be printed to the command line
 
-**Note:** *This Jar is **NOT** cross-platform, so you **must** build the jar you submit on Linux.* 
