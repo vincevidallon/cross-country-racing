@@ -24,7 +24,7 @@ public class MenuRaceController extends ScreenController {
     protected MenuRaceController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
         raceService = new RaceService(this, getGameEnvironment().getSelectedRace(),
-                getGameEnvironment().getSelectedRoute(), new Entrant(getGameEnvironment().getSelectedCar()));
+                getGameEnvironment().getSelectedRoute(), getGameEnvironment().getSelectedCar());
     }
 
     @Override
@@ -118,7 +118,7 @@ public class MenuRaceController extends ScreenController {
         Entrant player = raceService.getPlayer();
         timeText.setText(raceService.getCurrentTime() + " hours passed");
         distanceText.setText(player.getDistance() + " km");
-        fuelText.setText(player.getFuel() + " L");
+        fuelText.setText(player.getFuel() + "%");
         positionText.setText(player.positionString() + " place");
     }
 

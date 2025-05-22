@@ -3,6 +3,7 @@ package seng201.team005.services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seng201.team005.gui.MenuRaceController;
+import seng201.team005.models.Car;
 import seng201.team005.models.Entrant;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
@@ -21,11 +22,11 @@ public class RaceService {
     private int currentTime = 0;
     private RaceEvent currentPlayerEvent = null;
 
-    public RaceService(MenuRaceController raceController, Race race, Route route, Entrant playerEntrant) {
+    public RaceService(MenuRaceController raceController, Race race, Route route, Car playerCar) {
         this.raceController = raceController;
         this.race = race;
         this.route = route;
-        this.playerEntrant = playerEntrant;
+        this.playerEntrant = new Entrant(playerCar, route.getTerrain());
     }
 
     public ObservableList<Entrant> getEntrantList() {
@@ -137,15 +138,15 @@ public class RaceService {
 
     public void randomEvent(Entrant entrant) {
         int randomEventInt = rng.nextInt(100);
-        if (randomEventInt >= 98) {
+        if (randomEventInt < 2) {
             strandedTravelerEvent(entrant);
-        } else if (randomEventInt >= 95) {
+        } else if (randomEventInt < 10 - entrant.getReliability()) {
             carBreakDownEvent(entrant);
         }
     }
 
     public void randomGlobalEvent() {
-        if (rng.nextInt(200) == 199) {
+        if (rng.nextInt(200) == 0) {
             severeWeatherEvent();
         }
     }
@@ -154,7 +155,7 @@ public class RaceService {
         entrantList.add(playerEntrant);
         playerEntrant.setPosition(1);
         for (int i = 1; i <= race.getEntries(); i++) {
-            Entrant entrant = new Entrant();
+            Entrant entrant = new Entrant(route.getTerrain());
             entrantList.add(entrant);
             entrant.setPosition(i + 1);
         }
@@ -163,7 +164,14 @@ public class RaceService {
     public void driveStep(Entrant entrant) {
         int speedAdjust = 10 * entrant.getSpeed();
         int reliabilityAdjust = rng.nextInt(-20, 21) / entrant.getReliability();
-        entrant.addDistance(50 + speedAdjust + reliabilityAdjust);
+        int handlingAdjust = 0;
+        switch (route.getTerrain()) {
+            case HILLY -> handlingAdjust = -20 + 2 * entrant.getHandling();
+            case WINDY -> handlingAdjust = -10 + entrant.getHandling();
+            case OFF_ROAD -> handlingAdjust = -30 + 3 * entrant.getHandling();
+        }
+
+        entrant.addDistance(50 + speedAdjust + reliabilityAdjust + handlingAdjust);
         if (entrant.getDistance() >= route.getDistance() * (double) (entrant.getFuelStopsPassed() + 1) / route.getFuelStops() + 1) {
             fuelStopEvent(entrant);
             entrant.incrementFuelStopsPassed();

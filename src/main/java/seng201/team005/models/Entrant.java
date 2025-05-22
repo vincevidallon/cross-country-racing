@@ -16,8 +16,10 @@ public class Entrant extends Car implements Comparable<Entrant> {
     /**
      * Default constructor for Entrant.
      */
-    public Entrant() {
+    public Entrant(Route.Terrain terrain) {
         super();
+
+        terrainStatModification(terrain);
     }
 
     /**
@@ -25,13 +27,28 @@ public class Entrant extends Car implements Comparable<Entrant> {
      *
      * @param car The Car object to base the Entrant on.
      */
-    public Entrant(Car car) {
+    public Entrant(Car car, Route.Terrain terrain) {
         this.name = car.getName();
         this.speed = car.getSpeed();
         this.handling = car.getHandling();
         this.reliability = car.getReliability();
         this.fuelEconomy = car.getFuelEconomy();
         this.overall = calculateOverall();
+
+        terrainStatModification(terrain);
+    }
+
+    /**
+     * Modifies the entrant's stats based on the terrain type.
+     *
+     * @param terrain The terrain type to modify stats for.
+     */
+    private void terrainStatModification(Route.Terrain terrain) {
+        switch (terrain) {
+            case HILLY -> speed -= 2;
+            case WINDY -> fuelEconomy -= 2;
+            case OFF_ROAD -> reliability -= 2;
+        }
     }
 
     /**
