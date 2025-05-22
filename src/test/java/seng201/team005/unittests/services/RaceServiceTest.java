@@ -33,7 +33,7 @@ public class RaceServiceTest {
         when(testerRoute.getDistance()).thenReturn(1000);
         when(testerRoute.getFuelStops()).thenReturn(2);
 
-        Car testerCar = new Car("TesterCar");
+        Car testerCar = new Car();
         testerCar.setSpeed(6);
         testerCar.setHandling(5);
         testerCar.setReliability(3);
@@ -66,7 +66,7 @@ public class RaceServiceTest {
 
     @Test
     void carBreakdownChoiceTest() {
-        Entrant testerEntrant = new Entrant(new Car("Testing"));
+        Entrant testerEntrant = new Entrant(new Car());
         raceService.carBreakDownChoice(testerEntrant, true);
         assertTrue(testerEntrant.isStopped());
         assertFalse(testerEntrant.isBrokenDown());
@@ -74,7 +74,7 @@ public class RaceServiceTest {
 
     @Test
     void carBreakdownChoiceTest2() {
-        Entrant testerEntrant = new Entrant(new Car("Testing"));
+        Entrant testerEntrant = new Entrant(new Car());
         raceService.carBreakDownChoice(testerEntrant, false);
         assertFalse(testerEntrant.isStopped());
         assertTrue(testerEntrant.isBrokenDown());
@@ -82,14 +82,14 @@ public class RaceServiceTest {
 
     @Test
     void strandedTravelerChoiceTest() {
-        Entrant testerEntrant = new Entrant(new Car("Testing"));
+        Entrant testerEntrant = new Entrant(new Car());
         raceService.strandedTravelerChoice(testerEntrant, true);
         assertTrue(testerEntrant.isStopped());
     }
 
     @Test
     void driveStepDecreasesFuelTest() {
-        Car testerCar = new Car("TesterCar");
+        Car testerCar = new Car();
         testerCar.setSpeed(6);
         testerCar.setHandling(5);
         testerCar.setReliability(3);
@@ -108,7 +108,7 @@ public class RaceServiceTest {
 
     @Test
     void timeStepTestEndsRaceAtMaxDuration() {
-        Car testerCar = new Car("TesterCar");
+        Car testerCar = new Car();
         testerCar.setSpeed(100);
         testerCar.setHandling(5);
         testerCar.setReliability(7);

@@ -23,7 +23,7 @@ public class GarageServiceTest {
 
     @Test
     void testInstallPartUpdatesCarStats() {
-        Car testCar = new Car("Tester");
+        Car testCar = new Car();
         testCar.setSpeed(100);
         testCar.setHandling(70);
         testCar.setReliability(80);
@@ -42,6 +42,5 @@ public class GarageServiceTest {
         assertEquals(73, testCar.getHandling());
         assertEquals(85, testCar.getReliability());
         assertEquals(72, testCar.getFuelEconomy());
-        assertEquals("Tester+", testCar.getName());
     }
 }

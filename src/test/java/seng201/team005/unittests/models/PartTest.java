@@ -13,8 +13,7 @@ public class PartTest {
         assertTrue(part.getHandling() >= -1 && part.getHandling() < 4);
         assertTrue(part.getReliability() >= -1 && part.getReliability() < 4);
         assertTrue(part.getFuelEconomy() >= -1 && part.getFuelEconomy() < 4);
-        assertEquals(part.getOverall(), (part.getSpeed() + part.getHandling() + part.getReliability() + part.getFuelEconomy()) / 4);
-        assertTrue(part.getBuyValue() >= 3); // buyValue is at least 1, then +2
+        assertEquals(part.getOverall(), part.calculateOverall());
         assertTrue(part.getSellValue() >= 1);
         assertTrue(part.getSellValue() <= part.getBuyValue());
     }

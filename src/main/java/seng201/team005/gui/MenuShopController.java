@@ -56,6 +56,8 @@ public class MenuShopController extends ScreenController {
     private final List<Part> parts = new ArrayList<>();
     private final List<Car> cars = new ArrayList<>();
 
+    private List<Purchasable> selectedPurchasableItems = new ArrayList<>();
+
     private final ShopService shopService = new ShopService();
 
 
@@ -88,11 +90,30 @@ public class MenuShopController extends ScreenController {
 
         Button clicked = (Button) event.getSource();
         Purchasable item = (Purchasable) clicked.getUserData();
-        ToggleButton slot = selectedItems.get(nextSlotidx);
-        slot.setText(clicked.getText());
-        slot.setUserData(item);
-        slot.setSelected(true);
-        nextSlotidx++;
+        selectedPurchasableItems.add(item);
+        clicked.setDisable(true);
+        updateSelectedPurchasableButtons();
+    }
+
+
+    /**
+     * Updates the selected item buttons with the selected items from the cart.
+     */
+    private void updateSelectedPurchasableButtons() {
+        for (int i = 0; i < selectedItems.size(); i++) {
+            ToggleButton toggleButton = selectedItems.get(i);
+            if (i < selectedPurchasableItems.size()) {
+                Purchasable item = selectedPurchasableItems.get(i);
+                toggleButton.setText(item.shopString());
+                toggleButton.setUserData(item);
+                toggleButton.setSelected(true);
+            }
+            else {
+                toggleButton.setText("");
+                toggleButton.setUserData(null);
+                toggleButton.setSelected(false);
+            }
+        }
     }
 
 
@@ -144,15 +165,32 @@ public class MenuShopController extends ScreenController {
 
 
     /**
+     * Reenables the item button for a {@link Purchasable} item
+     * that has been removed from the cart.
+     * @param item
+     */
+    private void reenableItemButton(Purchasable item) {
+        for (Button button : itemButtons) {
+            if (item.equals(button.getUserData())) {
+                button.setDisable(false);
+                break;
+            }
+        }
+    }
+
+
+    /**
      * Handles when a user selects or deselects one of the cart toggle buttons.
      * @param slotIdx the index of the toggle button slot
      * @param button the toggle button clicked by the user
      */
     private void toggleClick(int slotIdx, ToggleButton button) {
         if (!button.isSelected()) {
-            button.setText("");
-            button.setUserData(null);
-            nextSlotidx = slotIdx;
+            if (slotIdx < selectedPurchasableItems.size()) {
+                Purchasable deselectedItem = selectedPurchasableItems.remove(slotIdx);
+                reenableItemButton(deselectedItem);
+                updateSelectedPurchasableButtons();
+            }
         }
         else {
             Purchasable item = (Purchasable) button.getUserData();
@@ -186,6 +224,7 @@ public class MenuShopController extends ScreenController {
             Button button = itemButtons.get(i);
             button.setText(item.shopString());
             button.setUserData(item);
+            button.setDisable(false);
         }
         errorText.setVisible(false);
     }
@@ -211,12 +250,15 @@ public class MenuShopController extends ScreenController {
      * Clears all the selected items in the cart, resets slot index.
      */
     private void clearSelectedItems() {
-        selectedItems.forEach(item -> {
+        selectedPurchasableItems.clear();
+        for (ToggleButton item : selectedItems) {
             item.setSelected(false);
             item.setText("");
             item.setUserData(null);
-        });
-        nextSlotidx = 0;
+        }
+        for (Button button : itemButtons) {
+            button.setDisable(false);
+        }
         errorText.setVisible(false);
     }
 
@@ -227,21 +269,13 @@ public class MenuShopController extends ScreenController {
      */
     private void buyButtonSetup() {
         buyButton.setOnAction(event -> {
-            List<Purchasable> toBuy = new ArrayList<>();
-            for (ToggleButton button : selectedItems) {
-                if (button.isSelected()) {
-                    Purchasable item = (Purchasable) button.getUserData();
-                    if (item != null) toBuy.add(item);
-                }
-            }
-            if (!shopService.canAfford(getGameEnvironment(), toBuy)) {
-                errorText.setVisible(true);
+            if (!shopService.canAfford(getGameEnvironment(), selectedPurchasableItems)) {
                 errorText.setText("You have insufficient funds!");
+                errorText.setVisible(true);
                 return;
             }
-
             errorText.setVisible(false);
-            shopService.purchaseItem(getGameEnvironment(), toBuy);
+            shopService.purchaseItem(getGameEnvironment(), selectedPurchasableItems);
             updatePlayerMoneyText();
             clearSelectedItems();
         });

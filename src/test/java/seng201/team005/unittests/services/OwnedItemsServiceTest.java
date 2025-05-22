@@ -28,7 +28,7 @@ public class OwnedItemsServiceTest {
 
         gameEnvironment.setMoney(2500);
 
-        testCar = new Car("TesterCar");
+        testCar = new Car();
         testCar.setSellValue(500);
         gameEnvironment.getOwnedCars().add(testCar);
 
