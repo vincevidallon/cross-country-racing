@@ -15,12 +15,19 @@ import seng201.team005.services.GarageService;
 import java.util.List;
 
 /**
- * Controller for the menu_garage.fxml window
+ * Controller class for the garage menu screen.
+ * Manages the user interface and interactions for the garage, including car selection,
+ * part installation, and displaying car stats.
+ * <p>
+ * This class interacts with the `GarageService` to handle business logic and updates
+ * the game environment as needed.
+ * </p>
  *
  * @author sha378
  */
 public class MenuGarageController extends ScreenController {
 
+    // FXML UI components for car selection and part installation.
     @FXML
     private ToggleButton carButton1, carButton2, carButton3, carButton4, carButton5, selectedCarButton;
 
@@ -30,28 +37,60 @@ public class MenuGarageController extends ScreenController {
     @FXML
     private ListView<Part> partListView;
 
+    // Service for managing garage-related functionality.
     private final GarageService garageService = new GarageService(this);
+
+    // List of toggle buttons representing owned cars.
     private List<ToggleButton> carButtons = List.of();
+
+    // List of cars owned by the player.
     private List<Car> cars = List.of();
+
+    // The currently selected car.
     private Car selectedCar = getGameEnvironment().getSelectedCar();
+
+    // Observable list of parts owned by the player.
     private ObservableList<Part> parts;
+
+    // The currently selected part.
     private Part selectedPart;
 
+    /**
+     * Constructs a MenuGarageController with the specified game environment.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public MenuGarageController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
+    /**
+     * Retrieves the FXML file path for the garage menu screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/menu_garage.fxml";
     }
 
+    /**
+     * Retrieves the title for the garage menu screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Cross Country Racing | Garage";
     }
 
-
+    /**
+     * Handles the event when a car button is clicked.
+     * Updates the selected car and its display.
+     *
+     * @param buttonIndex The index of the clicked button.
+     * @param car The car associated with the clicked button.
+     */
     private void onCarButtonClicked(int buttonIndex, Car car) {
         for (int i = 0; i < cars.size(); i++) {
             carButtons.get(i).setSelected(i == buttonIndex);
@@ -66,7 +105,13 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
-
+    /**
+     * Handles the event when a car button is hovered over.
+     * Displays the stats of the hovered car, optionally combined with the selected part.
+     *
+     * @param buttonIndex The index of the hovered button.
+     * @param isHovered Whether the button is being hovered over.
+     */
     private void onCarButtonHovered(int buttonIndex, boolean isHovered) {
         if (selectedPart != null) {
             displayCarPlusPartStats(isHovered ? cars.get(buttonIndex) : selectedCar, selectedPart);
@@ -75,10 +120,18 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
+    /**
+     * Handles the event when the selected car button is clicked.
+     * Deselects the button.
+     */
     private void onSelectedCarButtonClicked() {
         selectedCarButton.setSelected(false);
     }
 
+    /**
+     * Updates the car buttons to reflect the current list of owned cars.
+     * Highlights the selected car.
+     */
     private void updateCarButtons() {
         for (int i = 0; i < cars.size(); i++) {
             carButtons.get(i).setSelected(cars.get(i) == selectedCar);
@@ -87,12 +140,21 @@ public class MenuGarageController extends ScreenController {
         selectedCarButton.setText(selectedCar.garageString());
     }
 
-
+    /**
+     * Handles the event when the back button is clicked.
+     * Saves the selected car and navigates back to the main menu.
+     */
     private void onBackButtonClicked() {
         getGameEnvironment().setSelectedCar(selectedCar);
         getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
+    /**
+     * Handles the event when a part is clicked in the part list.
+     * Updates the selected part and displays its stats combined with the selected car.
+     *
+     * @param part The selected part.
+     */
     private void onPartButtonClicked(Part part) {
         installPartButton.setDisable(part == null);
         selectedPart = part;
@@ -101,6 +163,13 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
+    /**
+     * Handles the event when a part is hovered over in the part list.
+     * Displays the stats of the hovered part combined with the selected car.
+     *
+     * @param part The hovered part.
+     * @param isHovered Whether the part is being hovered over.
+     */
     public void onPartButtonHovered(Part part, boolean isHovered) {
         if (isHovered) {
             displayCarPlusPartStats(selectedCar, part);
@@ -111,6 +180,10 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
+    /**
+     * Handles the event when the install part button is clicked.
+     * Installs the selected part on the selected car and updates the UI.
+     */
     private void onInstallPartButtonClicked() {
         garageService.installPart(selectedCar, selectedPart);
         getGameEnvironment().removeOwnedPart(selectedPart);
@@ -121,13 +194,14 @@ public class MenuGarageController extends ScreenController {
         updateCarButtons();
     }
 
-
-
+    /**
+     * Initializes the garage menu screen.
+     * Sets up car buttons, part list, and event handlers.
+     */
     public void initialize() {
         cars = getGameEnvironment().getOwnedCars();
         parts = FXCollections.observableArrayList(getGameEnvironment().getOwnedParts());
         carButtons = List.of(carButton1, carButton2, carButton3, carButton4, carButton5);
-
 
         for (int i = 0; i < carButtons.size(); i++) {
             if (i < cars.size()) {
@@ -141,7 +215,6 @@ public class MenuGarageController extends ScreenController {
                 carButtons.get(i).setSelected(true);
                 carButtons.get(i).setDisable(true);
             }
-
         }
 
         selectedCarButton.setText(selectedCar.garageString());
@@ -151,13 +224,11 @@ public class MenuGarageController extends ScreenController {
         selectedCarButton.hoverProperty().addListener((observable, oldValue, newValue) ->
                 onCarButtonHovered(cars.indexOf(selectedCar), newValue));
 
-
         partListView.setCellFactory(new PartCellFactory(garageService));
         partListView.setItems(parts);
 
         partListView.getSelectionModel().getSelectedItems().addListener(
                 (ListChangeListener<Part>) change -> onPartButtonClicked(change.getList().isEmpty() ? null : change.getList().getFirst()));
-
 
         installPartButton.setOnAction(event -> onInstallPartButtonClicked());
 

@@ -5,43 +5,49 @@ import seng201.team005.services.MenuService;
 import java.util.Random;
 
 /**
- * An abstract class which represents any item that can be purchased
- * in the game (e.g cars or parts). All items purchasable by the player
- * have performance stats, buy/sell values and name identifiers.
+ * An abstract class representing any item that can be purchased in the game, such as cars or parts.
+ * Each purchasable item has performance stats, buy/sell values, and a name identifier.
  * <p>
- *     Stats for a purchasable item include the speed, handling, reliability and fuel economy. An overall
- *     scored for the item is derived based on these stats, which then determines the item's
- *     buy/sell value.
+ * The performance stats include speed, handling, reliability, and fuel economy. An overall score
+ * is calculated based on these stats, which determines the item's buy and sell values.
  * </p>
- *
- * @author vvi29
  */
 public abstract class Purchasable {
 
+    // The name of the purchasable item.
     protected String name;
+    // The speed stat of the item.
     protected int speed;
+    // The handling stat of the item.
     protected int handling;
+    // The reliability stat of the item.
     protected int reliability;
+    // The fuel economy stat of the item.
     protected int fuelEconomy;
+    // The overall performance stat of the item.
     protected int overall;
 
+    // The value of the item when purchased.
     protected int buyValue;
+    // The value of the item when sold.
     protected int sellValue;
 
+    // The minimum bound for stat generation.
     protected final int STAT_MIN;
+    // The maximum bound for stat generation.
     protected final int STAT_MAX;
 
+    // A static random number generator for generating stats.
     protected static final Random rng = new Random();
 
-
     /**
-     * Constructs a {@code Purchasable} item with a specified name and stat range.
-     * All performance stats are randomly generated within the specified range.
-     * The overall item stat and buy/sell values are computed based on these stats.
+     * Constructs a Purchasable item with a specified name and stat range.
+     * Randomly generates performance stats within the given range and calculates
+     * the overall stat, buy value, and sell value.
      *
-     * @param name the name of the item
-     * @param STAT_MIN minimum bound (inclusive) for random stat generation
-     * @param STAT_MAX maximum bound (exclusive) for random stat generation
+     * @param name     The name of the item.
+     * @param STAT_MIN The minimum bound (inclusive) for random stat generation.
+     * @param STAT_MAX The maximum bound (exclusive) for random stat generation.
      */
     public Purchasable(String name, int STAT_MIN, int STAT_MAX) {
         this.name = name;
@@ -54,23 +60,20 @@ public abstract class Purchasable {
         recalculateOverallStats();
     }
 
-
     /**
-     * Calculates the overall stat value, defined as the average of the four main
-     * performance stats.
+     * Calculates the overall stat value as the average of the four main performance stats.
      *
-     * @return the overall stat value
+     * @return The calculated overall stat value.
      */
     public int calculateOverall() {
         return (speed + handling + reliability + fuelEconomy) / 4;
     }
 
-
     /**
-     * Recalculates the overall stats, and then updates the item's buy/sell values.
-     * Method ensures that values at least 1, prevents zero-cost/zero-value items.
+     * Recalculates the overall stat and updates the item's buy and sell values.
+     * Ensures that the values are at least 1 to prevent zero-cost items.
      *
-     * @return recalculated overall value
+     * @return The recalculated overall stat value.
      */
     public int recalculateOverallStats() {
         overall = calculateOverall();
@@ -79,130 +82,140 @@ public abstract class Purchasable {
         return overall;
     }
 
-
     /**
-     * Returns a string representation of the item in the shop UI.
-     * Includes the name of the item and a representation of the cost
-     * using dollar signs.
-     * @return a formatted string for shop display
+     * Generates a string representation of the item for display in the shop UI.
+     * Includes the item's name and a visual representation of its cost using dollar signs.
+     *
+     * @return A formatted string for shop display.
      */
     public String shopString() {
         return name + "\n" + "$".repeat(buyValue);
     }
 
-
     /**
-     * Returns a string representation of item for use in garage UI.
-     * Includes the name of the item and a star representation rating
-     * of the overall performance.
+     * Generates a string representation of the item for display in the garage UI.
+     * Includes the item's name and a star rating based on its overall performance.
      *
-     * @return a formatted string for garage display
+     * @return A formatted string for garage display.
      */
     public String garageString() {
         return name + "\n" + (overall > 0 ? MenuService.convertStatToStars(overall) : "...");
     }
 
     /**
-     * @return the item name
+     * @return The name of the item.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return the item's speed stat
+     * @return The speed stat of the item.
      */
     public int getSpeed() {
         return speed;
     }
 
     /**
-     * @return the item's handling stat
+     * @return The handling stat of the item.
      */
     public int getHandling() {
         return handling;
     }
 
     /**
-     * @return the item's reliability stat
+     * @return The reliability stat of the item.
      */
     public int getReliability() {
         return reliability;
     }
 
     /**
-     * @return the item's fuel economy stat
+     * @return The fuel economy stat of the item.
      */
     public int getFuelEconomy() {
         return fuelEconomy;
     }
 
     /**
-     * @return the item's overall stat
+     * @return The overall stat of the item.
      */
     public int getOverall() {
         return overall;
     }
 
-
     /**
-     * @return the item's buy value
+     * @return The buy value of the item.
      */
     public int getBuyValue() {
         return buyValue;
     }
 
     /**
-     * @return the item's sell value
+     * @return The sell value of the item.
      */
     public int getSellValue() {
         return sellValue;
     }
 
     /**
-     * @param name sets the item name
+     * Sets the name of the item.
+     *
+     * @param name The new name of the item.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @param speed sets the item speed stat
+     * Sets the speed stat of the item.
+     *
+     * @param speed The new speed stat.
      */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
     /**
-     * @param handling sets the item handling stat
+     * Sets the handling stat of the item.
+     *
+     * @param handling The new handling stat.
      */
     public void setHandling(int handling) {
         this.handling = handling;
     }
 
     /**
-     * @param reliability sets the item reliability stat
+     * Sets the reliability stat of the item.
+     *
+     * @param reliability The new reliability stat.
      */
     public void setReliability(int reliability) {
         this.reliability = reliability;
     }
 
     /**
-     * @param fuelEconomy sets the item fuel economy stat
+     * Sets the fuel economy stat of the item.
+     *
+     * @param fuelEconomy The new fuel economy stat.
      */
     public void setFuelEconomy(int fuelEconomy) {
         this.fuelEconomy = fuelEconomy;
     }
 
     /**
-     * @param overall sets the item overall stat
+     * Sets the overall stat of the item.
+     *
+     * @param overall The new overall stat.
      */
     public void setOverall(int overall) {
         this.overall = overall;
     }
 
     /**
-     * @param sellValue sets the item sell value
+     * Sets the sell value of the item.
+     *
+     * @param sellValue The new sell value.
      */
     public void setSellValue(int sellValue) {
         this.sellValue = sellValue;

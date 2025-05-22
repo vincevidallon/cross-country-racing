@@ -9,9 +9,17 @@ import seng201.team005.GameEnvironment;
 import seng201.team005.models.Entrant;
 import seng201.team005.services.RaceService;
 
+/**
+ * Controller class for the race menu screen.
+ * Manages the user interface and interactions during a race, including event handling,
+ * player updates, and race progression.
+ */
 public class MenuRaceController extends ScreenController {
 
+    // Service for managing race-related functionality.
     private final RaceService raceService;
+
+    // FXML UI components.
     @FXML
     private Button nextButton, yesButton, noButton;
     @FXML
@@ -21,27 +29,53 @@ public class MenuRaceController extends ScreenController {
     @FXML
     private VBox broadcastVBox;
 
+    /**
+     * Constructs a MenuRaceController with the specified game environment.
+     * Initializes the race service with the selected race, route, and car.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     protected MenuRaceController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
         raceService = new RaceService(this, getGameEnvironment().getSelectedRace(),
                 getGameEnvironment().getSelectedRoute(), getGameEnvironment().getSelectedCar());
     }
 
+    /**
+     * Retrieves the FXML file path for the race menu screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/menu_race.fxml";
     }
 
+    /**
+     * Retrieves the title for the race menu screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Cross Country Racing | Race";
     }
 
-
+    /**
+     * Displays a broadcast message in the race menu.
+     *
+     * @param broadcast The message to display.
+     */
     public void displayEventBroadcast(String broadcast) {
         displayEventBroadcast(broadcast, "");
     }
 
+    /**
+     * Displays a broadcast message with a specific style in the race menu.
+     *
+     * @param broadcast The message to display.
+     * @param style The CSS style to apply to the message.
+     */
     public void displayEventBroadcast(String broadcast, String style) {
         Text broadcastText = new Text(broadcast);
         broadcastText.setWrappingWidth(353);
@@ -52,6 +86,11 @@ public class MenuRaceController extends ScreenController {
         broadcastVBox.getChildren().add(broadcastText);
     }
 
+    /**
+     * Handles the current race event and updates the UI accordingly.
+     *
+     * @param event The current race event.
+     */
     public void onCurrentEvent(RaceService.RaceEvent event) {
         boolean isEvent = event != null;
         nextButton.setVisible(!isEvent);
@@ -68,11 +107,13 @@ public class MenuRaceController extends ScreenController {
         }
     }
 
+    /**
+     * Handles the stranded traveler event, prompting the player for a decision.
+     */
     public void onStrandedTravelerEvent() {
-
         eventPromptText.setText("""
                 You come across a stranded traveler on the side of the road.
-                
+
                 Do you offer them a ride?
                 This will cost you some race time.""");
 
@@ -83,11 +124,13 @@ public class MenuRaceController extends ScreenController {
         noButton.setOnAction(event -> raceService.strandedTravelerChoice(raceService.getPlayer(), false));
     }
 
+    /**
+     * Handles the fuel stop event, prompting the player for a decision.
+     */
     public void onFuelStopEvent() {
-
         eventPromptText.setText("""
                 You come across a fuel stop.
-                
+
                 Do you refuel your vehicle?
                 This will cost you some race time.""");
 
@@ -98,11 +141,13 @@ public class MenuRaceController extends ScreenController {
         noButton.setOnAction(event -> raceService.fuelStopChoice(raceService.getPlayer(), false));
     }
 
+    /**
+     * Handles the car breakdown event, prompting the player for a decision.
+     */
     public void onCarBreakDownEvent() {
-
         eventPromptText.setText("""
                 Your car has broken down!
-                
+
                 Do you repair your vehicle?
                 This will cost you some race time.""");
 
@@ -113,7 +158,9 @@ public class MenuRaceController extends ScreenController {
         noButton.setOnAction(event -> raceService.carBreakDownChoice(raceService.getPlayer(), false));
     }
 
-
+    /**
+     * Updates the player's stats display in the UI.
+     */
     private void updatePlayerStatDisplay() {
         Entrant player = raceService.getPlayer();
         timeText.setText(raceService.getCurrentTime() + " hours passed");
@@ -122,6 +169,9 @@ public class MenuRaceController extends ScreenController {
         positionText.setText(player.positionString() + " place");
     }
 
+    /**
+     * Handles the "Next" button click event, progressing the race.
+     */
     private void onNextButtonClicked() {
         nextButton.setText("Next >");
 
@@ -133,6 +183,9 @@ public class MenuRaceController extends ScreenController {
         leaderboardListView.scrollTo(raceService.getPlayer());
     }
 
+    /**
+     * Handles the "Go" button click event, starting the race.
+     */
     private void onGoButtonClicked() {
         nextButton.setText("Next >");
         nextButton.setOnAction(event -> onNextButtonClicked());
@@ -140,6 +193,9 @@ public class MenuRaceController extends ScreenController {
         onNextButtonClicked();
     }
 
+    /**
+     * Handles the end of the race, displaying the final results.
+     */
     public void onEndReached() {
         nextButton.setText("End >");
         nextButton.setOnAction(event -> onEndButtonClicked());
@@ -147,6 +203,9 @@ public class MenuRaceController extends ScreenController {
         displayEventBroadcast("The race is finished!", "-fx-font-weight: bold");
     }
 
+    /**
+     * Handles the "End" button click event, showing the race results.
+     */
     private void onEndButtonClicked() {
         broadcastVBox.getChildren().clear();
 
@@ -173,6 +232,9 @@ public class MenuRaceController extends ScreenController {
         nextButton.setOnAction(event -> onExitButtonClicked());
     }
 
+    /**
+     * Handles the "Exit" button click event, returning to the main menu or results screen.
+     */
     private void onExitButtonClicked() {
         getGameEnvironment().incrementNumberOfRacesPlayed();
         getGameEnvironment().addRaceResult(raceService.getPlayer().getPosition());
@@ -186,10 +248,18 @@ public class MenuRaceController extends ScreenController {
         }
     }
 
+    /**
+     * Retrieves the number of races played by the player.
+     *
+     * @return The number of races played.
+     */
     public int getNumberOfRacesPlayed() {
         return getGameEnvironment().getNumberOfRacesPlayed();
     }
 
+    /**
+     * Initializes the race menu screen, setting up UI components and race data.
+     */
     public void initialize() {
         nextButton.setOnAction(event -> onGoButtonClicked());
         carText.setText(raceService.getPlayer().getName());
