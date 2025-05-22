@@ -99,7 +99,10 @@ public class RaceService {
             entrant.setStopped(true);
             sendBroadcast(entrant, entrant.getName() + " has stopped to pick up a stranded traveler!");
 
-            if (entrant == playerEntrant) raceController.addMoney(rng.nextInt(2, 5));
+            if (entrant == playerEntrant && rng.nextBoolean()) {
+                sendBroadcast(playerEntrant, "The traveler has given you some money as thanks!");
+                raceController.addMoney(rng.nextInt(2, 5));
+            }
         }
         if (entrant == playerEntrant) setCurrentPlayerEvent(null);
     }
