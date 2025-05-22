@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Entrant;
-import seng201.team005.services.EntrantCellFactory;
 import seng201.team005.services.RaceService;
 
 public class MenuRaceController extends ScreenController {
@@ -180,6 +179,8 @@ public class MenuRaceController extends ScreenController {
 
     private void onExitButtonClicked() {
         getGameEnvironment().incrementNumberOfRacesPlayed();
+        getGameEnvironment().addRaceResult(raceService.getPlayer().getPosition());
+
         if (getGameEnvironment().getNumberOfRacesPlayed() == getGameEnvironment().getSeasonLength()) {
             getGameEnvironment().launchScreen(new MenuResultsController(getGameEnvironment()));
         }
