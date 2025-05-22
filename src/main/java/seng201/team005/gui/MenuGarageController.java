@@ -10,7 +10,6 @@ import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 import seng201.team005.services.GarageService;
-import seng201.team005.services.PartCellFactory;
 
 import java.util.List;
 
