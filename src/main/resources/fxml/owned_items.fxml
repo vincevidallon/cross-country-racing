@@ -168,6 +168,14 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
+      <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="You can't sell your only car!" textAlignment="CENTER" visible="false" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="4.0" />
+         </GridPane.margin>
+      </Text>
    </children>
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

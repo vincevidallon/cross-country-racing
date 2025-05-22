@@ -15,6 +15,8 @@ import seng201.team005.services.OwnedItemsService;
 
 import java.util.List;
 
+import static seng201.team005.services.MenuService.convertStatToStars;
+
 
 /**
  * Controller for the owned items screen, which displays the user's
@@ -36,7 +38,7 @@ public class OwnedItemsController extends ScreenController {
     private ListView<Car> ownedCarsView;
 
     @FXML
-    private Text carNameText, speedText, handlingText, reliabilityText, fuelEconomyText, overallText, sellValueText;
+    private Text carNameText, speedText, handlingText, reliabilityText, fuelEconomyText, overallText, sellValueText, errorText;
 
     @FXML
     private Button sellItemButton, backToShopButton;
@@ -140,11 +142,11 @@ public class OwnedItemsController extends ScreenController {
      */
     private void displayOwnedItemStats(Purchasable item) {
         carNameText.setText(item.getName());
-        speedText.setText(String.valueOf(item.getSpeed()));
-        handlingText.setText(String.valueOf(item.getHandling()));
-        reliabilityText.setText(String.valueOf(item.getReliability()));
-        fuelEconomyText.setText(String.valueOf(item.getFuelEconomy()));
-        overallText.setText(String.valueOf(item.getOverall()));
+        speedText.setText(convertStatToStars(item.getSpeed()));
+        handlingText.setText(convertStatToStars(item.getHandling()));
+        reliabilityText.setText(convertStatToStars(item.getReliability()));
+        fuelEconomyText.setText(convertStatToStars(item.getFuelEconomy()));
+        overallText.setText(convertStatToStars(item.getOverall()));
         sellValueText.setText("$" + item.getSellValue());
 
         setStatVisibility(true);
@@ -158,16 +160,22 @@ public class OwnedItemsController extends ScreenController {
      */
     private void handleSellButton() {
         sellItemButton.setOnAction(event -> {
+            errorText.setVisible(false);
             Part selectedPart = ownedPartsView.getSelectionModel().getSelectedItem();
             Car selectedCar = ownedCarsView.getSelectionModel().getSelectedItem();
 
             Purchasable itemToSell = (selectedCar != null) ? selectedCar : selectedPart;
             if (itemToSell == null) return;
 
-            ownedItemService.sellItem(getGameEnvironment(), itemToSell);
-            userBalance.setText("Money: $" + getGameEnvironment().getMoney());
-            displayOwnedLists();
-            setStatVisibility(false);
+
+            if (itemToSell instanceof Car && getGameEnvironment().getOwnedCars().size() == 1) {
+                errorText.setVisible(true);
+            } else {
+                ownedItemService.sellItem(getGameEnvironment(), itemToSell);
+                userBalance.setText("Money: $" + getGameEnvironment().getMoney());
+                displayOwnedLists();
+                setStatVisibility(false);
+                }
         });
     }
 
