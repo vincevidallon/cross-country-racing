@@ -161,15 +161,7 @@
             </Text>
          </children>
       </GridPane>
-      <Text fx:id="thanksText" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanks for playing!&#10;Ready to see your results?" textAlignment="CENTER" visible="false" GridPane.rowIndex="1">
-         <font>
-            <Font size="36.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="80.0" />
-         </GridPane.margin>
-      </Text>
-      <Button fx:id="resultsButton" maxHeight="1.7976931348623157E308" maxWidth="261.0" mnemonicParsing="false" text="Results &gt;" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Button fx:id="resultsButton" maxWidth="100.0" mnemonicParsing="false" text="End &gt;" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin>

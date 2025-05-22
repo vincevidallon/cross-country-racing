@@ -180,7 +180,10 @@ public class MenuRaceController extends ScreenController {
 
     private void onExitButtonClicked() {
         getGameEnvironment().incrementNumberOfRacesPlayed();
-        getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
+        if (getGameEnvironment().getNumberOfRacesPlayed() == getGameEnvironment().getSeasonLength()) {
+            getGameEnvironment().launchScreen(new MenuResultsController(getGameEnvironment()));
+        }
+        else getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
     public void initialize() {

@@ -12,7 +12,7 @@ import seng201.team005.GameEnvironment;
  */
 public class MenuMainController extends ScreenController {
     @FXML
-    private Text nameText, difficultyText, seasonLengthText, moneyText, selectedCarText, prepareForRaceText, thanksText;
+    private Text nameText, difficultyText, seasonLengthText, moneyText, selectedCarText, prepareForRaceText;
 
     @FXML
     private Button raceButton, shopButton, garageButton, quitButton, resultsButton;
@@ -26,17 +26,6 @@ public class MenuMainController extends ScreenController {
     protected String getTitle() { return "Cross Country Racing"; }
 
     public void initialize() {
-        if (getGameEnvironment().getNumberOfRacesPlayed() == getGameEnvironment().getSeasonLength()) {
-            raceButton.setVisible(false);
-            shopButton.setVisible(false);
-            garageButton.setVisible(false);
-            quitButton.setVisible(false);
-
-            thanksText.setVisible(true);
-            resultsButton.setVisible(true);
-            resultsButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuResultsController(getGameEnvironment())));
-        }
-
         nameText.setText(getGameEnvironment().getName() + "'s Stats:");
         difficultyText.setText(getGameEnvironment().getDifficulty() == 1 ? "Normal" : "Hard");
         seasonLengthText.setText(getGameEnvironment().getSeasonLength() + " races");
@@ -49,5 +38,7 @@ public class MenuMainController extends ScreenController {
         shopButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuShopController(getGameEnvironment())));
         garageButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuGarageController(getGameEnvironment())));
         quitButton.setOnAction(event -> onQuitRequested());
+
+        resultsButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuResultsController(getGameEnvironment())));
     }
 }
