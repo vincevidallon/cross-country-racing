@@ -2,17 +2,18 @@ package seng201.team005.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
-import javafx.scene.control.Button;
-import seng201.team005.models.Part;
 import seng201.team005.models.Car;
+import seng201.team005.models.Part;
 import seng201.team005.models.Purchasable;
 import seng201.team005.services.ShopService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller class for the shop screen.

@@ -7,7 +7,8 @@ import seng201.team005.models.Entrant;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Random;
 
 public class RaceService {
     private final MenuRaceController raceController;

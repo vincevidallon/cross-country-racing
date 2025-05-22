@@ -2,16 +2,16 @@ package seng201.team005.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
-import seng201.team005.GameEnvironment;
 import javafx.scene.text.Text;
+import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 import seng201.team005.models.Purchasable;
 
-
 import java.util.List;
 
-import static seng201.team005.services.MenuService.*;
+import static seng201.team005.services.MenuService.convertStatToStars;
+import static seng201.team005.services.MenuService.partAdjustStars;
 
 /**
  * Abstract parent class for all {@link GameEnvironment} UI controller classes.

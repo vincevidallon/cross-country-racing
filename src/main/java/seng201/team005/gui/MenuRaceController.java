@@ -11,19 +11,15 @@ import seng201.team005.services.RaceService;
 
 public class MenuRaceController extends ScreenController {
 
+    private final RaceService raceService;
     @FXML
     private Button nextButton, yesButton, noButton;
-
     @FXML
     private ListView<Entrant> leaderboardListView;
-
     @FXML
     private Text timeText, distanceText, fuelText, positionText, carText, routeLengthText, timeLimitText, broadcastLabelText, eventPromptText;
-
     @FXML
     private VBox broadcastVBox;
-
-    private final RaceService raceService;
 
     protected MenuRaceController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -183,8 +179,7 @@ public class MenuRaceController extends ScreenController {
 
         if (getGameEnvironment().getNumberOfRacesPlayed() == getGameEnvironment().getSeasonLength()) {
             getGameEnvironment().launchScreen(new MenuResultsController(getGameEnvironment()));
-        }
-        else getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
+        } else getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment()));
     }
 
     public void initialize() {
