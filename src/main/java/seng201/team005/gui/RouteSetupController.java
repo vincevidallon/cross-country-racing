@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Route;
+import seng201.team005.services.MenuService;
 import seng201.team005.services.RouteService;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class RouteSetupController extends ScreenController {
         routeDescriptionText.setText(route.getDescription());
         routeDistanceText.setText(route.getDistance() + " km");
         routeFuelStopsText.setText(String.valueOf(route.getFuelStops()));
-        routeDifficultyText.setText(String.valueOf(route.getDifficulty()));
+        routeDifficultyText.setText(MenuService.convertStatToStars(route.getDifficulty() + 1));
     }
 
     /**
@@ -148,8 +149,8 @@ public class RouteSetupController extends ScreenController {
 
 
     /**
-     * Initializes the Route Selection screen. Generates race routes using
-     * {@link RouteService}, and then binds the route data to UI buttons.
+     * Initializes the Route Selection screen.
+     * Gets race routes from selected race, and then binds the route data to UI buttons.
      * This method also sets up the hover and clicking behaviour for displaying
      * the route stats, as well as wiring up the navigation buttons.
      */
@@ -163,7 +164,7 @@ public class RouteSetupController extends ScreenController {
         statRectangle.toBack();
         showStatVisibility(false);
 
-        raceRoutes = routeService.generateRoutes(routeButtons.size());
+        raceRoutes = getGameEnvironment().getSelectedRace().getRouteList();
         for (int i = 0; i < routeButtons.size(); i++) {
             routeButtons.get(i).setUserData(raceRoutes.get(i));
         }

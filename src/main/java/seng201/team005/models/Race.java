@@ -1,5 +1,7 @@
 package seng201.team005.models;
 
+import seng201.team005.services.RouteService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +14,7 @@ public class Race {
     private int maxDuration; // The maximum duration of the race in hours.
     private int entries; // The number of entries in the race.
     private final int prizeMoney; // The prize money for the race.
-    private final List<Route> routeList = new ArrayList<>(); // The list of routes available for the race.
+    private final List<Route> routeList; // The list of routes available for the race.
 
     /**
      * Constructs a Race object based on the specified difficulty level.
@@ -31,6 +33,9 @@ public class Race {
                 entries = rng.nextInt(8, 13);
                 break;
         }
+
+        routeList = RouteService.generateRoutes(3);
+
         prizeMoney = entries + 2;
     }
 
