@@ -155,7 +155,9 @@ public class RaceService {
         entrantList.add(playerEntrant);
         playerEntrant.setPosition(1);
         for (int i = 1; i <= race.getEntries(); i++) {
-            Entrant entrant = new Entrant(route.getTerrain());
+
+            // Entrant difficulty scales with the number of races played.
+            Entrant entrant = new Entrant(route.getTerrain(), 4 + raceController.getNumberOfRacesPlayed());
             entrantList.add(entrant);
             entrant.setPosition(i + 1);
         }

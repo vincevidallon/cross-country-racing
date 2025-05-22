@@ -186,6 +186,10 @@ public class MenuRaceController extends ScreenController {
         }
     }
 
+    public int getNumberOfRacesPlayed() {
+        return getGameEnvironment().getNumberOfRacesPlayed();
+    }
+
     public void initialize() {
         nextButton.setOnAction(event -> onGoButtonClicked());
         carText.setText(raceService.getPlayer().getName());

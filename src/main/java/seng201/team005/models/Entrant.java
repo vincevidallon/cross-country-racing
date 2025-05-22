@@ -22,6 +22,12 @@ public class Entrant extends Car implements Comparable<Entrant> {
         terrainStatModification(terrain);
     }
 
+    public Entrant(Route.Terrain terrain, int difficulty) {
+        super(difficulty);
+
+        terrainStatModification(terrain);
+    }
+
     /**
      * Constructs an Entrant based on an existing Car object.
      *
