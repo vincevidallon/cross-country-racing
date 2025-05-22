@@ -48,7 +48,7 @@ public class Route {
         distance = 1000 + 500 * (difficulty + 1) + rng.nextInt(-200, 201);
 
         // Calculate the number of fuel stops based on difficulty.
-        fuelStops = difficulty + 1;
+        fuelStops = difficulty + 2;
     }
 
     public Route() {
