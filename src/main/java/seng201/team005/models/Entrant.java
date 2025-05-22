@@ -40,11 +40,16 @@ public class Entrant extends Car implements Comparable<Entrant> {
      * @return The formatted position string.
      */
     public String positionString() {
+        return positionString(position);
+    }
+
+    public static String positionString(int position) {
         if (position % 10 == 1 && position != 11) return position + "st";
         if (position % 10 == 2 && position != 12) return position + "nd";
         if (position % 10 == 3 && position != 13) return position + "rd";
         return position + "th";
     }
+
 
     /**
      * Returns a string representation of the entrant for the leaderboard.
