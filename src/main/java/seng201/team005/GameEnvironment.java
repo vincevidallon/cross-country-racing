@@ -56,6 +56,8 @@ public class GameEnvironment {
     // The number of races played. Once this reaches the season length, the game ends.
     private int numberOfRacesPlayed = 0;
 
+    private final List<Integer> raceResults = new ArrayList<>();
+
     /**
      * Constructs a GameEnvironment with the specified screen navigator.
      *
@@ -63,6 +65,24 @@ public class GameEnvironment {
      */
     public GameEnvironment(ScreenNavigator navigator) {
         this.navigator = navigator;
+        navigator.launchScreen(new MenuSetupSettingsController(this));
+    }
+
+
+    public void resetGame() {
+        name = null;
+        seasonLength = 0;
+        difficulty = 0;
+        money = 0;
+        playerCars = List.of();
+        selectedCar = null;
+        selectedRace = null;
+        selectedRoute = null;
+        numberOfRacesPlayed = 0;
+        raceResults.clear();
+        ownedParts.clear();
+        ownedCars.clear();
+        
         navigator.launchScreen(new MenuSetupSettingsController(this));
     }
 
@@ -239,5 +259,14 @@ public class GameEnvironment {
      */
     public void incrementNumberOfRacesPlayed() {
         this.numberOfRacesPlayed++;
+    }
+
+
+    public void addRaceResult(int result) {
+        raceResults.add(result);
+    }
+
+    public int getAverageRaceResult() {
+        return (int) raceResults.stream().mapToInt(i -> i).average().orElse(0);
     }
 }
