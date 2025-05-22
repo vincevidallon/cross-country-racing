@@ -163,7 +163,7 @@ public class RaceSetupController extends ScreenController {
         handleConfirmRaceButton();
         handleExitButton();
 
-        races = raceService.generateRaces(getGameEnvironment().getDifficulty(), raceButtons.size());
+        races = getGameEnvironment().getRaceList();
         for (int i = 0; i < raceButtons.size(); i++) {
             raceButtons.get(i).setUserData(races.get(i));
         }

@@ -8,6 +8,7 @@ import seng201.team005.models.Car;
 import seng201.team005.models.Part;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
+import seng201.team005.services.GenerateRaceService;
 import seng201.team005.services.ShopService;
 
 import java.util.ArrayList;
@@ -58,7 +59,11 @@ public class GameEnvironment {
     // The number of races played. Once this reaches the season length, the game ends.
     private int numberOfRacesPlayed = 0;
 
+    // List of results from all races played. Used to calculate the player's average placement.
     private final List<Integer> raceResults = new ArrayList<>();
+
+    // List of currently available races. Refreshed after a race is played.
+    private List<Race> raceList;
 
     /**
      * Constructs a GameEnvironment with the specified screen navigator.
@@ -102,6 +107,8 @@ public class GameEnvironment {
 
         shopCars = ShopService.generateCars(5);
         shopParts = ShopService.generateParts(5);
+        raceList = GenerateRaceService.generateRaces(difficulty, 3);
+
         navigator.launchScreen(new MenuSetupCarsController(this));
     }
 
@@ -264,7 +271,7 @@ public class GameEnvironment {
         return shopParts;
     }
 
-    public void regenerateShop() {
+    public void refreshShop() {
         shopCars = ShopService.generateCars(5);
         shopParts = ShopService.generateParts(5);
     }
@@ -273,7 +280,15 @@ public class GameEnvironment {
         this.ownedCars = ownedCars;
     }
 
-    public void setOwnedParts(List<Part> ownedParts) {
-        this.ownedParts = ownedParts;
+    public void removeOwnedPart(Part part) {
+        ownedParts.remove(part);
+    }
+
+    public List<Race> getRaceList() {
+        return raceList;
+    }
+
+    public void refreshRaceList() {
+        raceList = GenerateRaceService.generateRaces(difficulty, 3);
     }
 }

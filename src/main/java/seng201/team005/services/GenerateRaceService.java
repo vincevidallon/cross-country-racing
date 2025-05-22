@@ -20,7 +20,7 @@ public class GenerateRaceService {
      * @param count the number of Race objects to be generated
      * @return a list of Race instances with the provided difficulty
      */
-    public List<Race> generateRaces(int difficulty, int count) {
+    public static List<Race> generateRaces(int difficulty, int count) {
         List<Race> races = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             races.add(new Race(difficulty));

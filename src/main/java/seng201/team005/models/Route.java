@@ -1,6 +1,5 @@
 package seng201.team005.models;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Random;
  */
 public class Route {
     // Description of the route (e.g., "Baby Land", "Dusty Trail", "Hell Bends").
-    private final String description;
+    private String description;
 
     // Distance of the route in kilometers.
     private final int distance;
@@ -24,7 +23,11 @@ public class Route {
     // Difficulty level of the route (0 = easiest, 2 = hardest).
     private final int difficulty;
 
+    private final Terrain terrain;
+
     private static final Random rng = new Random();
+
+
 
     /**
      * Constructs a randomly generated Route.
@@ -38,11 +41,14 @@ public class Route {
         // Set difficulty (0, 1, or 2).
         this.difficulty = difficulty;
 
-        // List of possible route descriptions based on difficulty.
-        List<String> descriptionList = List.of("Baby Land", "Dusty Trail", "Hell Bends");
+        this.terrain = Terrain.values()[rng.nextInt(Terrain.values().length)];
 
-        // Assign description based on difficulty.
-        description = descriptionList.get(difficulty);
+        // Assign description based on a random choice from the enum.
+        switch (terrain) {
+            case HILLY -> description = "Hilly";
+            case WINDY -> description = "Windy";
+            case OFF_ROAD -> description = "Off-road";
+        }
 
         // Calculate distance with a base value, difficulty increment, and random variation.
         distance = 1000 + 500 * (difficulty + 1) + rng.nextInt(-200, 201);
@@ -90,5 +96,18 @@ public class Route {
      */
     public int getFuelStops() {
         return fuelStops;
+    }
+
+    /**
+     * Returns the terrain type of the route.
+     *
+     * @return the terrain type (e.g., HILLY, WINDY, OFF_ROAD).
+     */
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public enum Terrain {
+        HILLY, WINDY, OFF_ROAD
     }
 }

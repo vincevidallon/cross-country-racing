@@ -19,7 +19,7 @@ public class RouteService {
      * @param count the number of Route objects to be generated
      * @return a list of Route instances
      */
-    public List<Route> generateRoutes(int count) {
+    public static List<Route> generateRoutes(int count) {
         List<Route> raceRoutes = new ArrayList<>();
         for (int i =0; i < count; i++) {
             raceRoutes.add(new Route(i));
