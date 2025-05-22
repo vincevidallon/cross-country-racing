@@ -36,7 +36,7 @@ public class Race {
 
         routeList = RouteService.generateRoutes(3);
 
-        prizeMoney = entries + 2;
+        prizeMoney = entries;
     }
 
     /**
