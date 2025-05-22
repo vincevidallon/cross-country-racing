@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuSetupCarsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.MenuSetupCarsController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="10.0" />
@@ -122,7 +122,7 @@
       </Button>
       <Text fx:id="playerMoneyText" strokeType="OUTSIDE" strokeWidth="0.0" text="Money: " GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
-            <Font size="24.0" />
+            <Font size="36.0" />
          </font>
          <GridPane.margin>
             <Insets top="48.0" />
@@ -240,6 +240,11 @@
             </Text>
          </children>
       </GridPane>
+      <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

@@ -17,20 +17,17 @@ import java.util.List;
  */
 public class MenuSetupCarsController extends ScreenController {
 
+    private final ArrayList<Car> selectedCars = new ArrayList<>();
     @FXML
     private ToggleButton carButton1, carButton2, carButton3, carButton4, carButton5,
             selectedCarButton1, selectedCarButton2, selectedCarButton3;
-
     @FXML
-    private Text statTooltipText2;
-
+    private Text statTooltipText2, errorText;
     @FXML
     private Button goButton;
-
     private List<ToggleButton> shopCarButtons = List.of();
     private List<ToggleButton> selectedCarButtons = List.of();
     private List<Car> shopCars = List.of();
-    private final ArrayList<Car> selectedCars = new ArrayList<>();
 
     public MenuSetupCarsController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -48,11 +45,15 @@ public class MenuSetupCarsController extends ScreenController {
 
 
     private void onShopCarButtonClicked(int buttonIndex, Car car) {
+        errorText.setText("");
         if (selectedCars.contains(car)) {
             removeCarFromSelected(car);
             statTooltipText2.setText("(Click to purchase)");
-        }
-        else if (selectedCars.size() < 3 && car.getBuyValue() <= getGameEnvironment().getMoney()) {
+        } else if (selectedCars.size() == 3) {
+            errorText.setText("You can't have more cars!");
+        } else if (car.getBuyValue() > getGameEnvironment().getMoney()) {
+            errorText.setText("You have insufficient funds!");
+        } else {
             getGameEnvironment().setMoney(getGameEnvironment().getMoney() - car.getBuyValue());
             updatePlayerMoneyText();
             selectedCars.add(car);
@@ -61,7 +62,6 @@ public class MenuSetupCarsController extends ScreenController {
         }
         shopCarButtons.get(buttonIndex).setSelected(selectedCars.contains(car));
     }
-
 
     private void updateGoButton() {
         if (selectedCars.isEmpty()) {
@@ -88,6 +88,7 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     private void onSelectedCarButtonClicked(int buttonIndex) {
+        errorText.setText("");
         if (selectedCars.size() > buttonIndex) {
             removeCarFromSelected(selectedCars.get(buttonIndex));
         } else {
