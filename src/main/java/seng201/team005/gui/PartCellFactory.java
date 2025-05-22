@@ -1,4 +1,4 @@
-package seng201.team005.services;
+package seng201.team005.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import seng201.team005.models.Part;
+import seng201.team005.services.GarageService;
 
 
 public class PartCellFactory implements Callback<ListView<Part>, ListCell<Part>> {
