@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.text.Text;
 import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Part;
@@ -21,9 +20,6 @@ import java.util.List;
  * @author sha378
  */
 public class MenuGarageController extends ScreenController {
-
-    @FXML
-    private Text mustSelectCarText;
 
     @FXML
     private ToggleButton carButton1, carButton2, carButton3, carButton4, carButton5, selectedCarButton;
@@ -57,8 +53,6 @@ public class MenuGarageController extends ScreenController {
 
 
     private void onCarButtonClicked(int buttonIndex, Car car) {
-        mustSelectCarText.setVisible(false);
-
         for (int i = 0; i < cars.size(); i++) {
             carButtons.get(i).setSelected(i == buttonIndex);
         }
@@ -81,26 +75,16 @@ public class MenuGarageController extends ScreenController {
         }
     }
 
-    private void onSelectedCarButtonHovered(boolean isHovered) {
-        if (selectedCar != null) {
-            onCarButtonHovered(cars.indexOf(selectedCar), isHovered);
-        }
-    }
-
     private void onSelectedCarButtonClicked() {
         selectedCarButton.setSelected(false);
     }
-
-
 
     private void updateCarButtons() {
         for (int i = 0; i < cars.size(); i++) {
             carButtons.get(i).setSelected(cars.get(i) == selectedCar);
             carButtons.get(i).setText(cars.get(i).garageString());
         }
-        if (selectedCar != null) {
-            selectedCarButton.setText(selectedCar.garageString());
-        }
+        selectedCarButton.setText(selectedCar.garageString());
     }
 
 
@@ -128,15 +112,13 @@ public class MenuGarageController extends ScreenController {
     }
 
     private void onInstallPartButtonClicked() {
-        if (selectedCar != null) {
-            garageService.installPart(selectedCar, selectedPart);
-            parts.remove(selectedPart);
-            displayStats(selectedCar);
-            partListView.getSelectionModel().clearSelection();
-            updateCarButtons();
-        } else {
-            mustSelectCarText.setVisible(true);
-        }
+        garageService.installPart(selectedCar, selectedPart);
+        getGameEnvironment().removeOwnedPart(selectedPart);
+        parts.remove(selectedPart);
+
+        partListView.getSelectionModel().clearSelection();
+        displayStats(selectedCar);
+        updateCarButtons();
     }
 
 
@@ -167,7 +149,7 @@ public class MenuGarageController extends ScreenController {
 
         selectedCarButton.setOnAction(event -> onSelectedCarButtonClicked());
         selectedCarButton.hoverProperty().addListener((observable, oldValue, newValue) ->
-                onSelectedCarButtonHovered(newValue));
+                onCarButtonHovered(cars.indexOf(selectedCar), newValue));
 
 
         partListView.setCellFactory(new PartCellFactory(garageService));
