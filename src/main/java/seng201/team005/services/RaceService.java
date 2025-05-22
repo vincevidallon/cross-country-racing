@@ -15,14 +15,16 @@ public class RaceService {
     private final Route route;
     private final Entrant playerEntrant;
     private final ObservableList<Entrant> entrantList = FXCollections.observableArrayList();
+    private final Random rng = new Random();
     private int finishedEntrantCount = 0;
     private int currentTime = 0;
     private RaceEvent currentPlayerEvent = null;
 
-    private final Random rng = new Random();
-
-    public enum RaceEvent {
-        STRANDED_TRAVELER, FUEL_STOP, BROKEN_DOWN
+    public RaceService(MenuRaceController raceController, Race race, Route route, Entrant playerEntrant) {
+        this.raceController = raceController;
+        this.race = race;
+        this.route = route;
+        this.playerEntrant = playerEntrant;
     }
 
     public ObservableList<Entrant> getEntrantList() {
@@ -43,13 +45,6 @@ public class RaceService {
 
     public Route getRoute() {
         return route;
-    }
-
-    public RaceService(MenuRaceController raceController, Race race, Route route, Entrant playerEntrant) {
-        this.raceController = raceController;
-        this.race = race;
-        this.route = route;
-        this.playerEntrant = playerEntrant;
     }
 
     public int calculatePrizeMoney() {
@@ -79,6 +74,7 @@ public class RaceService {
             entrant.setBrokenDown(true);
             sendBroadcast(entrant, entrant.getName() + " has broken down.");
         }
+        if (entrant == playerEntrant) setCurrentPlayerEvent(null);
     }
 
     private void carBreakDownEvent(Entrant entrant) {
@@ -218,5 +214,9 @@ public class RaceService {
             raceController.onEndReached();
             raceController.addMoney(calculatePrizeMoney());
         }
+    }
+
+    public enum RaceEvent {
+        STRANDED_TRAVELER, FUEL_STOP, BROKEN_DOWN
     }
 }
