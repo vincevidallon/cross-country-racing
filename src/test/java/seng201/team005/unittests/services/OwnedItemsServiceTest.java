@@ -46,6 +46,29 @@ public class OwnedItemsServiceTest {
         assertFalse(gameEnvironment.getOwnedCars().contains(testCar),
                 "Car should be sold and not in owned cars");
 
+        assertEquals(initialMoney + testCar.getSellValue(), gameEnvironment.getMoney());
+    }
+
+
+    @Test
+    void testSellPart() {
+        int initialMoney = gameEnvironment.getMoney();
+        ownedItemsService.sellItem(gameEnvironment, testPart);
+        assertFalse(gameEnvironment.getOwnedParts().contains(testPart),
+                "Part should be sold and not in owned parts");
+
         assertEquals(initialMoney + testPart.getSellValue(), gameEnvironment.getMoney());
+    }
+
+
+    @Test
+    void testGetOwnedCars() {
+        assertEquals(gameEnvironment.getOwnedCars(), ownedItemsService.getOwnedCars(gameEnvironment));
+    }
+
+
+    @Test
+    void testGetOwnedParts() {
+        assertEquals(gameEnvironment.getOwnedParts(), ownedItemsService.getOwnedParts(gameEnvironment));
     }
 }
