@@ -23,12 +23,12 @@ public class Race {
         Random rng = new Random();
         switch (difficulty) {
             case 1: // medium
-                maxDuration = rng.nextInt(12, 18);
-                entries = rng.nextInt(4, 9);
+                maxDuration = rng.nextInt(15, 20);
+                entries = rng.nextInt(5, 9);
                 break;
             case 2: // hard
-                maxDuration = rng.nextInt(16, 24);
-                entries = rng.nextInt(6, 13);
+                maxDuration = rng.nextInt(20, 25);
+                entries = rng.nextInt(8, 13);
                 break;
         }
         prizeMoney = entries + 2;
