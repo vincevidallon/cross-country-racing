@@ -32,6 +32,7 @@ public class RaceServiceTest {
         testerRoute = mock(Route.class);
         when(testerRoute.getDistance()).thenReturn(1000);
         when(testerRoute.getFuelStops()).thenReturn(2);
+        when(testerRoute.getTerrain()).thenReturn(Route.Terrain.OFF_ROAD);
 
         Car testerCar = new Car();
         testerCar.setSpeed(6);
@@ -39,7 +40,7 @@ public class RaceServiceTest {
         testerCar.setReliability(3);
         testerCar.setFuelEconomy(4);
 
-        testerEntrant = new Entrant(testerCar);
+        testerEntrant = new Entrant(testerCar, Route.Terrain.WINDY);
         testerEntrant.setPosition(3);
 
         raceService = new RaceService(mockMenuRaceController, testerRace, testerRoute, testerEntrant);
@@ -48,25 +49,25 @@ public class RaceServiceTest {
 
     @Test
     void calculatePrizeMoneyForFirstTest() {
-        testerEntrant.setPosition(1);
+        raceService.getPlayer().setPosition(1);
         assertEquals(350, raceService.calculatePrizeMoney());
     }
 
     @Test
     void calculatePrizeMoneyForSecondTest() {
-        testerEntrant.setPosition(2);
+        raceService.getPlayer().setPosition(2);
         assertEquals(175, raceService.calculatePrizeMoney());
     }
 
     @Test
     void calculatePrizeMoneyForOutOfTopThreeTest() {
-        testerEntrant.setPosition(4);
+        raceService.getPlayer().setPosition(4);
         assertEquals(0, raceService.calculatePrizeMoney());
     }
 
     @Test
     void carBreakdownChoiceTest() {
-        Entrant testerEntrant = new Entrant(new Car());
+        Entrant testerEntrant = new Entrant(new Car(), Route.Terrain.WINDY);
         raceService.carBreakDownChoice(testerEntrant, true);
         assertTrue(testerEntrant.isStopped());
         assertFalse(testerEntrant.isBrokenDown());
@@ -74,7 +75,7 @@ public class RaceServiceTest {
 
     @Test
     void carBreakdownChoiceTest2() {
-        Entrant testerEntrant = new Entrant(new Car());
+        Entrant testerEntrant = new Entrant(new Car(), Route.Terrain.HILLY);
         raceService.carBreakDownChoice(testerEntrant, false);
         assertFalse(testerEntrant.isStopped());
         assertTrue(testerEntrant.isBrokenDown());
@@ -82,7 +83,7 @@ public class RaceServiceTest {
 
     @Test
     void strandedTravelerChoiceTest() {
-        Entrant testerEntrant = new Entrant(new Car());
+        Entrant testerEntrant = new Entrant(new Car(), Route.Terrain.WINDY);
         raceService.strandedTravelerChoice(testerEntrant, true);
         assertTrue(testerEntrant.isStopped());
     }
@@ -95,7 +96,7 @@ public class RaceServiceTest {
         testerCar.setReliability(3);
         testerCar.setFuelEconomy(4);
 
-        testerEntrant = new Entrant(testerCar);
+        testerEntrant = new Entrant(testerCar, Route.Terrain.HILLY);
         testerEntrant.setFuel(100);
 
         when(testerRoute.getDistance()).thenReturn(600);
@@ -114,7 +115,7 @@ public class RaceServiceTest {
         testerCar.setReliability(7);
         testerCar.setFuelEconomy(6);
 
-        Entrant testerEntrant = new Entrant(testerCar);
+        Entrant testerEntrant = new Entrant(testerCar, Route.Terrain.OFF_ROAD);
         testerEntrant.addDistance(700);
 
         when(testerRace.getMaxDuration()).thenReturn(1);
@@ -130,8 +131,9 @@ public class RaceServiceTest {
         verify(mockMenuRaceController).onEndReached();
         verify(mockMenuRaceController).addMoney(raceService.calculatePrizeMoney());
 
-        assertTrue(testerEntrant.isFinished(), "Entrant should be finished");
-        assertEquals(1, testerEntrant.getPosition(), "Entrant should be in P1");
+        Entrant newTesterEntrant = raceService.getPlayer();
+        assertTrue(newTesterEntrant.isFinished(), "Entrant should be finished");
+        assertEquals(1, newTesterEntrant.getPosition(), "Entrant should be in P1");
         assertEquals(1, raceService.getCurrentTime(), "The race time should be incremented to 1");
     }
 }

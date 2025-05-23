@@ -13,15 +13,15 @@ public class RaceModelTest {
     @RepeatedTest(10)
     void mediumDifficultyPrizeMoneyCalculation() {
         Race race = new Race(1);
-        assertEquals(race.getEntries() + 2, race.getPrizeMoney(),
-                "Prize money should be equal to entries + 2 for medium difficulty");
+        assertEquals(race.getEntries(), race.getPrizeMoney(),
+                "Prize money should be equal to entries for medium difficulty");
     }
 
     @RepeatedTest(10)
     void hardDifficultyPrizeMoneyCalculation() {
         Race race = new Race(2);
-        assertEquals(race.getEntries() + 2, race.getPrizeMoney(),
-                "Prize money should be equal to entries + 2 for hard difficulty");
+        assertEquals(race.getEntries(), race.getPrizeMoney(),
+                "Prize money should be equal to entries for hard difficulty");
     }
 
     @Test
@@ -34,15 +34,30 @@ public class RaceModelTest {
     @RepeatedTest(10)
     void maxDurationWithinExpectedRangeForMediumDifficulty() {
         Race race = new Race(1);
-        assertTrue(race.getMaxDuration() >= 12 && race.getMaxDuration() < 18,
+        assertTrue(race.getMaxDuration() >= 15 && race.getMaxDuration() < 20,
                 "Max duration should be within the range 12 to 18 for medium difficulty");
     }
 
     @RepeatedTest(10)
     void maxDurationWithinExpectedRangeForHardDifficulty() {
         Race race = new Race(2);
-        assertTrue(race.getMaxDuration() >= 16 && race.getMaxDuration() < 24,
+        assertTrue(race.getMaxDuration() >= 20 && race.getMaxDuration() < 25,
                 "Max duration should be within the range 16 to 24 for hard difficulty");
+    }
+
+    @Test
+    void getRouteListReturnsCorrectList() {
+        Race testerRace = new Race(1);
+
+        List<Route> raceRoutes = testerRace.getRouteList();
+
+        assertNotNull(raceRoutes, "The route list should not be null");
+        assertEquals(3, raceRoutes.size(), "Exactly 3 routes should be generated");
+
+        for (Route route : raceRoutes) {
+            assertNotNull(route, "Each route in route list should not be null");
+            assertInstanceOf(Route.class, route, "Each list element should be a Route instance");
+        }
     }
 }
 
