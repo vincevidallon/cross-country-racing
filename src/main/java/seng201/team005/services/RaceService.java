@@ -80,6 +80,7 @@ public class RaceService {
     }
 
     private void carBreakDownEvent(Entrant entrant) {
+        if (entrant.isFinished()) return;
         if (entrant.equals(playerEntrant)) {
             setCurrentPlayerEvent(RaceEvent.BROKEN_DOWN);
         } else {
