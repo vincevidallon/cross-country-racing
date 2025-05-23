@@ -13,15 +13,15 @@ of accumulating the highest amount of prize money possible over a selected numbe
 
 
 ## What's Included
-This project comes with some basic examples of the following (including dependencies in the build.gradle file):
-- JavaFX
-- Junit 5
-
-This project also has the following contents in a ZIP archive:
-- UML Use Case Diagram (PDF)
-- UML Class Diagram (PDF)
-- Project Report (PDF)
-- Built JAR file
+This project contains the following contents:
+- Source code and resources for the application
+- JavaFX dependencies and configuration
+- JUnit 5 Unit Tests
+- ZIP archive with the following contents:
+  - UML Use Case Diagram (PNG)
+  - UML Class Diagram (PNG)
+  - Project Report (PDF)
+  - Built JAR file
 
 
 ## Importing Project (Using IntelliJ)
@@ -37,9 +37,9 @@ IntelliJ has built-in support for Gradle. To import the project:
 2. The app should then open a new window, this may not be displayed over IntelliJ but can be easily selected from the taskbar
 
 ## Build and Run Jar
-1. Open a command line interface inside the project directory and run `./gradlew jar` to create a packaged Jar. The Jar file is located at build/libs/seng201_team0-1.0-SNAPSHOT.jar
-2. Navigate to the build/libs/ directory (you can do this with `cd build/libs`)
-3. Run the command `java -jar seng201_team0-1.0-SNAPSHOT.jar` to open the application.
+1. Open a command line interface inside the project directory and run `./gradlew jar` to create a packaged Jar. The Jar file is located at build/libs/vvi29_sha378_CrossCountryRacing.jar
+2. Navigate to the build/libs/ directory (this can be done with `cd build/libs`)
+3. Run the command `java -jar vvi29_sha378_CrossCountryRacing.jar` to open the application.
 
 ## Run Tests
 1. Open a command line interface inside the project directory and run `./gradlew test` to run the tests.
