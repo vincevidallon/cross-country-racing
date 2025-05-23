@@ -3,11 +3,16 @@ package seng201.team005.services;
 /**
  * Abstract service class providing utility methods for converting numerical stats
  * into star-based representations and handling numeric signs.
- *
+ * <p>
  * This class includes methods to:
- * - Convert numerical stats into a star string representation.
- * - Adjust star representations based on thresholds.
- * - Handle positive and negative signs for numeric values.
+ * <ul>
+ * <li>Convert numerical stats into a star string representation.</li>
+ * <li>Adjust star representations based on thresholds.</li>
+ * <li> Handle positive and negative signs for numeric values.</li>
+ * </ul>
+ * </p>
+ *
+ * @author sha378
  */
 public abstract class MenuService {
 

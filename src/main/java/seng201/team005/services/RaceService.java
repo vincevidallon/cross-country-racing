@@ -14,6 +14,8 @@ import java.util.Random;
 /**
  * Service class for managing race-related functionality.
  * Handles race events, entrant management, and race progression logic.
+ *
+ * @author sha378
  */
 public class RaceService {
     // Reference to the controller managing the race UI.

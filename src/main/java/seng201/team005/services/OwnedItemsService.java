@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * Service class for managing owned items in the game.
  * Provides functionality to sell items and retrieve owned cars and parts.
+ *
+ * @author vvi29
  */
 public class OwnedItemsService {
 

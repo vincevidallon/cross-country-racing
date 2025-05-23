@@ -7,6 +7,8 @@ import seng201.team005.models.Part;
 /**
  * Service class for managing the garage functionality in the game.
  * Provides methods to interact with the garage controller and manage car upgrades.
+ *
+ * @author sha378
  */
 public class GarageService extends MenuService {
     // The controller for the garage menu.
