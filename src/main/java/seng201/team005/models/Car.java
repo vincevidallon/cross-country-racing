@@ -32,6 +32,6 @@ public class Car extends Purchasable {
      * @return A string representing the car in the main menu format.
      */
     public String mainMenuString() {
-        return name + " (" + (overall > 0 ? MenuService.convertStatToStars(overall) : "...") + ")";
+        return name + " (" + MenuService.convertStatToStars(overall) + ")";
     }
 }
