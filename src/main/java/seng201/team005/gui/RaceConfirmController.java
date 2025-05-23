@@ -7,6 +7,7 @@ import seng201.team005.GameEnvironment;
 import seng201.team005.models.Car;
 import seng201.team005.models.Race;
 import seng201.team005.models.Route;
+import seng201.team005.services.MenuService;
 
 /**
  * Controller for the race confirmation screen.
@@ -88,11 +89,11 @@ public class RaceConfirmController extends ScreenController {
      */
     private void showSelectedCar(Car selectedCar) {
         selectedCarText.setText("Car: " + selectedCar.getName());
-        carSpeedText.setText(String.valueOf(selectedCar.getSpeed()));
-        carHandlingText.setText(String.valueOf(selectedCar.getHandling()));
-        carReliabilityText.setText(String.valueOf(selectedCar.getReliability()));
-        carFuelEconomyText.setText(String.valueOf(selectedCar.getFuelEconomy()));
-        carOverallText.setText(String.valueOf(selectedCar.getOverall()));
+        carSpeedText.setText(MenuService.convertStatToStars(selectedCar.getSpeed()));
+        carHandlingText.setText(MenuService.convertStatToStars(selectedCar.getHandling()));
+        carReliabilityText.setText(MenuService.convertStatToStars(selectedCar.getReliability()));
+        carFuelEconomyText.setText(MenuService.convertStatToStars(selectedCar.getFuelEconomy()));
+        carOverallText.setText(MenuService.convertStatToStars(selectedCar.getOverall()));
     }
 
     /**

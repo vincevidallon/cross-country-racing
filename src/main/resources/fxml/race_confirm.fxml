@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.RaceConfirmController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team005.gui.RaceConfirmController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="87.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="285.0" />
@@ -110,7 +110,7 @@
                   <Insets top="20.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carSpeedLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Text fx:id="carSpeedLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
@@ -118,7 +118,7 @@
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carHandlingLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Handling:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Text fx:id="carHandlingLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Handling:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -126,7 +126,7 @@
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carReliabilityLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Reliability:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Text fx:id="carReliabilityLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Reliability:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
@@ -134,7 +134,7 @@
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carFuelEconomyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel economy:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Text fx:id="carFuelEconomyLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuel economy:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
                </font>
@@ -142,7 +142,7 @@
                   <Insets right="8.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="carOverallLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Overall:" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <Text fx:id="carOverallLabelText" strokeType="OUTSIDE" strokeWidth="0.0" text="Overall:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
@@ -168,6 +168,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
+            <Rectangle fx:id="routeDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="328.0" stroke="BLACK" strokeType="INSIDE" width="270.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets top="150.0" />
+               </GridPane.margin>
+            </Rectangle>
             <Text fx:id="routeDifficultyText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
@@ -226,11 +231,6 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Rectangle fx:id="routeDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="328.0" stroke="BLACK" strokeType="INSIDE" width="270.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets top="150.0" />
-               </GridPane.margin>
-            </Rectangle>
             <Text fx:id="selectedRouteText" strokeType="OUTSIDE" strokeWidth="0.0" text="Selected Route:" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="21.0" />
@@ -271,6 +271,7 @@
             <RowConstraints maxHeight="189.3333282470703" minHeight="10.0" prefHeight="59.33331298828125" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
+            <Rectangle fx:id="raceDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="342.0" stroke="BLACK" strokeType="INSIDE" width="247.0" GridPane.valignment="TOP" />
             <Text fx:id="racePrizeMoneyText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="8.0" />
@@ -335,7 +336,6 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Rectangle fx:id="raceDetailsPane" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="342.0" stroke="BLACK" strokeType="INSIDE" width="247.0" GridPane.valignment="TOP" />
             <Text fx:id="selectedRaceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Race Details:" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="21.0" />
