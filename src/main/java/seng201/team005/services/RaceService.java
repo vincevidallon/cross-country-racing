@@ -224,8 +224,7 @@ public class RaceService {
         }
 
         currentTime++;
-        if (currentTime == race.getMaxDuration() || entrantList.stream().allMatch(Entrant::isFinished)
-                || entrantList.stream().allMatch(Entrant::isBrokenDown)) {
+        if (currentTime == race.getMaxDuration() || entrantList.stream().allMatch(entrant -> entrant.isBrokenDown() || entrant.isFinished())) {
             raceController.onEndReached();
             raceController.addMoney(calculatePrizeMoney());
         }
