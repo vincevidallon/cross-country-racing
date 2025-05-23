@@ -39,7 +39,7 @@ public class ShopServiceTest {
     @Test
     void generatePartsTest() {
         int count = 5;
-        var parts = shopService.generateParts(count);
+        var parts = ShopService.generateParts(count);
 
         assertEquals(count, parts.size(), "should generate exactly " + count + " parts");
         assertTrue(parts.stream().allMatch(Objects::nonNull),
@@ -52,7 +52,7 @@ public class ShopServiceTest {
     @Test
     void generateCarsTest() {
         int count = 7;
-        var cars = shopService.generateCars(count);
+        var cars = ShopService.generateCars(count);
 
         assertEquals(count, cars.size(), "should generate exactly " + count + " cars");
         assertTrue(cars.stream().allMatch(Objects::nonNull),
@@ -107,6 +107,9 @@ public class ShopServiceTest {
 
         assertTrue(gameEnvironment.getOwnedParts().contains(testPart),
                 "Purchased part should be added to ownedParts List");
+
+        assertTrue(gameEnvironment.getOwnedParts().stream().allMatch(Part::isPurchased),
+                "All purchased parts should be marked as purchased");
     }
 }
 
