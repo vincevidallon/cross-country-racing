@@ -5,33 +5,53 @@ package seng201.team005.models;
  * This class tracks the entrant's progress, fuel, position, and status during the race.
  */
 public class Entrant extends Car implements Comparable<Entrant> {
-    private int distance = 0; // The distance traveled by the entrant in kilometers.
-    private int fuel = 100; // The current fuel level of the entrant.
-    private int position = -1; // The position of the entrant in the race.
-    private int fuelStopsPassed = 0; // The number of fuel stops passed by the entrant.
-    private boolean isStopped = false; // Whether the entrant is currently stopped.
-    private boolean isBrokenDown = false; // Whether the entrant is currently broken down.
-    private boolean isFinished = false; // Whether the entrant has finished the race.
+    // The distance traveled by the entrant in kilometers.
+    private int distance = 0;
+
+    // The current fuel level of the entrant.
+    private int fuel = 100;
+
+    // The position of the entrant in the race.
+    private int position = -1;
+
+    // The number of fuel stops passed by the entrant.
+    private int fuelStopsPassed = 0;
+
+    // Whether the entrant is currently stopped.
+    private boolean isStopped = false;
+
+    // Whether the entrant is currently broken down.
+    private boolean isBrokenDown = false;
+
+    // Whether the entrant has finished the race.
+    private boolean isFinished = false;
 
     /**
      * Default constructor for Entrant.
+     *
+     * @param terrain The terrain type of the route.
      */
     public Entrant(Route.Terrain terrain) {
         super();
-
         terrainStatModification(terrain);
     }
 
+    /**
+     * Constructs an Entrant with a specified difficulty level.
+     *
+     * @param terrain   The terrain type of the route.
+     * @param difficulty The difficulty level of the entrant.
+     */
     public Entrant(Route.Terrain terrain, int difficulty) {
         super(difficulty);
-
         terrainStatModification(terrain);
     }
 
     /**
      * Constructs an Entrant based on an existing Car object.
      *
-     * @param car The Car object to base the Entrant on.
+     * @param car     The Car object to base the Entrant on.
+     * @param terrain The terrain type of the route.
      */
     public Entrant(Car car, Route.Terrain terrain) {
         this.name = car.getName();
@@ -40,7 +60,6 @@ public class Entrant extends Car implements Comparable<Entrant> {
         this.reliability = car.getReliability();
         this.fuelEconomy = car.getFuelEconomy();
         this.overall = calculateOverall();
-
         terrainStatModification(terrain);
     }
 
@@ -66,13 +85,18 @@ public class Entrant extends Car implements Comparable<Entrant> {
         return positionString(position);
     }
 
+    /**
+     * Returns a formatted position string for a given position.
+     *
+     * @param position The position to format.
+     * @return The formatted position string.
+     */
     public static String positionString(int position) {
         if (position % 10 == 1 && position != 11) return position + "st";
         if (position % 10 == 2 && position != 12) return position + "nd";
         if (position % 10 == 3 && position != 13) return position + "rd";
         return position + "th";
     }
-
 
     /**
      * Returns a string representation of the entrant for the leaderboard.
