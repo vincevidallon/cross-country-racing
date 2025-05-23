@@ -35,4 +35,11 @@ public class PartTest {
         Part part = new Part("Exhaust");
         assertEquals("Exhaust", part.toString());
     }
+
+    @Test
+    void testPartGarageString() {
+        Part part = new Part();
+        part.setOverall(0);
+        assertTrue(part.garageString().contains("..."));
+    }
 }
