@@ -55,7 +55,7 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="garageButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Garage" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="garageButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Garage" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin>
@@ -63,7 +63,7 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="quitButton" cancelButton="true" maxHeight="1.7976931348623157E308" maxWidth="261.0" mnemonicParsing="false" text="Quit" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button fx:id="quitButton" maxHeight="1.7976931348623157E308" maxWidth="261.0" mnemonicParsing="false" text="Quit" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </GridPane.margin>
