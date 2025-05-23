@@ -23,11 +23,11 @@ public class Route {
     // Difficulty level of the route (0 = easiest, 2 = hardest).
     private final int difficulty;
 
+    // Terrain type of the route (e.g., HILLY, WINDY, OFF_ROAD).
     private final Terrain terrain;
 
+    // Random number generator for generating route attributes.
     private static final Random rng = new Random();
-
-
 
     /**
      * Constructs a randomly generated Route.
@@ -36,6 +36,8 @@ public class Route {
      * distance, and number of fuel stops. The distance is calculated as a base value of 1000 km
      * plus an increment based on difficulty, with a random variation of ±200 km.
      * </p>
+     *
+     * @param difficulty The difficulty level of the route (0 = easiest, 2 = hardest).
      */
     public Route(int difficulty) {
         // Set difficulty (0, 1, or 2).
@@ -57,6 +59,13 @@ public class Route {
         fuelStops = difficulty + 2;
     }
 
+    /**
+     * Constructs a Route with a randomly generated difficulty.
+     * <p>
+     * This constructor generates a random difficulty level (0 to 2) and initializes
+     * the route attributes accordingly.
+     * </p>
+     */
     public Route() {
         // Default constructor that generates a random difficulty for the route.
         this(rng.nextInt(3));
@@ -107,6 +116,17 @@ public class Route {
         return terrain;
     }
 
+    /**
+     * Enum representing the terrain types for a route.
+     * <p>
+     * The terrain type affects the description of the route and is randomly assigned
+     * when a route is created. Possible values are:
+     * <ul>
+     *     <li>HILLY - Represents a hilly terrain.</li>
+     *     <li>WINDY - Represents a windy terrain.</li>
+     *     <li>OFF_ROAD - Represents an off-road terrain.</li>
+     * </ul>
+     */
     public enum Terrain {
         HILLY, WINDY, OFF_ROAD
     }
