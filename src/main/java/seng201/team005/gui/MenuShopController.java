@@ -274,6 +274,13 @@ public class MenuShopController extends ScreenController {
                 errorText.setVisible(true);
                 return;
             }
+            if (getGameEnvironment().getOwnedCars().size() + selectedPurchasableItems.stream()
+                    .filter(item -> item instanceof Car).toList().size() > 5) {
+                errorText.setText("You can only own 5 cars!");
+                errorText.setVisible(true);
+                return;
+            }
+
             errorText.setVisible(false);
             shopService.purchaseItem(getGameEnvironment(), selectedPurchasableItems);
             updatePlayerMoneyText();
