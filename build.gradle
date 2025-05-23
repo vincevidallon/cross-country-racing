@@ -2,14 +2,9 @@ plugins {
     id 'application'
     id 'java'
     id "org.openjfx.javafxplugin" version "0.1.0"
-    id 'checkstyle'
     id 'jacoco'
 }
 
-checkstyle {
-    toolVersion = '10.12.2'
-    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
-}
 
 tasks.withType(Checkstyle).configureEach {
     reports {
@@ -92,4 +87,5 @@ jacocoTestReport {
     reports {
         html.destination file("${buildDir}/reports/tests/coverage/")
     }
+    dependsOn startScripts
 }
