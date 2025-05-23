@@ -51,9 +51,9 @@ public class Entrant extends Car implements Comparable<Entrant> {
      */
     private void terrainStatModification(Route.Terrain terrain) {
         switch (terrain) {
-            case HILLY -> speed -= 2;
-            case WINDY -> fuelEconomy -= 2;
-            case OFF_ROAD -> reliability -= 2;
+            case HILLY -> speed = speed > 2 ? speed - 2 : 1;
+            case WINDY -> fuelEconomy = fuelEconomy > 2 ? fuelEconomy - 2 : 1;
+            case OFF_ROAD -> reliability = reliability > 2 ? reliability - 2 : 1;
         }
     }
 
