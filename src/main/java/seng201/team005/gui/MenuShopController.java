@@ -50,13 +50,12 @@ public class MenuShopController extends ScreenController {
 
     private List<Button> itemButtons = List.of();
     private List<ToggleButton> selectedItems = List.of();
-    private int nextSlotidx;
     private boolean showCars = false;
 
     private final List<Part> parts = new ArrayList<>();
     private final List<Car> cars = new ArrayList<>();
 
-    private List<Purchasable> selectedPurchasableItems = new ArrayList<>();
+    private final List<Purchasable> selectedPurchasableItems = new ArrayList<>();
 
     private final ShopService shopService = new ShopService();
 
@@ -83,11 +82,7 @@ public class MenuShopController extends ScreenController {
      * added to the next available cart slot.
      * @param event the button click event
      */
-    private void onUpgradeButtonClicked(ActionEvent event) {
-        if (nextSlotidx >= selectedItems.size()) {
-            return;
-        }
-
+    private void onShopButtonClicked(ActionEvent event) {
         Button clicked = (Button) event.getSource();
         Purchasable item = (Purchasable) clicked.getUserData();
         selectedPurchasableItems.add(item);
@@ -138,11 +133,19 @@ public class MenuShopController extends ScreenController {
      */
     private void selectedItemSetup() {
         for (Button button : itemButtons) {
-            button.setOnAction(this::onUpgradeButtonClicked);
+            button.setOnAction(this::onShopButtonClicked);
             button.setOnMouseEntered(event -> {
                 Purchasable item = (Purchasable) button.getUserData();
                 if (item != null) displayStats(item);
             });
+        }
+    }
+
+    private void setSoldOut(Button button) {
+        Purchasable item = (Purchasable) button.getUserData();
+        if (item.isPurchased()) {
+            button.setText("SOLD OUT");
+            button.setDisable(true);
         }
     }
 
@@ -210,6 +213,10 @@ public class MenuShopController extends ScreenController {
             carNameText.setText(showCars ? "Car Stats:" : "Part Stats:");
             purchaseCarsButton.setText(showCars ? "Purchase Parts:" : "Purchase Cars:");
             itemstoItemButtons();
+            for (Button button : itemButtons) {
+                button.setDisable(selectedPurchasableItems.contains((Purchasable) button.getUserData()));
+                setSoldOut(button);
+            }
         });
     }
 
@@ -224,7 +231,7 @@ public class MenuShopController extends ScreenController {
             Button button = itemButtons.get(i);
             button.setText(item.shopString());
             button.setUserData(item);
-            button.setDisable(false);
+            setSoldOut(button);
         }
         errorText.setVisible(false);
     }
@@ -247,7 +254,7 @@ public class MenuShopController extends ScreenController {
 
 
     /**
-     * Clears all the selected items in the cart, resets slot index.
+     * Clears all the selected items in the cart.
      */
     private void clearSelectedItems() {
         selectedPurchasableItems.clear();
@@ -257,7 +264,7 @@ public class MenuShopController extends ScreenController {
             item.setUserData(null);
         }
         for (Button button : itemButtons) {
-            button.setDisable(false);
+            setSoldOut(button);
         }
         errorText.setVisible(false);
     }

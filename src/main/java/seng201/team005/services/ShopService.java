@@ -85,6 +85,8 @@ public class ShopService {
             else if (item instanceof Part) {
                 gameEnvironment.getOwnedParts().add((Part) item);
             }
+
+            item.setPurchased(true);
         }
     }
 }

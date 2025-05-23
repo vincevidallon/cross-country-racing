@@ -32,6 +32,9 @@ public abstract class Purchasable {
     // The value of the item when sold.
     protected int sellValue;
 
+    // Indicates whether the item has been purchased.
+    protected boolean purchased = false;
+
     // The minimum bound for stat generation.
     protected final int STAT_MIN;
     // The maximum bound for stat generation.
@@ -219,5 +222,21 @@ public abstract class Purchasable {
      */
     public void setSellValue(int sellValue) {
         this.sellValue = sellValue;
+    }
+
+    /**
+     * @return Whether the item has been purchased.
+     */
+    public boolean isPurchased() {
+        return purchased;
+    }
+
+    /**
+     * Sets the purchased status of the item.
+     *
+     * @param purchased The new purchased status.
+     */
+    public void setPurchased(boolean purchased) {
+        this.purchased = purchased;
     }
 }
