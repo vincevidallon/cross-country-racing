@@ -174,7 +174,8 @@ public class RaceService {
         }
 
         entrant.addDistance(50 + speedAdjust + reliabilityAdjust + handlingAdjust);
-        if (entrant.getDistance() >= route.getDistance() * (double) (entrant.getFuelStopsPassed() + 1) / route.getFuelStops() + 1) {
+        if (entrant.getDistance() < route.getDistance() &&
+                entrant.getDistance() >= route.getDistance() * (double) (entrant.getFuelStopsPassed() + 1) / route.getFuelStops() + 1) {
             fuelStopEvent(entrant);
             entrant.incrementFuelStopsPassed();
         }
