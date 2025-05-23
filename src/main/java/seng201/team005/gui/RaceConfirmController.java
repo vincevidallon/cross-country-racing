@@ -11,80 +11,82 @@ import seng201.team005.models.Route;
 /**
  * Controller for the race confirmation screen.
  * <p>
- *     Shows a final summary of the user's selected car, race and route before beginning the race.
+ *     Shows a final summary of the user's selected car, race, and route before beginning the race.
  *     Provides the user with an option to confirm their selections and proceed to the race or
  *     return to the route selection screen if they wish to change their choices.
  * </p>
  *
  * @author vvi29
  */
-
 public class RaceConfirmController extends ScreenController {
 
+    // FXML UI components for navigation buttons.
     @FXML
     private Button backButton, confirmButton;
 
+    // FXML UI components for displaying selected car details.
     @FXML
     private Text selectedCarText, carSpeedLabelText, carSpeedText, carHandlingLabelText, carHandlingText,
-    carReliabilityLabelText, carReliabilityText, carFuelEconomyLabelText, carFuelEconomyText,
-    carOverallLabelText, carOverallText;
+            carReliabilityLabelText, carReliabilityText, carFuelEconomyLabelText, carFuelEconomyText,
+            carOverallLabelText, carOverallText;
 
+    // FXML UI components for displaying selected race details.
     @FXML
     private Text selectedRaceText, raceHoursLabelText, raceHoursText, raceEntriesLabelText, raceEntriesText,
-    raceRoutesLabelText, raceRoutesText, racePrizeMoneyLabelText, racePrizeMoneyText;
+            raceRoutesLabelText, raceRoutesText, racePrizeMoneyLabelText, racePrizeMoneyText;
 
+    // FXML UI components for displaying selected route details.
     @FXML
     private Text selectedRouteText, routeDescriptionLabelText, routeDescriptionText,
-    routeDistanceLabelText, routeDistanceText, routeFuelStopsLabelText, routeFuelStopsText,
-    routeDifficultyLabelText, routeDifficultyText;
+            routeDistanceLabelText, routeDistanceText, routeFuelStopsLabelText, routeFuelStopsText,
+            routeDifficultyLabelText, routeDifficultyText;
 
+    // FXML UI components for background panes.
     @FXML
     private javafx.scene.shape.Rectangle carStatPane, raceDetailsPane, routeDetailsPane;
 
-
+    /**
+     * Constructs a RaceConfirmController with the specified game environment.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public RaceConfirmController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
-
+    /**
+     * Retrieves the FXML file path for the race confirmation screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/race_confirm.fxml";
     }
 
-
+    /**
+     * Retrieves the title for the race confirmation screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Pre-Race Confirmation";
     }
 
-
     /**
-     * A method for wiring up the back button to take the user back to the
-     * Route Selection screen.
+     * Configures the back button to navigate back to the route selection screen.
      */
     private void handleBackButton() {
         backButton.setOnAction(event -> getGameEnvironment().launchScreen(new RouteSetupController(getGameEnvironment())));
     }
 
-
     /**
-     * A method for showing the stats of the user's selected car.
-     * @param selectedCar the car chosen by the user for the race
+     * Displays the stats of the user's selected car in the UI.
+     *
+     * @param selectedCar The car chosen by the user for the race.
      */
     private void showSelectedCar(Car selectedCar) {
-        carSpeedLabelText.setVisible(true);
-        carHandlingLabelText.setVisible(true);
-        carReliabilityLabelText.setVisible(true);
-        carFuelEconomyLabelText.setVisible(true);
-        carOverallLabelText.setVisible(true);
-
-        carSpeedText.setVisible(true);
-        carHandlingText.setVisible(true);
-        carReliabilityText.setVisible(true);
-        carFuelEconomyText.setVisible(true);
-        carOverallText.setVisible(true);
-
         selectedCarText.setText("Car: " + selectedCar.getName());
         carSpeedText.setText(String.valueOf(selectedCar.getSpeed()));
         carHandlingText.setText(String.valueOf(selectedCar.getHandling()));
@@ -93,23 +95,13 @@ public class RaceConfirmController extends ScreenController {
         carOverallText.setText(String.valueOf(selectedCar.getOverall()));
     }
 
-
     /**
      * Displays the details of the user's selected {@link Race} in the UI.
      *
-     * @param selectedRace the race selected by the user, which has parameters such as the duration of the race,
-     *                     the number of other entrants, the routes available and the prize money on offer.
+     * @param selectedRace The race selected by the user, including parameters such as duration,
+     *                     number of entrants, available routes, and prize money.
      */
     private void showSelectedRace(Race selectedRace) {
-        raceHoursLabelText.setVisible(true);
-        raceEntriesLabelText.setVisible(true);
-        raceRoutesLabelText.setVisible(true);
-        racePrizeMoneyLabelText.setVisible(true);
-        raceHoursText.setVisible(true);
-        raceEntriesText.setVisible(true);
-        raceRoutesText.setVisible(true);
-        racePrizeMoneyText.setVisible(true);
-
         selectedRaceText.setText("Race:");
         raceHoursText.setText(String.valueOf(selectedRace.getMaxDuration()));
         raceEntriesText.setText(String.valueOf(selectedRace.getEntries()));
@@ -117,25 +109,12 @@ public class RaceConfirmController extends ScreenController {
         racePrizeMoneyText.setText("$" + selectedRace.getPrizeMoney());
     }
 
-
     /**
-     * Shows the attributes of the selected {@link Route} in the UI.
+     * Displays the attributes of the selected {@link Route} in the UI.
      *
-     * @param selectedRoute the route selected by the user, including its distance, fuel stops and
-     *                      overall difficulty
+     * @param selectedRoute The route selected by the user, including its distance, fuel stops, and difficulty.
      */
     private void showSelectedRoute(Route selectedRoute) {
-        selectedRouteText.setVisible(true);
-        routeDescriptionLabelText.setVisible(true);
-        routeDistanceLabelText.setVisible(true);
-        routeFuelStopsLabelText.setVisible(true);
-        routeDifficultyLabelText.setVisible(true);
-
-        routeDescriptionText.setVisible(true);
-        routeDistanceText.setVisible(true);
-        routeFuelStopsText.setVisible(true);
-        routeDifficultyText.setVisible(true);
-
         selectedRouteText.setText("Route:");
         routeDescriptionText.setText(selectedRoute.getDescription());
         routeDistanceText.setText(selectedRoute.getDistance() + " km");
@@ -144,17 +123,16 @@ public class RaceConfirmController extends ScreenController {
     }
 
     /**
-     * Proceeds to the race screen through a transition to {@link MenuRaceController}.
-     * This is called when the user confirms their selections.
+     * Proceeds to the race screen by transitioning to {@link MenuRaceController}.
+     * This is triggered when the user confirms their selections.
      */
     private void onConfirmButtonClicked() {
         getGameEnvironment().launchScreen(new MenuRaceController(getGameEnvironment()));
     }
 
-
     /**
-     * Initializes the Pre-Race confirmation screen. All data required is obtained from the
-     * {@link GameEnvironment}.
+     * Initializes the pre-race confirmation screen. Retrieves the selected car, race, and route
+     * from the {@link GameEnvironment} and displays their details in the UI.
      */
     @FXML
     public void initialize() {
@@ -169,10 +147,8 @@ public class RaceConfirmController extends ScreenController {
         Race selectedRace = getGameEnvironment().getSelectedRace();
         Route selectedRoute = getGameEnvironment().getSelectedRoute();
 
-
-        if (userCar != null) showSelectedCar(userCar);
-        if (selectedRace != null) showSelectedRace(selectedRace);
-        if (selectedRoute != null) showSelectedRoute(selectedRoute);
+        showSelectedCar(userCar);
+        showSelectedRace(selectedRace);
+        showSelectedRoute(selectedRoute);
     }
-
 }

@@ -11,70 +11,86 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller for the race setup screen
- *<p>
- *     Shows a list of races available to the player and allows the player to select
- *     a race, based on radnomly generated attributes. Race stats are shown on hover,
- *     and goes to the Route Selection screen once the user confirms a race.
- *</p>
- * The controller uses a service class {@link GenerateRaceService} for generating race options.
+ * Controller for the race setup screen.
+ * <p>
+ *     Displays a list of races available to the player and allows the player to select
+ *     a race based on randomly generated attributes. Race stats are shown on hover,
+ *     and the screen transitions to the Route Selection screen once the user confirms a race.
+ * </p>
+ *
  * @author vvi29
  */
-
-
 public class RaceSetupController extends ScreenController {
+
+    // FXML UI components for navigation and race selection.
     @FXML
     private Button exitToMenuButton, confirmRaceButton;
 
     @FXML
     private Button raceButton1, raceButton2, raceButton3;
 
+    // FXML UI components for displaying race statistics.
     @FXML
     private Text raceHoursLabelText, raceEntriesLabelText, racePrizeMoneyLabelText;
 
     @FXML
     private Text raceHoursText, raceEntriesText, racePrizeMoneyText;
 
+    // FXML UI component for the background pane of race details.
     @FXML
     private javafx.scene.shape.Rectangle raceDetailsPane;
 
+    // List of Text nodes used to display race statistics.
     private List<Text> raceStats;
 
+    // List of buttons representing available races.
     private List<Button> raceButtons = List.of();
+
+    // List of races available for selection.
     private List<Race> races = new ArrayList<>();
 
+    // Button representing the currently selected race.
     private Button selectedRaceButton = null;
-    private final GenerateRaceService raceService = new GenerateRaceService();
 
-
+    /**
+     * Constructs a RaceSetupController with the specified game environment.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public RaceSetupController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
-
+    /**
+     * Retrieves the FXML file path for the race setup screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/race_setup.fxml";
     }
 
-
+    /**
+     * Retrieves the title for the race setup screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Race Setup:";
     }
 
-
     /**
-     * Sets up the exit button to return to the main menu.
+     * Configures the exit button to return to the main menu.
      */
     private void handleExitButton() {
         exitToMenuButton.setOnAction(event -> getGameEnvironment().launchScreen(new MenuMainController(getGameEnvironment())));
     }
 
-
     /**
-     * Wires up the confirm race button, which stores the selected race in the game environment,
-     * then transitions to the Route Selection screen.
+     * Configures the confirm race button to store the selected race in the game environment
+     * and transition to the Route Selection screen.
      */
     private void handleConfirmRaceButton() {
         confirmRaceButton.setOnAction(event -> {
@@ -88,12 +104,12 @@ public class RaceSetupController extends ScreenController {
         });
     }
 
-
     /**
      * Sets up hover and click functionality for each available race button.
-     * Hovering over one of the race buttons displays the race stats, clicking
-     * a race button selects the race and makes the confirm button available
-     * to the player.
+     * <p>
+     *     Hovering over a race button displays the race stats, and clicking a race button
+     *     selects the race and enables the confirm button.
+     * </p>
      */
     private void hoverClickSetup() {
         for (int i = 0; i < raceButtons.size(); i++) {
@@ -121,12 +137,12 @@ public class RaceSetupController extends ScreenController {
                 confirmRaceButton.setDisable(false);
             });
         }
-
     }
 
     /**
-     * Displays the race statistics of the selected race in the UI.
-     * @param race the Race object which should have its stats displayed.
+     * Displays the statistics of the specified race in the UI.
+     *
+     * @param race The Race object whose stats should be displayed.
      */
     private void displayRaceStats(Race race) {
         raceHoursText.setText(String.valueOf(race.getMaxDuration()));
@@ -134,25 +150,24 @@ public class RaceSetupController extends ScreenController {
         racePrizeMoneyText.setText("$" + race.getPrizeMoney());
     }
 
-
     /**
-     * Sets visibility of all the race stat UI elements.
-     * @param showing true for showing stat labels and respective values, false when hiding them.
+     * Sets the visibility of all race stat UI elements.
+     *
+     * @param showing True to show the stat labels and values, false to hide them.
      */
     private void setStatVisibility(boolean showing) {
         raceStats.forEach(text -> text.setVisible(showing));
     }
 
-
     /**
      * Initializes the Race Setup screen by performing the following:
-     * - Generates race options
-     * - Wires up all button handlers
-     * - Sets up stat display behaviour
+     * <ul>
+     *     <li>Generates race options</li>
+     *     <li>Wires up all button handlers</li>
+     *     <li>Sets up stat display behavior</li>
+     * </ul>
      */
-    @FXML
     public void initialize() {
-
         raceButtons = List.of(raceButton1, raceButton2, raceButton3);
         raceStats = List.of(raceHoursLabelText, raceEntriesLabelText,
                 racePrizeMoneyLabelText, raceHoursText, raceEntriesText, racePrizeMoneyText);

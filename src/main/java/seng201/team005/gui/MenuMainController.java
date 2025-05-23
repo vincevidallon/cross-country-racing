@@ -9,6 +9,8 @@ import seng201.team005.GameEnvironment;
  * Controller class for the main menu screen.
  * Manages the user interface and interactions for the main menu, including navigation
  * to other screens such as the race setup, shop, garage, and results.
+ *
+ * @author sha378
  */
 public class MenuMainController extends ScreenController {
 

@@ -13,6 +13,8 @@ import seng201.team005.services.RaceService;
  * Controller class for the race menu screen.
  * Manages the user interface and interactions during a race, including event handling,
  * player updates, and race progression.
+ *
+ * @author sha378
  */
 public class MenuRaceController extends ScreenController {
 
@@ -63,6 +65,7 @@ public class MenuRaceController extends ScreenController {
 
     /**
      * Displays a broadcast message in the race menu.
+     * These messages are updates on events that occur during the race.
      *
      * @param broadcast The message to display.
      */
@@ -72,6 +75,7 @@ public class MenuRaceController extends ScreenController {
 
     /**
      * Displays a broadcast message with a specific style in the race menu.
+     * These messages are updates on events that occur during the race.
      *
      * @param broadcast The message to display.
      * @param style The CSS style to apply to the message.
@@ -87,7 +91,9 @@ public class MenuRaceController extends ScreenController {
     }
 
     /**
-     * Handles the current race event and updates the UI accordingly.
+     * Updates the UI to display the event prompt,
+     * as well as 'Yes' and 'No' buttons for the player to choose how to respond to the event.
+     * Redirects the program to the appropriate event handling method.
      *
      * @param event The current race event.
      */
@@ -170,7 +176,8 @@ public class MenuRaceController extends ScreenController {
     }
 
     /**
-     * Handles the "Next" button click event, progressing the race.
+     * Handles the "Next" button click event,
+     * progressing the race and updating the relevant UI elements.
      */
     private void onNextButtonClicked() {
         nextButton.setText("Next >");
@@ -187,6 +194,9 @@ public class MenuRaceController extends ScreenController {
      * Handles the "Go" button click event, starting the race.
      */
     private void onGoButtonClicked() {
+        broadcastVBox.getChildren().remove(1);
+        broadcastLabelText.setText("Race updates:");
+
         nextButton.setText("Next >");
         nextButton.setOnAction(event -> onNextButtonClicked());
 
@@ -194,7 +204,7 @@ public class MenuRaceController extends ScreenController {
     }
 
     /**
-     * Handles the end of the race, displaying the final results.
+     * Handles the end of the race, prompting the player to view the race results.
      */
     public void onEndReached() {
         nextButton.setText("End >");
@@ -204,7 +214,7 @@ public class MenuRaceController extends ScreenController {
     }
 
     /**
-     * Handles the "End" button click event, showing the race results.
+     * Handles the 'End' button click event, showing the race results.
      */
     private void onEndButtonClicked() {
         broadcastVBox.getChildren().clear();
@@ -233,7 +243,9 @@ public class MenuRaceController extends ScreenController {
     }
 
     /**
-     * Handles the "Exit" button click event, returning to the main menu or results screen.
+     * Handles the "Exit" button click event, returning to the main menu or game results screen
+     * (depending on if the player is finishing the final race of their season).
+     * Refreshes the shop and race list.
      */
     private void onExitButtonClicked() {
         getGameEnvironment().incrementNumberOfRacesPlayed();
@@ -250,6 +262,8 @@ public class MenuRaceController extends ScreenController {
 
     /**
      * Retrieves the number of races played by the player.
+     * This allows the {@link RaceService} to access this stat
+     * for the sake of scaling the opponents' difficulty.
      *
      * @return The number of races played.
      */
@@ -272,7 +286,5 @@ public class MenuRaceController extends ScreenController {
         leaderboardListView.setCellFactory(new EntrantCellFactory(raceService));
         leaderboardListView.setItems(raceService.getEntrantList());
 
-        broadcastVBox.getChildren().remove(1);
-        broadcastLabelText.setText("Race updates:");
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
  * Manages the user interface and interactions for the garage, including car selection,
  * part installation, and displaying car stats.
  * <p>
- * This class interacts with the `GarageService` to handle business logic and updates
+ * This class interacts with the 'GarageService' to handle business logic and updates
  * the game environment as needed.
  * </p>
  *
@@ -56,9 +56,8 @@ public class MenuGarageController extends ScreenController {
     private Part selectedPart;
 
     /**
-     * Constructs a MenuGarageController with the specified game environment.
-     *
-     * @param gameEnvironment The game environment instance.
+     * Creates an instance of a ScreenController with the given {@link GameEnvironment}
+     * @param gameEnvironment The game environment used by this ScreenController
      */
     public MenuGarageController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
@@ -122,7 +121,8 @@ public class MenuGarageController extends ScreenController {
 
     /**
      * Handles the event when the selected car button is clicked.
-     * Deselects the button.
+     * This overrides the default {@link ToggleButton} click functionality,
+     * forcing the selectedCarButton to remain unselected.
      */
     private void onSelectedCarButtonClicked() {
         selectedCarButton.setSelected(false);
@@ -130,7 +130,7 @@ public class MenuGarageController extends ScreenController {
 
     /**
      * Updates the car buttons to reflect the current list of owned cars.
-     * Highlights the selected car.
+     * Selects the button corresponding to the selected car.
      */
     private void updateCarButtons() {
         for (int i = 0; i < cars.size(); i++) {
@@ -181,8 +181,8 @@ public class MenuGarageController extends ScreenController {
     }
 
     /**
-     * Handles the event when the install part button is clicked.
-     * Installs the selected part on the selected car and updates the UI.
+     * Handles the event when the 'Install part' button is clicked.
+     * Installs the selected part on the selected car and updates the UI to reflect the change.
      */
     private void onInstallPartButtonClicked() {
         garageService.installPart(selectedCar, selectedPart);
@@ -195,8 +195,8 @@ public class MenuGarageController extends ScreenController {
     }
 
     /**
-     * Initializes the garage menu screen.
-     * Sets up car buttons, part list, and event handlers.
+     * Initializes the garage menu screen, setting up UI components and data bindings.
+     * Configures event listeners for car buttons, part list, and other UI elements.
      */
     public void initialize() {
         cars = getGameEnvironment().getOwnedCars();

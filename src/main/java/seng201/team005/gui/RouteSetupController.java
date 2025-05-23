@@ -22,39 +22,63 @@ import java.util.List;
  *
  * @author vvi29
  */
-
 public class RouteSetupController extends ScreenController {
 
+    // FXML UI components for route selection buttons.
     @FXML
     private Button route1Button, route2Button, route3Button;
 
+    // FXML UI components for navigation buttons.
     @FXML
     private Button backToRacesButton, confirmRouteButton;
 
+    // FXML UI components for displaying route statistics.
     @FXML
     private Text routeDescriptionLabelText, routeDistanceLabelText, routeFuelStopsLabelText, routeDifficultyLabelText;
 
     @FXML
     private Text routeDescriptionText, routeDistanceText, routeFuelStopsText, routeDifficultyText;
 
+    // FXML UI component for the background rectangle of route stats.
     @FXML
     private Rectangle statRectangle;
 
+    // List of Text nodes used to display route statistics.
     private List<Text> routeStats;
+
+    // List of buttons representing available routes.
     private List<Button> routeButtons;
-    private final RouteService routeService = new RouteService();
+
+    // List of routes available for selection.
     private List<Route> raceRoutes = new ArrayList<>();
+
+    // Button representing the currently selected route.
     private Button selectedRoute = null;
 
+    /**
+     * Constructs a RouteSetupController with the specified game environment.
+     *
+     * @param gameEnvironment The game environment instance.
+     */
     public RouteSetupController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
+    /**
+     * Retrieves the FXML file path for the route setup screen.
+     *
+     * @return The FXML file path.
+     */
     @Override
     protected String getFxmlFile() {
         return "/fxml/route_setup.fxml";
     }
 
+    /**
+     * Retrieves the title for the route setup screen.
+     *
+     * @return The screen title.
+     */
     @Override
     protected String getTitle() {
         return "Route Setup";
@@ -69,7 +93,8 @@ public class RouteSetupController extends ScreenController {
 
     /**
      * Displays the details of a {@link Route} on the screen.
-     * @param route the race route whose details are to be displayed.
+     *
+     * @param route The race route whose details are to be displayed.
      */
     private void showRouteStats(Route route) {
         routeDescriptionText.setText(route.getDescription());
@@ -90,7 +115,8 @@ public class RouteSetupController extends ScreenController {
 
     /**
      * Sets the visibility of all route stats labels and their values.
-     * @param visible whether the stats and labels should be shown to the user or hidden
+     *
+     * @param visible Whether the stats and labels should be shown to the user or hidden.
      */
     private void showStatVisibility(boolean visible) {
         routeStats.forEach(stat -> stat.setVisible(visible));
@@ -108,21 +134,20 @@ public class RouteSetupController extends ScreenController {
             Route chosenRoute = (Route) selectedRoute.getUserData();
             getGameEnvironment().setSelectedRoute(chosenRoute);
             getGameEnvironment().launchScreen(new RaceConfirmController(getGameEnvironment()));
-        }
-    );
+        });
     }
 
-
     /**
-     * Sets up the hover and clicking behaviour for the route selection buttons.
-     * Hovering on one of the buttons shows the route stats, clicking on one of
-     * the buttons selects the route and enables the confirm route button.
+     * Sets up the hover and clicking behavior for the route selection buttons.
+     * <p>
+     *     Hovering on one of the buttons shows the route stats, and clicking on one of
+     *     the buttons selects the route and enables the confirm route button.
+     * </p>
      */
     private void hoverAndClickSetup() {
         for (int i = 0; i < routeButtons.size(); i++) {
             Button routeButton = routeButtons.get(i);
             Route raceRoute = raceRoutes.get(i);
-
 
             routeButton.setOnMouseEntered(event -> {
                 if (selectedRoute != routeButton) {
@@ -147,12 +172,13 @@ public class RouteSetupController extends ScreenController {
         }
     }
 
-
     /**
      * Initializes the Route Selection screen.
-     * Gets race routes from selected race, and then binds the route data to UI buttons.
-     * This method also sets up the hover and clicking behaviour for displaying
-     * the route stats, as well as wiring up the navigation buttons.
+     * <p>
+     *     Gets race routes from the selected race and binds the route data to UI buttons.
+     *     This method also sets up the hover and clicking behavior for displaying
+     *     the route stats, as well as wiring up the navigation buttons.
+     * </p>
      */
     @FXML
     public void initialize() {
@@ -172,9 +198,5 @@ public class RouteSetupController extends ScreenController {
         hoverAndClickSetup();
         handleBackToRaces();
         handleConfirmRoute();
-
-
     }
-
-    
 }

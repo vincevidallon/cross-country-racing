@@ -17,14 +17,20 @@ import java.io.IOException;
  */
 public class ScreenNavigator {
 
+    // The primary stage of the JavaFX application.
     private final Stage stage;
 
+    // The root pane that holds the current screen in its center.
     private final BorderPane rootPane;
 
     /**
      * Creates a ScreenNavigator with the given stage.
+     * <p>
+     * Initializes the root pane as a {@link BorderPane} and sets it as the scene's root.
+     * The stage is displayed immediately after initialization.
+     * </p>
      *
-     * @param stage The JavaFX stage
+     * @param stage The JavaFX stage to be used for displaying screens.
      */
     public ScreenNavigator(Stage stage) {
         this.stage = stage;
@@ -38,8 +44,13 @@ public class ScreenNavigator {
     /**
      * Replaces the root border pane's center component with the screen defined by the given
      * {@link ScreenController}.
+     * <p>
+     * This method loads the FXML file associated with the provided controller, sets the
+     * controller factory to use the given controller instance, and updates the stage's
+     * title and dimensions based on the loaded screen.
+     * </p>
      *
-     * @param controller The JavaFX screen controller for the screen to be launched
+     * @param controller The JavaFX screen controller for the screen to be launched.
      */
     public void launchScreen(ScreenController controller) {
         try {
@@ -49,13 +60,17 @@ public class ScreenNavigator {
             setupLoader.setControllerFactory(param -> controller);
             Parent setupParent  = setupLoader.load();
 
+            // Set the loaded screen in the center of the root pane.
             rootPane.setCenter(setupParent);
+
+            // Update the stage's title and dimensions based on the new screen.
             stage.setTitle(controller.getTitle());
             stage.setWidth(setupParent.prefWidth(-1) + 50);
             stage.setHeight(setupParent.prefHeight(-1) + 50);
             stage.centerOnScreen();
 
         } catch (IOException e) {
+            // Print the stack trace if an error occurs while loading the FXML file.
             e.printStackTrace();
         }
     }

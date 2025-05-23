@@ -11,18 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller for the menu_setup_cars.fxml window.
- * Handles the logic for selecting cars, updating UI elements, and managing the player's car selection.
- * Extends the ScreenController class to integrate with the game's screen management system.
+ * Controller class for the car setup menu screen.
+ * Manages the user interface and interactions for selecting and purchasing cars
+ * before starting the game. Handles car selection, purchase validation, and
+ * updates to the player's money and list of cars.
  *
- * Features:
- * - Allows players to select cars from a shop.
- * - Ensures players cannot exceed the maximum number of selected cars.
- * - Updates UI elements dynamically based on player actions.
- * - Handles insufficient funds and other edge cases.
- * - Integrates with the GameEnvironment to manage game state.
- *
- * Author: sha378
+ * @author sha378
  */
 public class MenuSetupCarsController extends ScreenController {
 
@@ -44,18 +38,17 @@ public class MenuSetupCarsController extends ScreenController {
     private List<Car> shopCars = List.of();
 
     /**
-     * Constructor for the MenuSetupCarsController.
-     *
-     * @param gameEnvironment The GameEnvironment instance to manage game state and data.
+     * Creates an instance of a ScreenController with the given {@link GameEnvironment}
+     * @param gameEnvironment The game environment used by this ScreenController
      */
     public MenuSetupCarsController(GameEnvironment gameEnvironment) {
         super(gameEnvironment);
     }
 
     /**
-     * Returns the path to the FXML file associated with this controller.
+     * Gets the FXML file that will be loaded for this controller.
      *
-     * @return The FXML file path as a String.
+     * @return The full path to the FXML file for this controller.
      */
     @Override
     protected String getFxmlFile() {
@@ -63,9 +56,9 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Returns the title of the window for this screen.
+     * Gets the screen title for this controller.
      *
-     * @return The window title as a String.
+     * @return The title to be displayed for this screen.
      */
     @Override
     protected String getTitle() {
@@ -73,9 +66,11 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Handles the logic when a shop car button is clicked.
+     * Handles the event when a shop car button is clicked.
+     * Adds or removes the car from the selected list, validates purchase conditions,
+     * and updates the player's money and UI.
      *
-     * @param buttonIndex The index of the button clicked.
+     * @param buttonIndex The index of the clicked button.
      * @param car The car associated with the clicked button.
      */
     private void onShopCarButtonClicked(int buttonIndex, Car car) {
@@ -98,7 +93,8 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Updates the state and text of the "Go" button based on the number of selected cars.
+     * Updates the "Go" button based on the number of selected cars.
+     * Disables the button if no cars are selected and adjusts the button text dynamically.
      */
     private void updateGoButton() {
         if (selectedCars.isEmpty()) {
@@ -111,7 +107,8 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Updates the selected car buttons to reflect the current selection.
+     * Updates the selected car buttons to reflect the current list of selected cars.
+     * Adjusts the button text and selection state dynamically.
      */
     private void updateSelectedCarButtons() {
         for (int i = 0; i < selectedCarButtons.size(); i++) {
@@ -122,7 +119,8 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Updates the shop car buttons to reflect the current selection.
+     * Updates the shop car buttons to reflect the current selection state of cars.
+     * Highlights the buttons for cars that are already selected.
      */
     private void updateShopCarButtons() {
         for (int i = 0; i < shopCarButtons.size(); i++) {
@@ -131,9 +129,10 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Handles the logic when a selected car button is clicked.
+     * Handles the event when a selected car button is clicked.
+     * Removes the car from the selected list or ensures the button remains selected.
      *
-     * @param buttonIndex The index of the button clicked.
+     * @param buttonIndex The index of the clicked button.
      */
     private void onSelectedCarButtonClicked(int buttonIndex) {
         errorText.setText("");
@@ -145,9 +144,10 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Removes a car from the selected cars list and updates the UI.
+     * Removes a car from the selected list, refunds the player's money,
+     * and updates the UI to reflect the change.
      *
-     * @param car The car to be removed.
+     * @param car The car to be removed from the selected list.
      */
     private void removeCarFromSelected(Car car) {
         getGameEnvironment().setMoney(getGameEnvironment().getMoney() + car.getBuyValue());
@@ -158,9 +158,10 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Displays stats and updates the tooltip when a selected car button is hovered over.
+     * Handles the event when a selected car button is hovered over.
+     * Displays the stats of the hovered car and updates the tooltip text.
      *
-     * @param buttonIndex The index of the button hovered over.
+     * @param buttonIndex The index of the hovered button.
      */
     private void onSelectedCarButtonHovered(int buttonIndex) {
         if (selectedCars.size() > buttonIndex) {
@@ -170,9 +171,11 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Displays stats and updates the tooltip when a shop car button is hovered over.
+     * Handles the event when a shop car button is hovered over.
+     * Displays the stats of the hovered car and updates the tooltip text
+     * based on whether the car is selected or available for purchase.
      *
-     * @param buttonIndex The index of the button hovered over.
+     * @param buttonIndex The index of the hovered button.
      */
     private void onShopCarButtonHovered(int buttonIndex) {
         displayStats(shopCars.get(buttonIndex));
@@ -184,8 +187,8 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Handles the logic when the "Go" button is clicked.
-     * Sets the selected cars in the GameEnvironment and transitions to the main menu.
+     * Handles the event when the "Go" button is clicked.
+     * Finalizes the car selection, updates the game environment, and navigates to the main menu.
      */
     @FXML
     private void onGoButtonClicked() {
@@ -195,7 +198,9 @@ public class MenuSetupCarsController extends ScreenController {
     }
 
     /**
-     * Initializes the controller by setting up shop cars, buttons, and event listeners.
+     * Initializes the car setup menu screen.
+     * Configures the shop and selected car buttons, sets up event listeners,
+     * and initializes the player's money and car stats display.
      */
     public void initialize() {
         shopCars = List.of(new Car(5), new Car(5), new Car(5), new Car(5), new Car(5));
