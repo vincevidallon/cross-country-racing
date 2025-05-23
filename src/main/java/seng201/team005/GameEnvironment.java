@@ -31,8 +31,10 @@ public class GameEnvironment {
     // List of cars owned by the player.
     private List<Car> ownedCars = new ArrayList<>();
 
+    // List of cars available in the shop.
     private List<Car> shopCars = new ArrayList<>();
 
+    // List of parts available in the shop.
     private List<Part> shopParts = new ArrayList<>();
 
     // Name of the player.
@@ -75,7 +77,9 @@ public class GameEnvironment {
         navigator.launchScreen(new MenuSetupSettingsController(this));
     }
 
-
+    /**
+     * Resets the game state to its initial values and relaunches the setup screen.
+     */
     public void resetGame() {
         name = null;
         seasonLength = 0;
@@ -88,7 +92,7 @@ public class GameEnvironment {
         raceResults.clear();
         ownedParts.clear();
         ownedCars.clear();
-        
+
         navigator.launchScreen(new MenuSetupSettingsController(this));
     }
 
@@ -254,40 +258,80 @@ public class GameEnvironment {
         this.numberOfRacesPlayed++;
     }
 
-
+    /**
+     * Adds a race result to the list of results.
+     *
+     * @param result the result to add.
+     */
     public void addRaceResult(int result) {
         raceResults.add(result);
     }
 
+    /**
+     * Calculates and returns the average race result.
+     *
+     * @return the average race result.
+     */
     public int getAverageRaceResult() {
         return (int) raceResults.stream().mapToInt(i -> i).average().orElse(0);
     }
 
+    /**
+     * Returns the list of cars available in the shop.
+     *
+     * @return the list of shop cars.
+     */
     public List<Car> getShopCars() {
         return shopCars;
     }
 
+    /**
+     * Returns the list of parts available in the shop.
+     *
+     * @return the list of shop parts.
+     */
     public List<Part> getShopParts() {
         return shopParts;
     }
 
+    /**
+     * Refreshes the shop inventory with new cars and parts.
+     */
     public void refreshShop() {
         shopCars = ShopService.generateCars(5);
         shopParts = ShopService.generateParts(5);
     }
 
+    /**
+     * Sets the list of cars owned by the player.
+     *
+     * @param ownedCars the new list of owned cars.
+     */
     public void setOwnedCars(List<Car> ownedCars) {
         this.ownedCars = ownedCars;
     }
 
+    /**
+     * Removes a part from the list of owned parts.
+     *
+     * @param part the part to remove.
+     */
     public void removeOwnedPart(Part part) {
         ownedParts.remove(part);
     }
 
+    /**
+     * Returns the list of currently available races.
+     *
+     * @return the list of races.
+     */
     public List<Race> getRaceList() {
         return raceList;
     }
 
+    /**
+     * Refreshes the list of available races based on the current difficulty.
+     */
     public void refreshRaceList() {
         raceList = GenerateRaceService.generateRaces(difficulty, 3);
     }
